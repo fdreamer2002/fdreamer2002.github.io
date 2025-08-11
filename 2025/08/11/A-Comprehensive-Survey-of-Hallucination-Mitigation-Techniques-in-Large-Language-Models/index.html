@@ -16,27 +16,28 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="fdreamer">
+  <meta name="author" content="古义翔">
   <meta name="keywords" content="">
   
-    <meta name="description" content="英文题目：《PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models》 中文题目：《PoisonedRAG：针对大型语言模型检索增强生成的知识污染攻击》发布于：usenix级别：CCF-A论文链接： https:&#x2F;&#x2F;www.use">
+    <meta name="description" content="英文题目：《A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models》中文题目：《大型语言模型中幻觉缓解技术的综合综述》发布于： arxiv级别：无论文链接： https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2401.01313            摘要  随">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models">
-<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/08/PoisonedRAG-Knowledge-Corruption-Attacks-to-Retrieval-Augmented-Generation-of-Large-Language-Models/index.html">
+<meta property="og:title" content="A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/11/A-Comprehensive-Survey-of-Hallucination-Mitigation-Techniques-in-Large-Language-Models/index.html">
 <meta property="og:site_name" content="LLM Security Group &#39;s Notes">
-<meta property="og:description" content="英文题目：《PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models》 中文题目：《PoisonedRAG：针对大型语言模型检索增强生成的知识污染攻击》发布于：usenix级别：CCF-A论文链接： https:&#x2F;&#x2F;www.use">
+<meta property="og:description" content="英文题目：《A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models》中文题目：《大型语言模型中幻觉缓解技术的综合综述》发布于： arxiv级别：无论文链接： https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2401.01313            摘要  随">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgcapture_20250803110851489-17544773670481.bmp">
-<meta property="article:published_time" content="2025-08-08T06:30:23.000Z">
-<meta property="article:modified_time" content="2025-08-08T12:00:24.480Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811104951978.png">
+<meta property="article:published_time" content="2025-08-11T02:29:08.000Z">
+<meta property="article:modified_time" content="2025-08-11T02:53:44.774Z">
 <meta property="article:author" content="LLM Security Group">
-<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="RAG">
+<meta property="article:tag" content="监督微调">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgcapture_20250803110851489-17544773670481.bmp">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811104951978.png">
   
   
   
-  <title>PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models - LLM Security Group &#39;s Notes</title>
+  <title>A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models - LLM Security Group &#39;s Notes</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -320,7 +321,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models"></span>
+            <span id="subtitle" data-typed-text="A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models"></span>
           
         </div>
 
@@ -331,8 +332,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-08 14:30" pubdate>
-          August 8, 2025 pm
+        <time datetime="2025-08-11 10:29" pubdate>
+          August 11, 2025 am
         </time>
       </span>
     
@@ -343,7 +344,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          166 words
+          1.2k words
         
       </span>
     
@@ -354,7 +355,7 @@ mjx-container[display="true"] + br {
         
         
         
-          2 mins
+          11 mins
         
       </span>
     
@@ -391,33 +392,36 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models</h1>
+            <h1 id="seo-header">A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models</h1>
             
             
               <div class="markdown-body">
                 
                 <div class="note note-success">
-            <p>英文题目：《PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models》 中文题目：《PoisonedRAG：针对大型语言模型检索增强生成的知识污染攻击》</p><p>发布于：usenix</p><p>级别：CCF-A</p><p>论文链接： <a target="_blank" rel="noopener" href="https://www.usenix.org/conference/usenixsecurity25/presentation/zou-poisonedrag">https://www.usenix.org/conference/usenixsecurity25/presentation/zou-poisonedrag</a></p>
+            <p>英文题目：《A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models》</p><p>中文题目：《大型语言模型中幻觉缓解技术的综合综述》</p><p>发布于： arxiv</p><p>级别：无</p><p>论文链接： <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2401.01313">https://arxiv.org/pdf/2401.01313</a></p>
           </div>
 <h2 id="摘要">摘要</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811104951978.png" srcset="/img/loading.gif" lazyload alt="image-20250811104951978"></p>
+<p>随着大型语言模型（LLMs）在编写类人文本方面的能力不断提高，一个关键挑战仍然存在，即它们倾向于“幻觉”——生成看起来是事实但没有根据的内容。这种幻觉问题可以说是将这些强大的LLM安全地部署到影响人们生活的真实生产系统中的最大障碍。在实际环境中广泛采用LLM的道路在很大程度上取决于解决和减轻幻觉。与专注于有限任务的传统人工智能系统不同，LLM在训练期间接触了大量的在线文本数据。虽然这使它们能够表现出令人印象深刻的语言流畅性，但也意味着它们能够从训练数据中的偏差中推断信息，误解模糊的提示，或修改信息以使其表面上与输入对齐。当我们依赖语言生成能力进行敏感应用时，例如总结医疗记录、客户支持对话、财务分析报告以及提供错误的法律建议，这变得非常令人担忧。小错误可能会导致伤害，揭示了LLM缺乏实际理解，尽管在自学习方面取得了进展。本文对为减轻LLM中的幻觉而开发的32多种技术进行了全面调查。其中值得注意的是检索增强生成（RAG）（Lewis et al., 2021）、知识检索（Varshney et al., 2023）、CoNLI（Lei et al., 2023）和CoVe（Dhuliawala et al., 2023）。此外，我们引入了一个详细的分类法，根据各种参数（例如数据集利用率、常见任务、反馈机制和检索器类型）对这些方法进行分类。这种分类有助于区分专门设计用于解决LLM中幻觉问题的各种方法。此外，我们分析了这些技术中固有的挑战和局限性，为未来研究解决LLM领域内的幻觉和相关现象提供了坚实的基础。</p>
 <h2 id="本文聚焦的问题">本文聚焦的问题</h2>
-<blockquote>
-<p>比如在什么场景下解决什么问题</p>
-</blockquote>
+<p>本文聚焦的核心问题是大型语言模型（LLMs）的 “幻觉” 现象 —— 即模型生成看似合理但缺乏事实依据的错误内容，这一问题成为阻碍其在医疗记录总结、金融分析、法律建议等敏感领域安全部署的关键障碍。具体而言，文章关注幻觉产生的原因（如训练数据中的偏见、对模糊提示的误解读、缺乏实时信息更新等），并围绕如何系统地缓解这一现象展开，旨在通过梳理现有技术、构建分类体系，为解决幻觉问题提供全面的理论基础和实践指导。</p>
 <h2 id="本文提出的方法">本文提出的方法</h2>
-<blockquote>
-<p>描述+框架图</p>
-</blockquote>
+<p>LLM 中幻觉缓解技术的分类，重点介绍涉及模型开发和提示技术的主流方法。模型开发分为多种方法，包括新的解码策略、基于知识图的优化、添加新的损失函数组件以及监督式微调。同时，提示工程可以涉及基于检索增强的方法、基于反馈的策略或提示调整。<br>
+Prompt engineering is the process of experimenting with various instructions to get the best output possible from an AI text generation model (White et al., 2023). In terms of hallucination mitigation, this process can provide speciﬁc context and expected outcomes (Feldman et al., 2023). The prompt engineering mitigation techniques can be outlined as follows:<br>
+一是检索增强生成（RAG），分生成前（借外部模块、动态更新提示增知识）、生成中（实时检测修正、分步检索等）、生成后（依检索证据改输出、换高不确定性词）及端到端 RAG（联合训练检索与生成器）；二是自我优化，借反馈推理（像自验证流程、结构化比较等）让模型自查自纠；三是提示调整，靠轻量检索器、合成任务优化提示，提升表现并减少幻觉。<br>
+Some papers focused on developing novel models to mitigate hallucinations. It is an ongoing and evolving process requiring a combination of algorithmic advancements and data quality improvements. Instead of going for ﬁne-tuning models, the following techniques implemented whole model architecture to tackle hallucinations. These techniques can be categorized as follows:<br>
+新解码策略，借对比分布、干预注意力等增强输出真实性；知识图谱利用，融合实体关系、用自动化工具验证事实；基于忠实度的损失函数，借正则化、指标加权优化训练；监督微调，结合知识注入、反事实数据等，量化并降低幻觉，还能让模型拒答超知识范围问题。</p>
 <h2 id="阅读总结">阅读总结</h2>
-<blockquote>
-<p>优缺点、未来还可以在xx方面拓展应用等等</p>
-</blockquote>
-<p>行内公式编辑如下：</p>
-<p><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="8.699ex" height="2.072ex" role="img" focusable="false" viewBox="0 -833.9 3845.1 915.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path></g><g data-mml-node="mo" transform="translate(1041.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2097.6,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(2975.6,0)"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mn" transform="translate(466,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg></mjx-container></p>
-<p>行间公式如下：<br>
-<mjx-container class="MathJax" jax="SVG" display="true" width="full" style="min-width: 18.102ex;"><svg style="vertical-align: -0.717ex; min-width: 18.102ex;" xmlns="http://www.w3.org/2000/svg" width="100%" height="2.565ex" role="img" focusable="false"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(0.0181,-0.0181) translate(0, -817)"><g data-mml-node="math"><g data-mml-node="mtable" transform="translate(2078,0) translate(-2078,0)"><g transform="translate(0 817) matrix(1 0 0 -1 0 0) scale(55.25)"><svg data-table="true" preserveAspectRatio="xMidYMid" viewBox="1922.6 -817 1 1133.9"><g transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mlabeledtr" transform="translate(0,-67)"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path></g><g data-mml-node="mo" transform="translate(1041.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2097.6,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(2975.6,0)"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mn" transform="translate(466,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></g></svg><svg data-labels="true" preserveAspectRatio="xMaxYMid" viewBox="1278 -817 1 1133.9"><g data-labels="true" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mtd" id="mjx-eqn:1" transform="translate(0,683)"><text data-id-align="true"></text><g data-idbox="true" transform="translate(0,-750)"><g data-mml-node="mtext"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" transform="translate(389,0)"></path><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" transform="translate(889,0)"></path></g></g></g></g></svg></g></g></g></g></svg></mjx-container><br>
-<img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgcapture_20250803110851489-17544773670481.bmp" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>（备注：对于图片上传，建议自己在GitHub上建立个人图床，具体可以参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/misakivv/p/18593896">Github+PicGo搭建个人免费图床 - misakivv - 博客园</a>）</p>
+<p><strong>优点：</strong></p>
+<ol>
+<li>提示工程：灵活，无需改模型架构，快速适配场景；</li>
+<li>成本低，不重训模型；可快速试错迭代，组合优化策略。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>提示工程：依赖检索质量（如RAG类方法，外部知识库的质量）；仅调输入输出，难解决深层幻觉；策略效果不稳定，跨任务和模型差异大。</li>
+<li>模型开发：计算成本高；开发难，需深入模型架构，易引发新问题；领域适配差，跨领域需重调。</li>
+</ol>
 
                 
               </div>
@@ -436,7 +440,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%9B%BE%E5%83%8F%E4%BC%AA%E9%80%A0%E6%A3%80%E6%B5%8B/" class="category-chain-item">图像伪造检测</a>
+  <a href="/categories/%E5%B9%BB%E8%A7%89%E7%BC%93%E8%A7%A3/" class="category-chain-item">幻觉缓解</a>
   
   
 
@@ -451,7 +455,9 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="print-no-link">#强化学习</a>
+        <a href="/tags/RAG/" class="print-no-link">#RAG</a>
+      
+        <a href="/tags/%E7%9B%91%E7%9D%A3%E5%BE%AE%E8%B0%83/" class="print-no-link">#监督微调</a>
       
     </div>
   
@@ -463,20 +469,20 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models</div>
-      <div>https://fdreamer2002.github.io/2025/08/08/PoisonedRAG-Knowledge-Corruption-Attacks-to-Retrieval-Augmented-Generation-of-Large-Language-Models/</div>
+      <div>A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models</div>
+      <div>https://fdreamer2002.github.io/2025/08/11/A-Comprehensive-Survey-of-Hallucination-Mitigation-Techniques-in-Large-Language-Models/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>Author</div>
-          <div>fdreamer</div>
+          <div>古义翔</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>August 8, 2025</div>
+          <div>August 11, 2025</div>
         </div>
       
       
@@ -508,9 +514,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/10/RedAgent-Red-Teaming-Large-Language-Models-with-Context-aware-Autonomous-Language-Agent/" title="RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent">
+                      <a href="/2025/08/11/Enhanced-Language-Model-Truthfulness-with-Learnable-Intervention-and-Uncertainty-Expression/" title="Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent</span>
+                        <span class="hidden-mobile">Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -518,8 +524,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/08/MUN-Image-Forgery-Localization-Based-on-M3-Encoder-and-UN-Decoder/" title="MUN: Image Forgery Localization Based on M3 Encoder and UN Decoder">
-                        <span class="hidden-mobile">MUN: Image Forgery Localization Based on M3 Encoder and UN Decoder</span>
+                      <a href="/2025/08/11/X-Teaming-Multi-Turn-Jailbreaks-and-Defenses-with-Adaptive-Multi-Agents/" title="X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents">
+                        <span class="hidden-mobile">X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

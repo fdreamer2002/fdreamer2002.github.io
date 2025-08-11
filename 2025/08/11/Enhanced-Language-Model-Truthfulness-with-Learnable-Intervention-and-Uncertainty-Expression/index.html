@@ -16,27 +16,27 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="fdreamer">
+  <meta name="author" content="古义翔">
   <meta name="keywords" content="">
   
-    <meta name="description" content="英文题目：《PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models》 中文题目：《PoisonedRAG：针对大型语言模型检索增强生成的知识污染攻击》发布于：usenix级别：CCF-A论文链接： https:&#x2F;&#x2F;www.use">
+    <meta name="description" content="英文题目：《Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression》中文题目：《通过可学习干预和不确定性表达的增强语言模型真实性》发布于： arxiv级别：无论文链接： https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2405.00301">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models">
-<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/08/PoisonedRAG-Knowledge-Corruption-Attacks-to-Retrieval-Augmented-Generation-of-Large-Language-Models/index.html">
+<meta property="og:title" content="Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/11/Enhanced-Language-Model-Truthfulness-with-Learnable-Intervention-and-Uncertainty-Expression/index.html">
 <meta property="og:site_name" content="LLM Security Group &#39;s Notes">
-<meta property="og:description" content="英文题目：《PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models》 中文题目：《PoisonedRAG：针对大型语言模型检索增强生成的知识污染攻击》发布于：usenix级别：CCF-A论文链接： https:&#x2F;&#x2F;www.use">
+<meta property="og:description" content="英文题目：《Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression》中文题目：《通过可学习干预和不确定性表达的增强语言模型真实性》发布于： arxiv级别：无论文链接： https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2405.00301">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgcapture_20250803110851489-17544773670481.bmp">
-<meta property="article:published_time" content="2025-08-08T06:30:23.000Z">
-<meta property="article:modified_time" content="2025-08-08T12:00:24.480Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105439624.png">
+<meta property="article:published_time" content="2025-08-11T02:34:10.000Z">
+<meta property="article:modified_time" content="2025-08-11T03:00:52.129Z">
 <meta property="article:author" content="LLM Security Group">
-<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="可学习干预">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgcapture_20250803110851489-17544773670481.bmp">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105439624.png">
   
   
   
-  <title>PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models - LLM Security Group &#39;s Notes</title>
+  <title>Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression - LLM Security Group &#39;s Notes</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -320,7 +320,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models"></span>
+            <span id="subtitle" data-typed-text="Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression"></span>
           
         </div>
 
@@ -331,8 +331,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-08 14:30" pubdate>
-          August 8, 2025 pm
+        <time datetime="2025-08-11 10:34" pubdate>
+          August 11, 2025 am
         </time>
       </span>
     
@@ -343,7 +343,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          166 words
+          1.2k words
         
       </span>
     
@@ -354,7 +354,7 @@ mjx-container[display="true"] + br {
         
         
         
-          2 mins
+          11 mins
         
       </span>
     
@@ -391,33 +391,37 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models</h1>
+            <h1 id="seo-header">Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression</h1>
             
             
               <div class="markdown-body">
                 
                 <div class="note note-success">
-            <p>英文题目：《PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models》 中文题目：《PoisonedRAG：针对大型语言模型检索增强生成的知识污染攻击》</p><p>发布于：usenix</p><p>级别：CCF-A</p><p>论文链接： <a target="_blank" rel="noopener" href="https://www.usenix.org/conference/usenixsecurity25/presentation/zou-poisonedrag">https://www.usenix.org/conference/usenixsecurity25/presentation/zou-poisonedrag</a></p>
+            <p>英文题目：《Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression》</p><p>中文题目：《通过可学习干预和不确定性表达的增强语言模型真实性》</p><p>发布于： arxiv</p><p>级别：无</p><p>论文链接： <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2405.00301">https://arxiv.org/pdf/2405.00301</a></p>
           </div>
 <h2 id="摘要">摘要</h2>
+<p>大语言模型（LLMs）能够生成长篇连贯的文本，但它们常常会产生事实幻觉，这削弱了其可靠性。为缓解这一问题，推理阶段的方法会将大语言模型的表征导向之前为获取真相而学习到的 “真实方向”。然而，以相同强度应用这些真实方向无法在不同的查询上下文之间实现泛化。我们提出了LITO，一种用于真实性优化的可学习干预方法，它能自动识别针对每个特定上下文量身定制的最佳干预强度。LITO基于不断增加的干预强度探索一系列模型生成结果。当预测高度不确定时，它会选择最准确的回答或拒绝回答。在多个大语言模型和问答数据集上进行的实验表明，LITO在保持任务准确性的同时提高了真实性。LITO的自适应特性克服了一刀切干预方法的局限性，仅在模型有信心时通过反映其内部知识来最大限度地提高真实性。我们的代码可在<a target="_blank" rel="noopener" href="https://github.com/launchnlp/LITO%E8%8E%B7%E5%8F%96%E3%80%82">https://github.com/launchnlp/LITO获取。</a></p>
 <h2 id="本文聚焦的问题">本文聚焦的问题</h2>
-<blockquote>
-<p>比如在什么场景下解决什么问题</p>
-</blockquote>
+<p>本文聚焦的核心问题是大语言模型的“幻觉”现象——即模型生成看似合理但缺乏事实依据的错误内容，尤其针对现有推理时干预方法（如ITI）采用固定强度干预，无法适配不同查询上下文，导致在不同场景中难以有效缓解幻觉，且缺乏合理的不确定性表达机制的局限性，最终目标是提升模型的真实性与可靠性。</p>
 <h2 id="本文提出的方法">本文提出的方法</h2>
-<blockquote>
-<p>描述+框架图</p>
-</blockquote>
+<p>为解决先前方法中一刀切干预解决方案的局限性，我们提出了一种用于真实性优化的可学习干预方法，即LITO。LITO可识别适合不同上下文（例如不同问题）的真实方向强度。给定多个干预强度级别下的模型生成序列，我们开发了一种方法来最大化真实性，我们将其定义为在模型高度自信时选择事实性回答，否则拒绝回答。为实现这一点，我们在不断增加的干预强度级别上收集模型回答，包括文本输出、隐藏表示和置信度值。然后，我们训练一个基于长短期记忆网络（LSTM）的分类器，根据隐藏状态序列评估这些回答的准确性。在推理过程中，如果分类器认为有任何回答是准确的，系统就选择最准确的回答；否则，它输出“无可奉告”以表示不确定性并拒绝回答。<br>
+1.多强度干预与数据收集：基于现有推理时干预方法（如ITI）识别的“真实方向”，在不同强度（如α=5、10、15、20、25）下生成模型对同一问题的响应，同时收集每个响应的文本内容、最后一层隐藏状态及置信度（通过生成序列的token概率几何平均计算）。<br>
+2.训练阶段：将多强度响应的隐藏状态聚合后输入LSTM分类器，让其学习判断不同强度下响应的准确性，最终通过全连接层输出事实性概率，从而掌握不同场景下的最优干预规律。<br>
+3.推理阶段：对新输入的问题，生成多强度响应后，用训练好的LSTM分类器评估各响应的准确性。若存在准确响应，选择置信度最高的输出；若所有响应均不准确，则输出“我没有评论”以表达不确定性。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105439624.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>该方法通过动态适配干预强度，解决了现有固定强度干预无法适应不同上下文的问题，同时引入不确定性表达机制，在提升真实性的同时保持了任务准确性。</p>
 <h2 id="阅读总结">阅读总结</h2>
-<blockquote>
-<p>优缺点、未来还可以在xx方面拓展应用等等</p>
-</blockquote>
-<p>行内公式编辑如下：</p>
-<p><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="8.699ex" height="2.072ex" role="img" focusable="false" viewBox="0 -833.9 3845.1 915.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path></g><g data-mml-node="mo" transform="translate(1041.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2097.6,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(2975.6,0)"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mn" transform="translate(466,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg></mjx-container></p>
-<p>行间公式如下：<br>
-<mjx-container class="MathJax" jax="SVG" display="true" width="full" style="min-width: 18.102ex;"><svg style="vertical-align: -0.717ex; min-width: 18.102ex;" xmlns="http://www.w3.org/2000/svg" width="100%" height="2.565ex" role="img" focusable="false"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(0.0181,-0.0181) translate(0, -817)"><g data-mml-node="math"><g data-mml-node="mtable" transform="translate(2078,0) translate(-2078,0)"><g transform="translate(0 817) matrix(1 0 0 -1 0 0) scale(55.25)"><svg data-table="true" preserveAspectRatio="xMidYMid" viewBox="1922.6 -817 1 1133.9"><g transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mlabeledtr" transform="translate(0,-67)"><g data-mml-node="mtd"><g data-mml-node="mi"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path></g><g data-mml-node="mo" transform="translate(1041.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mi" transform="translate(2097.6,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="msup" transform="translate(2975.6,0)"><g data-mml-node="mi"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mn" transform="translate(466,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></g></svg><svg data-labels="true" preserveAspectRatio="xMaxYMid" viewBox="1278 -817 1 1133.9"><g data-labels="true" transform="matrix(1 0 0 -1 0 0)"><g data-mml-node="mtd" id="mjx-eqn:1" transform="translate(0,683)"><text data-id-align="true"></text><g data-idbox="true" transform="translate(0,-750)"><g data-mml-node="mtext"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z" transform="translate(389,0)"></path><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z" transform="translate(889,0)"></path></g></g></g></g></svg></g></g></g></g></svg></mjx-container><br>
-<img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgcapture_20250803110851489-17544773670481.bmp" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>（备注：对于图片上传，建议自己在GitHub上建立个人图床，具体可以参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/misakivv/p/18593896">Github+PicGo搭建个人免费图床 - misakivv - 博客园</a>）</p>
+<p><strong>优点</strong>：</p>
+<ol>
+<li>动态适配性强，能针对不同查询上下文自动选择最优干预强度，平衡真实性与准确性。</li>
+<li>具备不确定性表达能力，且泛化性较好，可与多种真实方向识别方法结合并稳定跨任务迁移。</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li>依赖底层干预质量，真实方向不准确会影响效果。</li>
+<li>需多次查询模型导致计算成本和响应时间增加。</li>
+</ol>
+<p>未来可研究如何在保证效果的前提下减少查询次数，平衡性能与效率。</p>
 
                 
               </div>
@@ -436,7 +440,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%9B%BE%E5%83%8F%E4%BC%AA%E9%80%A0%E6%A3%80%E6%B5%8B/" class="category-chain-item">图像伪造检测</a>
+  <a href="/categories/%E5%B9%BB%E8%A7%89%E7%BC%93%E8%A7%A3/" class="category-chain-item">幻觉缓解</a>
   
   
 
@@ -451,7 +455,7 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" class="print-no-link">#强化学习</a>
+        <a href="/tags/%E5%8F%AF%E5%AD%A6%E4%B9%A0%E5%B9%B2%E9%A2%84/" class="print-no-link">#可学习干预</a>
       
     </div>
   
@@ -463,20 +467,20 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models</div>
-      <div>https://fdreamer2002.github.io/2025/08/08/PoisonedRAG-Knowledge-Corruption-Attacks-to-Retrieval-Augmented-Generation-of-Large-Language-Models/</div>
+      <div>Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression</div>
+      <div>https://fdreamer2002.github.io/2025/08/11/Enhanced-Language-Model-Truthfulness-with-Learnable-Intervention-and-Uncertainty-Expression/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>Author</div>
-          <div>fdreamer</div>
+          <div>古义翔</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>August 8, 2025</div>
+          <div>August 11, 2025</div>
         </div>
       
       
@@ -508,9 +512,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/10/RedAgent-Red-Teaming-Large-Language-Models-with-Context-aware-Autonomous-Language-Agent/" title="RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent">
+                      <a href="/2025/08/11/RAC-Efficient-LLM-Factuality-Correction-with-Retrieval-Augmentation/" title="RAC: Efficient LLM Factuality Correction with Retrieval Augmentation">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent</span>
+                        <span class="hidden-mobile">RAC: Efficient LLM Factuality Correction with Retrieval Augmentation</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -518,8 +522,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/08/MUN-Image-Forgery-Localization-Based-on-M3-Encoder-and-UN-Decoder/" title="MUN: Image Forgery Localization Based on M3 Encoder and UN Decoder">
-                        <span class="hidden-mobile">MUN: Image Forgery Localization Based on M3 Encoder and UN Decoder</span>
+                      <a href="/2025/08/11/A-Comprehensive-Survey-of-Hallucination-Mitigation-Techniques-in-Large-Language-Models/" title="A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models">
+                        <span class="hidden-mobile">A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
