@@ -16,29 +16,35 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="古义翔">
+  <meta name="author" content="游俊爽">
   <meta name="keywords" content="">
   
-    <meta name="description" content="英文题目：《RAC: Efficient LLM Factuality Correction with Retrieval Augmentation》中文题目：《RAC：通过检索增强实现高效的大语言模型事实性校正》发布于： arxiv级别：无论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2410.15667            摘要 大语言模型（LLMs）在广泛">
+    <meta name="description" content="英文题目：《TextGrad: Automatic “Differentiation” via Text》中文题目：《TextGrad：文本自动“微分”》发布于： arxiv级别：无论文链接：  https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2406.07496            摘要 人工智能正在经历一场范式转变，其突破是由协调多个 large language mo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RAC: Efficient LLM Factuality Correction with Retrieval Augmentation">
-<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/11/RAC-Efficient-LLM-Factuality-Correction-with-Retrieval-Augmentation/index.html">
+<meta property="og:title" content="TextGrad: Automatic &quot;Differentiation&quot; via Text">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/16/TextGrad-Automatic-Differentiation-via-Text/index.html">
 <meta property="og:site_name" content="LLM Security Group &#39;s Notes">
-<meta property="og:description" content="英文题目：《RAC: Efficient LLM Factuality Correction with Retrieval Augmentation》中文题目：《RAC：通过检索增强实现高效的大语言模型事实性校正》发布于： arxiv级别：无论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2410.15667            摘要 大语言模型（LLMs）在广泛">
+<meta property="og:description" content="英文题目：《TextGrad: Automatic “Differentiation” via Text》中文题目：《TextGrad：文本自动“微分”》发布于： arxiv级别：无论文链接：  https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2406.07496            摘要 人工智能正在经历一场范式转变，其突破是由协调多个 large language mo">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105607456.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105647832.png">
-<meta property="article:published_time" content="2025-08-11T02:43:01.000Z">
-<meta property="article:modified_time" content="2025-08-11T03:03:29.442Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813204302773.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813205119712.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203751072.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203814473.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203856154.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203906239.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155506539.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155410125.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155123784.png">
+<meta property="article:published_time" content="2025-08-16T04:44:31.000Z">
+<meta property="article:modified_time" content="2025-08-16T04:46:47.944Z">
 <meta property="article:author" content="LLM Security Group">
-<meta property="article:tag" content="检索增强生成">
-<meta property="article:tag" content="RAC">
+<meta property="article:tag" content="TextGrad">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105607456.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813204302773.png">
   
   
   
-  <title>RAC: Efficient LLM Factuality Correction with Retrieval Augmentation - LLM Security Group &#39;s Notes</title>
+  <title>TextGrad: Automatic &#34;Differentiation&#34; via Text - LLM Security Group &#39;s Notes</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -322,7 +328,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="RAC: Efficient LLM Factuality Correction with Retrieval Augmentation"></span>
+            <span id="subtitle" data-typed-text="TextGrad: Automatic &#34;Differentiation&#34; via Text"></span>
           
         </div>
 
@@ -333,8 +339,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-11 10:43" pubdate>
-          August 11, 2025 am
+        <time datetime="2025-08-16 12:44" pubdate>
+          August 16, 2025 pm
         </time>
       </span>
     
@@ -345,7 +351,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          903 words
+          964 words
         
       </span>
     
@@ -356,7 +362,7 @@ mjx-container[display="true"] + br {
         
         
         
-          8 mins
+          9 mins
         
       </span>
     
@@ -393,38 +399,54 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">RAC: Efficient LLM Factuality Correction with Retrieval Augmentation</h1>
+            <h1 id="seo-header">TextGrad: Automatic &#34;Differentiation&#34; via Text</h1>
             
             
               <div class="markdown-body">
                 
                 <div class="note note-success">
-            <p>英文题目：《RAC: Efficient LLM Factuality Correction with Retrieval Augmentation》</p><p>中文题目：《RAC：通过检索增强实现高效的大语言模型事实性校正》</p><p>发布于： arxiv</p><p>级别：无</p><p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2410.15667">https://arxiv.org/pdf/2410.15667</a></p>
+            <p>英文题目：《TextGrad: Automatic “Differentiation” via Text》</p><p>中文题目：《TextGrad：文本自动“微分”》</p><p>发布于： arxiv</p><p>级别：无</p><p>论文链接：  <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2406.07496">https://arxiv.org/pdf/2406.07496</a></p>
           </div>
 <h2 id="摘要">摘要</h2>
-<p>大语言模型（LLMs）在广泛的自然语言处理（NLP）任务中展现出了令人瞩目的成果，但它们常常会产生事实性错误的输出。本文介绍了一种简单而有效的低延迟后校正方法——检索增强校正（RAC），旨在提升大语言模型的事实性表现，且无需额外的微调。我们的方法具有通用性，可与任何经过指令微调的大语言模型配合使用，并且与先前的方法相比，延迟大幅降低。RAC将大语言模型的输出分解为原子事实，并应用检索到的内容进行细粒度的验证和校正过程，以验证和校正大语言模型生成的输出。我们广泛的实验表明，在两个流行的事实性评估数据集上，RAC相较于最先进的基线方法有高达 30%的提升，验证了其在不同大语言模型中，无论是否集成检索增强生成（RAG）时的有效性和稳健性。</p>
+<p>人工智能正在经历一场范式转变，其突破是由协调多个 large language models (LLMs) 和其他复杂组件的系统实现的。因此，为复合 AI 系统开发有原则的自动化优化方法是最重要的新挑战之一。神经网络在其早期也面临着类似的挑战，直到反向传播和自动微分通过使优化变得轻而易举而改变了该领域。受此启发，我们推出了 TEXTGRAD，这是一个通过文本执行自动“微分”的强大框架。TEXTGRAD 反向传播 LLM 提供的文本反馈，以改进复合 AI 系统的各个组件。在我们的框架中，LLM 提供丰富、通用、自然的语言建议来优化计算图中的变量，范围从代码片段到分子结构。TEXTGRAD 遵循 PyTorch 的语法和抽象，并且灵活易用。它可以直接用于各种任务，用户只需提供目标函数，而无需调整框架的组件或提示。我们展示了 TEXTGRAD 在各种应用中的有效性和通用性，从问题解答和分子优化到放射治疗计划。无需修改框架，TEXTGRAD 将 GPT-4o 在 Google-Proof Question Answering 中的 zero-shot 准确率从 51% 提高到 55%，在优化 LeetCode-Hard 编码问题解决方案方面产生 20% 的相对性能提升，改进了推理提示，设计了具有理想计算机结合的新型类药物小分子，并设计了具有高特异性的放射肿瘤治疗计划。TEXTGRAD 为加速下一代 AI 系统的开发奠定了基础。</p>
 <h2 id="本文聚焦的问题">本文聚焦的问题</h2>
-<p>本文聚焦的核心问题是大语言模型生成内容时存在的幻觉问题，即使采用检索增强生成（RAG）技术，模型仍可能输出不符合事实的内容，这在医疗、教育等领域可能造成危害。同时，针对现有利用检索内容进行后校正的方法（如RARR、CRITIC等）存在检索和校正过程繁琐、 latency高、易引入新错误等问题，本文旨在提出一种更高效、通用的解决方案，在不额外微调模型的前提下提升大语言模型输出的事实性。</p>
+<p>当前AI系统多依赖专家手工设计和启发式调整，缺乏原则性、自动化的优化方法，难以高效地对复合AI系统中的各个组件进行优化以提升整体性能。</p>
+<p>文章提出了TEXTGRAD框架，通过 LLMs 生成自然语言形式的 “文本梯度”，并借鉴反向传播思想在复合系统的计算图中传播这些反馈，实现对各组件的自动化优化，以应对复合AI系统优化的挑战。</p>
 <h2 id="本文提出的方法">本文提出的方法</h2>
-<p>本文提出的方法是检索增强校正（RAC），这是一种轻量且通用的后处理方法，无需额外微调模型，可用于任何指令微调的大语言模型，旨在提升模型输出的事实性。<br>
-其核心流程是：先将大语言模型生成的内容分解为独立的原子事实，再利用检索到的内容对这些原子事实进行细粒度的验证和校正，最后据此修正原始输出。<br>
-具体来看，对于未使用检索增强生成（RAG）的模型，RAC会直接基于检索到的文档集，纠正提取出的错误陈述并保留正确陈述，再将这些陈述输入修订模块修正原始输出。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105607456.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>对于使用了RAG的模型，由于其生成内容多数正确，RAC会先增加一个验证环节，仅对经验证为错误的陈述进行校正，以减少因纠正正确内容而引入的新幻觉，之后再进行修订。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105647832.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>该方法通过一次检索和一次校正，大幅降低了延迟，且在有或没有RAG的情况下都能适用。</p>
+<p>textgrad将AI系统表示为计算图，其中变量是输入和输出：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813204302773.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>这里的a图就是神经网络，b图就是一个大的AI系统。textgrad借鉴了神经网络中的通过反向传播更新权重的方法，同样也是要计算损失，梯度等，但是这里所有的损失和梯度都是由文字表示的。</p>
+<p>对于：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813205119712.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>其梯度计算如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203751072.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>注意，这里的原来的AI系统是Prompt-&gt;Prediction，后面的Evaluation是计算梯度额外增加的。这里先计算了Prediction的梯度，即直接将Evaluation Instruction和Prediction给LLM，然后得出Evaluation，然后再计算Prompt梯度。</p>
+<p>这里Prompt梯度文本如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203814473.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>得知梯度后，就可以对Prompt进行更新：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203856154.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>示例如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203906239.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>下面是TEXTGRAD 框架对问题答案进行迭代优化示例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155506539.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155410125.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155123784.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>2：question是问题，answer是问题的标准答案</p>
+<p>5：初始化了一个损失函数，即Solution Refinement Objective</p>
+<p>7：初始化solution，这里的solution即为解决方案</p>
+<p>9：初始化优化器，parameters中是要优化的变量</p>
+<p>11：执行 max_iterations 次</p>
+<p>12：清零之前计算的梯度，确保每次迭代的梯度计算是独立的</p>
+<p>14：前向传播，计算损失</p>
+<p>16：反向传播，计算梯度</p>
+<p>17：参数更新，进行优化</p>
 <h2 id="阅读总结">阅读总结</h2>
-<p><strong>优点：</strong></p>
-<ol>
-<li>只进行一次检索和校正，延迟降低。适用于各类指令微</li>
-<li>调模型，无需重新训练。</li>
-</ol>
-<p><strong>缺点：</strong></p>
-<ol>
-<li>依赖检索质量，资料错误会影响校正效果。</li>
-<li>可能引入新幻觉，少数情况校正过程产生新错误。</li>
-</ol>
-<p>未来扩展至更多文本类型，适配更大模型并增强可解释性。</p>
+<p>优点：</p>
+<p>1、自动化优化能力突出</p>
+<p>2、易用性高，兼容性好</p>
+<p>缺点：</p>
+<p>1、对部分系统的提升有限</p>
+<p>未来可以提升优化算法性能</p>
 
                 
               </div>
@@ -443,7 +465,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B9%BB%E8%A7%89%E7%BC%93%E8%A7%A3/" class="category-chain-item">幻觉缓解</a>
+  <a href="/categories/AI%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96/" class="category-chain-item">AI系统优化</a>
   
   
 
@@ -458,9 +480,7 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E7%94%9F%E6%88%90/" class="print-no-link">#检索增强生成</a>
-      
-        <a href="/tags/RAC/" class="print-no-link">#RAC</a>
+        <a href="/tags/TextGrad/" class="print-no-link">#TextGrad</a>
       
     </div>
   
@@ -472,20 +492,20 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>RAC: Efficient LLM Factuality Correction with Retrieval Augmentation</div>
-      <div>https://fdreamer2002.github.io/2025/08/11/RAC-Efficient-LLM-Factuality-Correction-with-Retrieval-Augmentation/</div>
+      <div>TextGrad: Automatic &#34;Differentiation&#34; via Text</div>
+      <div>https://fdreamer2002.github.io/2025/08/16/TextGrad-Automatic-Differentiation-via-Text/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>Author</div>
-          <div>古义翔</div>
+          <div>游俊爽</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>August 11, 2025</div>
+          <div>August 16, 2025</div>
         </div>
       
       
@@ -517,9 +537,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/11/Adversarial-Defence-without-Adversarial-Defence-Enhancing-Language-Model-Robustness-via-Instance-level-Principal-Component-Removal/" title="Adversarial Defence without Adversarial Defence: Enhancing Language Model Robustness via Instance-level Principal Component Removal">
+                      <a href="/2025/08/16/Universal-and-Transferable-Adversarial-Attacks-on-Aligned-Language-Models/" title="Universal and Transferable Adversarial Attacks on Aligned Language Models">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Adversarial Defence without Adversarial Defence: Enhancing Language Model Robustness via Instance-level Principal Component Removal</span>
+                        <span class="hidden-mobile">Universal and Transferable Adversarial Attacks on Aligned Language Models</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -527,8 +547,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/11/Enhanced-Language-Model-Truthfulness-with-Learnable-Intervention-and-Uncertainty-Expression/" title="Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression">
-                        <span class="hidden-mobile">Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression</span>
+                      <a href="/2025/08/15/DMFF-Net-Double-streammultilevelfeaturefusionnetworkforimage-forgery-localization/" title=" DMFF-Net:Double-streammultilevelfeaturefusionnetworkforimage forgery localization">
+                        <span class="hidden-mobile"> DMFF-Net:Double-streammultilevelfeaturefusionnetworkforimage forgery localization</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

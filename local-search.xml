@@ -4,6 +4,179 @@
   
   
   <entry>
+    <title>Improved Techniques for Optimization-Based Jailbreaking on Large Language Models</title>
+    <link href="/2025/08/16/Improved-Techniques-for-Optimization-Based-Jailbreaking-on-Large-Language-Models/"/>
+    <url>/2025/08/16/Improved-Techniques-for-Optimization-Based-Jailbreaking-on-Large-Language-Models/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-success">            <p>英文题目：《Improved Techniques for Optimization-Based Jailbreaking on Large Language Models》</p><p>中文题目：《基于优化的大型语言模型越狱技术的改进》</p><p>发布于：arxiv</p><p>级别：无</p><p>论文链接： <a href="https://arxiv.org/pdf/2405.21018">https://arxiv.org/pdf/2405.21018</a></p>          </div><h2 id="摘要">摘要</h2><p>大型语言模型 (LLM) 正在快速发展，其广泛部署的关键在于其安全性相关的对齐。许多红队攻击旨在越狱 LLM，其中贪婪坐标梯度 (GCG) 攻击的成功引发了人们对基于优化的越狱技术研究的日益浓厚兴趣。尽管 GCG 是一个重要的里程碑，但其攻击效率仍然不尽如人意。本文提出了几种改进的（经验性）技术，用于类似 GCG 的基于优化的越狱。我们首先观察到“Sure”的单一目标模板极大地限制了 GCG 的攻击性能；鉴于此，我们建议应用包含有害自我暗示和/或引导的多样化目标模板来误导 LLM。此外，从优化角度出发，我们提出了一种 GCG 中的自动多坐标更新策略（即自适应地决定每一步要替换的标记数量）来加速收敛，以及一些诸如易到难初始化之类的技巧。然后，我们结合这些改进的技术，开发了一种高效的越狱方法，称为 I-GCG。我们在一系列基准测试（例如 NeurIPS 2023 Red Teaming Track）上进行了实验评估。结果表明，改进的技术可以帮助 GCG 超越最先进的越狱攻击，并实现接近 100% 的攻击成功率。代码发布于此<a href="https://github.com/jiaxiaojunQAQ/I-GCG">https URL</a>。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>大型语言模型 的安全对齐防护容易受到对抗性越狱攻击的漏洞，现有基于优化的越狱技术（如 Greedy Coordinate Gradient (GCG)）的攻击效率和成功率仍不理想。</p><h2 id="本文提出的方法">本文提出的方法</h2><p>本文针对GCG进行了优化，提出了I-GCG，部分优化如下：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814202230065.png" alt=""></p><p>GCG引导LLM生成的是Sure, here is，这对于部分模型来说效果不好。于是I-GCG增加了xH，即让模型再重复一遍问题。</p><p>GCG不管对什么问题初始的后缀都为!!!，这对于某些问题来说，生成后缀过程缓慢。于是I-GCG研究了部分问题，对于他们损失函数的收敛速度进行难易程度的排序，对于简单问题用!!!初始化后缀，而对于其他的问题，则用简单问题生成的后缀来初始化，过程如下：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814203336503.png" alt=""></p><p>对于损失函数，I-GCG因为在引导输出时加入了xH（即Harmful Template），故损失函数中多出来xH</p><p>I-GCG还提出了自动多坐标更新策略：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814203840259.png" alt=""></p><p>第一步为初始化后缀</p><p>第二步与GCG类似，对于每个可修改的位置，都根据梯度生成对最小化损失的top-k个token，然后从这top-k个中，随机选择token与当前的token替换</p><p>第三步是对于所有生成完的新后缀依据损失函数进行排序，最小化损失函数优先，最后选取部分</p><p>第四步是对于排序后的后缀，如果某个位置前面的token与当前位置的token不同，则当前token就替换为前面的token</p><p>第五步是从所有生成的后缀中选择一个可以最小化损失的</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814210625366.png" alt=""></p><p>代码也与GCG比较类似</p><p>初始化后缀，</p><p>每个位置都依据梯度选择top-k个可使损失函数最小的token，</p><p>在可修改位置中随机选择B个，在选择后的位置中，随机从其对应的top-k个token中选择一个替换，</p><p>从B个后缀中选择top-p个，</p><p>对于选到的top-p个后缀排序，最小化损失函数的优先，</p><p>对于排序后的后缀，如果某个位置前面的token与当前位置的token不同，则当前token就替换为前面的token，生成新的后缀，</p><p>然后从这p个后缀中选取可以使损失函数最小化的后缀，并代替当前的后缀。</p><h2 id="阅读总结">阅读总结</h2><p>优点：</p><p>1、攻击成功率相较于GCG有大幅的提升</p><p>2、提高越狱效率和收敛速度</p><p>缺点：</p><p>1、 初始化策略有一定的局限性</p><p>2、 指导模型输出前缀固定，更隐蔽或语义上更复杂的有害指导需要进一步探索</p><p>未来可以加强指导模型输出前缀的设计，设计更智能、自适应的有害指导</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>越狱攻击</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>I-GCG</tag>
+      
+      <tag>GCG优化</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Universal and Transferable Adversarial Attacks on Aligned Language Models</title>
+    <link href="/2025/08/16/Universal-and-Transferable-Adversarial-Attacks-on-Aligned-Language-Models/"/>
+    <url>/2025/08/16/Universal-and-Transferable-Adversarial-Attacks-on-Aligned-Language-Models/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-success">            <p>英文题目：《Universal and Transferable Adversarial Attacks on Aligned Language Models》</p><p>中文题目：《针对对齐语言模型的通用且可迁移的对抗攻击》</p><p>发布于：arxiv</p><p>级别：无</p><p>论文链接： <a href="https://arxiv.org/pdf/2307.15043">https://arxiv.org/pdf/2307.15043</a></p>          </div><h2 id="摘要">摘要</h2><p>由于“开箱即用”的大型语言模型能够生成大量令人反感的内容，因此最近的工作集中于对齐这些模型，以试图阻止不良内容的生成。<br>虽然在规避这些措施方面取得了一些成功——即所谓的针对 LLM 的“越狱”——但这些攻击需要大量的人为创造力，并且在实践中是脆弱的。自动对抗提示生成方面的尝试也取得了有限的成功。在本文中，我们提出了一种简单而有效的攻击方法，该方法会导致对齐的语言模型生成令人反感的行为。具体来说，我们的方法是找到一个后缀，当将其附加到 LLM 的各种查询中以产生令人反感的内容时，旨在最大化模型产生肯定响应（而不是拒绝回答）的概率。然而，我们的方法不是依赖于手动工程，而是通过贪婪和基于梯度的搜索技术的组合来自动生成这些对抗后缀，并且还优于过去的自动提示生成方法。</p><p>令人惊讶的是，我们发现我们的方法生成的对抗提示具有高度的可迁移性，包括可迁移到黑盒、公开发布的生产 LLM。具体来说，我们在多个提示（即，询问许多不同类型的令人反感的内容的查询）以及多个模型（在我们的例子中为 Vicuna-7B 和 13B）上训练对抗攻击后缀。这样做时，生成的攻击后缀会在 ChatGPT、Bard 和 Claude 的公共接口以及 LLaMA-2-Chat、Pythia、Falcon 等开源 LLM 中诱导令人反感的内容。有趣的是，这种攻击迁移的成功率在基于 GPT 的模型上要高得多，这可能是因为 Vicuna 本身是在 ChatGPT 的输出上训练的。总而言之，这项工作显著提高了针对对齐语言模型的对抗攻击的水平，提出了关于如何防止此类系统产生令人反感的信息的重要问题。代码可在 <a href="http://github.com/llm-attacks/llm-attacks">github.com/llm-attacks/llm-attacks</a> 上找到。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>设计出一种自动化的、通用的、且能跨模型迁移的对抗性攻击，以揭示当前 LLM 对齐措施的脆弱性和不足。</p><h2 id="本文提出的方法">本文提出的方法</h2><p>本文介绍了一种自动化实现越狱攻击的方法，简单来说就是在用户输入的问题后面添加特定的prompt来使得模型以肯定的回答开头，进而回答用户的问题，即使问题是有害的。</p><p>以下为一个示例（蓝色为用户的输入，红色为生成的特定后缀，紫色是模型的回复）：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814143715611.png" alt=""></p><p>这里的“！”为特定后缀初始化的状态。</p><p>对于后缀的生成是重点，文章使用了贪婪梯度方法来生成后缀。这里后缀需要引导模型生成Sure, here is…，所以文章对于后缀的生成是在白盒中实现的，通过已知模型的梯度，针对梯度来使模型以Sure开头。</p><p>下面是GCG对于单个用户问题以及单个模型所生成的后缀代码：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814145054026.png" alt=""></p><p>这里x(1:n)是包含了用户原始查询和初始的对抗性后缀，I是可以修改的位置，T是循环次数，L是损失（即目前将所有的prompt给LLM的反馈和目标LLM输出Sure…的差异），k是在每一步中，计算梯度后选择的前 k 个最有希望的token替换候选，B为批次大小，在每轮迭代中，算法会从“有潜力”的替换token中随机选择 B 个不同的组合进行评估，并选择其中最好的一个。</p><p>首先是循环T次。</p><p>然后对于所有的可修改位置，每个位置计算出top-k个最小化loss的token。</p><p>然后每次对于prompt即x，随机选择一个可修改位置，然后再从该位置对应的top-k个token中随机选择一个token，然后存起来，重复B次。</p><p>将目前的prompt修改为这B个prompt中loss最小的。</p><p>输出T次结束后最好的prompt。</p><p>上面生成的后缀局限过大，为了让后缀可以适应不同的用户问题以及迁移到不同的模型上，下面是文章提出的改进方式：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814150730379.png" alt=""></p><p>这个算法是先根据第一个prompt生成有效后缀，然后是把第二个prompt加入，生成对1和2都有效的通用后缀，然后是1-3，1-4…直到所有的prompt都可以成功越狱。</p><p>x是m个用户问题，p是初始后缀，L是每个用户问题的损失，T，k，B同上。</p><p>mc为需要处理的prompt的结束位置，先置为1。</p><p>循环T次。</p><p>对每个可修改位置都生成top-k个token，这些token可以让1-mc的loss之和最小化</p><p>然后每次对于p，随机选择一个可修改位置，然后再从该位置对应的top-k个token中随机选择一个token，然后存起来，重复B次。</p><p>将目前的prompt修改为这B个p中loss最小的。</p><p>检查时候第1个到第mc个prompt都可以成功越狱。</p><p>输出通用的后缀。</p><h2 id="阅读总结">阅读总结</h2><p>优点：</p><p>1、 自动化程度高</p><p>2、 攻击的通用性和可迁移性都很强</p><p>缺点：</p><p>1、 对攻击可解释性有限，后缀是人类难以理解的“噪声”或“乱码”</p><p>2、 对某些模型的攻击效果仍有差距</p><p>未来可以增加可解释性研究</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>越狱攻击</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>GCG</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>TextGrad: Automatic &quot;Differentiation&quot; via Text</title>
+    <link href="/2025/08/16/TextGrad-Automatic-Differentiation-via-Text/"/>
+    <url>/2025/08/16/TextGrad-Automatic-Differentiation-via-Text/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-success">            <p>英文题目：《TextGrad: Automatic “Differentiation” via Text》</p><p>中文题目：《TextGrad：文本自动“微分”》</p><p>发布于： arxiv</p><p>级别：无</p><p>论文链接：  <a href="https://arxiv.org/pdf/2406.07496">https://arxiv.org/pdf/2406.07496</a></p>          </div><h2 id="摘要">摘要</h2><p>人工智能正在经历一场范式转变，其突破是由协调多个 large language models (LLMs) 和其他复杂组件的系统实现的。因此，为复合 AI 系统开发有原则的自动化优化方法是最重要的新挑战之一。神经网络在其早期也面临着类似的挑战，直到反向传播和自动微分通过使优化变得轻而易举而改变了该领域。受此启发，我们推出了 TEXTGRAD，这是一个通过文本执行自动“微分”的强大框架。TEXTGRAD 反向传播 LLM 提供的文本反馈，以改进复合 AI 系统的各个组件。在我们的框架中，LLM 提供丰富、通用、自然的语言建议来优化计算图中的变量，范围从代码片段到分子结构。TEXTGRAD 遵循 PyTorch 的语法和抽象，并且灵活易用。它可以直接用于各种任务，用户只需提供目标函数，而无需调整框架的组件或提示。我们展示了 TEXTGRAD 在各种应用中的有效性和通用性，从问题解答和分子优化到放射治疗计划。无需修改框架，TEXTGRAD 将 GPT-4o 在 Google-Proof Question Answering 中的 zero-shot 准确率从 51% 提高到 55%，在优化 LeetCode-Hard 编码问题解决方案方面产生 20% 的相对性能提升，改进了推理提示，设计了具有理想计算机结合的新型类药物小分子，并设计了具有高特异性的放射肿瘤治疗计划。TEXTGRAD 为加速下一代 AI 系统的开发奠定了基础。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>当前AI系统多依赖专家手工设计和启发式调整，缺乏原则性、自动化的优化方法，难以高效地对复合AI系统中的各个组件进行优化以提升整体性能。</p><p>文章提出了TEXTGRAD框架，通过 LLMs 生成自然语言形式的 “文本梯度”，并借鉴反向传播思想在复合系统的计算图中传播这些反馈，实现对各组件的自动化优化，以应对复合AI系统优化的挑战。</p><h2 id="本文提出的方法">本文提出的方法</h2><p>textgrad将AI系统表示为计算图，其中变量是输入和输出：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813204302773.png" alt=""></p><p>这里的a图就是神经网络，b图就是一个大的AI系统。textgrad借鉴了神经网络中的通过反向传播更新权重的方法，同样也是要计算损失，梯度等，但是这里所有的损失和梯度都是由文字表示的。</p><p>对于：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813205119712.png" alt=""></p><p>其梯度计算如下：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203751072.png" alt=""></p><p>注意，这里的原来的AI系统是Prompt-&gt;Prediction，后面的Evaluation是计算梯度额外增加的。这里先计算了Prediction的梯度，即直接将Evaluation Instruction和Prediction给LLM，然后得出Evaluation，然后再计算Prompt梯度。</p><p>这里Prompt梯度文本如下：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203814473.png" alt=""></p><p>得知梯度后，就可以对Prompt进行更新：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203856154.png" alt=""></p><p>示例如下：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250813203906239.png" alt=""></p><p>下面是TEXTGRAD 框架对问题答案进行迭代优化示例：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155506539.png" alt=""></p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155410125.png" alt=""></p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814155123784.png" alt=""></p><p>2：question是问题，answer是问题的标准答案</p><p>5：初始化了一个损失函数，即Solution Refinement Objective</p><p>7：初始化solution，这里的solution即为解决方案</p><p>9：初始化优化器，parameters中是要优化的变量</p><p>11：执行 max_iterations 次</p><p>12：清零之前计算的梯度，确保每次迭代的梯度计算是独立的</p><p>14：前向传播，计算损失</p><p>16：反向传播，计算梯度</p><p>17：参数更新，进行优化</p><h2 id="阅读总结">阅读总结</h2><p>优点：</p><p>1、自动化优化能力突出</p><p>2、易用性高，兼容性好</p><p>缺点：</p><p>1、对部分系统的提升有限</p><p>未来可以提升优化算法性能</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>AI系统优化</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>TextGrad</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title> DMFF-Net:Double-streammultilevelfeaturefusionnetworkforimage forgery localization</title>
+    <link href="/2025/08/15/DMFF-Net-Double-streammultilevelfeaturefusionnetworkforimage-forgery-localization/"/>
+    <url>/2025/08/15/DMFF-Net-Double-streammultilevelfeaturefusionnetworkforimage-forgery-localization/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-success">            <p>英文题目：《DMFF-Net: Double-stream multilevel feature fusion network for image forgery localization》<br>中文题目：《DMFF-Net：用于图像伪造定位的双流多级特征融合网络》<br>发布于：Engineering Applications of Artificial Intelligence<br>级别：中科院1区<br>论文链接：<a href="https://www.sciencedirect.com/science/article/pii/S0952197623013842">ScienceDirect</a></p>          </div><h2 id="摘要">摘要</h2><p>随着图像处理技术的快速发展，图像操作变得越来越容易，这对人们生活的稳定性和安全性构成了威胁。最近的 方法提出了RGB和噪声特征的融合来揭示篡改痕迹。然而，这些方法忽略了不同层次特征的特征，导致特征融合 不足。为了解决这个问题，本文提出了一种双流多级特征融合网络（DMFF‑Net）。与传统的特征融合方法不同， DMFF‑Net采用分级特征融合策略。它将特征分为初级、中级和高级水平，并引入初级特征融合模块（PFFM） 和高级特征融合模块（AFFM）以实现更优的融合结果。此外，采用多监督策略将融合特征解码为特定级别的掩 码，包括边界、常规和精细掩码。DMFF‑Net在公开数据集上进行了验证，包括CASIA、哥伦比亚、 COVERAGE和NIST16，以及一个真实生活的图像操作数据集IMD20，分别达到了84.7%、99.6%、86.6%、 87.4%和82.8%的AUC。大量实验表明，我们的DMFF‑Net在图像操作定位精度方面优于最先进的方法，并表现出更好的鲁棒性。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>本文聚焦于图像伪造定位问题，特别是如何通过特征融合来检测和定位图像中的篡改区域。现有的方法虽然能够融合RGB和噪声特征，但未能充分利用不同层次特征的特性，导致特征融合效果不佳，进而影响篡改定位的准确性。</p><h2 id="本文提出的方法">本文提出的方法</h2><p>本文提出了一种双流多级特征融合网络（DMFF-Net），其核心贡献包括：</p><ol><li><strong>分级特征融合策略</strong>：将特征分为初级、中级和高级三个层次，并分别设计了初级特征融合模块（PFFM）和高级特征融合模块（AFFM）来处理不同层次的特征。</li><li><strong>多监督策略</strong>：通过多监督策略将融合后的特征解码为不同级别的掩码（边界掩码、常规掩码和精细掩码），以提高定位精度。</li><li><strong>特征融合模块</strong>：<ul><li><strong>PFFM</strong>：用于融合浅层特征，增强边界细节，更好地捕捉边界伪影。</li><li><strong>AFFM</strong>：用于融合深层特征，学习长期上下文信息，更关注伪造区域的特征。</li></ul></li></ol><p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgcapture_20250815161408273.bmp" alt="DMFF-Net"></p><p>该论文提出的DMFF-Net框架首先接收原始图像和对应的噪声图像作为输入，通过双流结构分别提取RGB特征和噪声特征；接着利用初级特征融合模块（PFFM）和高级特征融合模块（AFFM）对不同层次的特征进行融合；然后通过ASPP模块进一步提取多尺度特征；最后，通过三个解码器分别输出常规掩码、精细掩码和边界掩码，并通过多监督策略优化网络，以实现精确的图像篡改检测和定位。</p><h2 id="阅读总结">阅读总结</h2><p>本文通过提出一种创新的双流多级特征融合网络（DMFF-Net），有效地解决了现有图像伪造定位方法中特征融合不足的问题。通过分级特征融合策略和多监督策略，DMFF-Net能够更准确地定位图像中的篡改区域，并在多个数据集上取得了优异的性能。该方法不仅提高了图像伪造定位的准确性，还增强了模型对不同图像操作类型的鲁棒性。未来的研究可以进一步优化特征融合模块，以提高对复杂场景和噪声干扰的适应能力。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>图像伪造定位</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>双流特征提取</tag>
+      
+      <tag>特征融合</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title> M2RL-Net: Multi-View and Multi-Level Relation Learning Network for Weakly-Supervised Image Forgery Detection</title>
+    <link href="/2025/08/15/M2RL-Net-Multi-View-and-Multi-Level-Relation-Learning-Network-for-Weakly-Supervised-Image-Forgery-Detection/"/>
+    <url>/2025/08/15/M2RL-Net-Multi-View-and-Multi-Level-Relation-Learning-Network-for-Weakly-Supervised-Image-Forgery-Detection/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-success">            <p>英文题目：《M2RL-Net: Multi-View and Multi-Level Relation Learning Network for Weakly-Supervised Image Forgery Detection》</p><p>中文题目：《M2RL-Net：用于弱监督图像伪造检测的多视图和多级关系学习网络》</p><p>发布于： AAAI</p><p>级别：CCF-A</p><p>论文链接： <a href="https://doi.org/10.1609/aaai.v39i5.32501">https://doi.org/10.1609/aaai.v39i5.32501</a></p>          </div><h2 id="摘要">摘要</h2><p>随着数字媒体操纵变得越来越复杂，在最小监督下准确检测和定位图像伪造已成为一项关键挑战。现有的弱监督图像伪造检测（W-IFD）方法通常依赖于卷积神经网络（CNNs）和对内部关系的有限探索，导致仅使用图像级标签时检测和定位性能较差。为了解决这些局限性，我们为W-IFD引入了一种新的多视角和多级关系学习网络（M²RL-Net）。M²RL-Net通过探索图像不同视角和层次之间的关系，仅使用图像级标注有效地识别伪造图像。具体来说，M²RL-Net在不同视角上实现了补丁级自洽学习（PSL）和特征级对比学习（FCL），促进了更通用的自监督伪造特征学习。详细来说，PSL采用自监督学习来区分图像内部的一致和不一致区域，增强了其准确定位篡改区域的能力。FCL利用特征级自视图和多视图对比学习来区分真实和篡改图像特征，从而提高在不同视角上对真实和篡改内容的识别。在多个数据集上的大量实验表明，M²RL-Net在检测和定位精度方面优于现有的弱监督方法。这项研究为弱监督图像伪造检测设定了新的基准，并为该领域的未来研究奠定了坚实的基础。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>本文聚焦的问题：</p><ul><li>当今图像伪造检测主要关注完全监督学习以提取篡改的伪影特征，<strong>需要大量的像素级标注。虽然在一定程度上有效，但这些方法面临高昂的标注成本和可扩展性问题。</strong></li><li>传统方法往往无法适应新的篡改类型，基于深度学习的图像伪造检测方法通常在训练数据集上表现良好，<strong>但在未知图像上表现显著的性能下降，限制了它们在实际应用的有效性。</strong></li></ul><p>鉴于这些挑战，本文提出了一种弱监督图像检测方法-多视图多层级关系学习网络（$M_2RL-Net$）,</p><p><strong>该方法仅需二值图像级标签即可定位伪造区域，无需在训练过程中使用详细的像素级掩码。</strong></p><h2 id="本文提出的方法">本文提出的方法</h2><p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgcapture_20250815100903452.bmp" alt="M2RL-Net"></p><p>该框架仅使用<strong>图像级真/假标签</strong>进行训练。首先，输入图像通过<strong>多视图特征表示 (MFR)</strong> 模块，同时提取<strong>RGB视图</strong>（捕捉视觉篡改痕迹）和<strong>噪声视图</strong>（捕捉底层分布不一致）的特征。接着，利用<strong>块级自一致性学习 (PSL)</strong> 模块，分析Transformer编码器内部的注意力图，通过自监督方式学习图像块之间的内在一致性关系，帮助定位破坏一致性的伪造区域。同时，<strong>特征级对比学习 (FCL)</strong> 模块计算并利用“真实”和“伪造”类别的<strong>特征原型</strong>，在特征空间内通过<strong>自视图对比</strong>和<strong>跨视图对比</strong>，拉近同类像素特征、推远异类像素特征，增强特征的判别性。最后，结合<strong>图像级分类损失</strong>、<strong>PSL损失</strong>和<strong>FCL损失</strong>进行联合优化，使模型不仅能输出图像真伪判断，还能生成精确的像素级伪造区域定位图。</p><h2 id="阅读总结">阅读总结</h2><p>这篇论文展示了一种创新的弱监督学习框架，通过<strong>多视角、补丁一致性和特征对比</strong> 的结合，成功地解决了图像篡改检测中的多个挑战。其贡献不仅体现在方法本身的有效性上，也为今后的<strong>弱监督图像分析</strong>提供了一个很好的研究方向。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>图像伪造检测</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>对比学习</tag>
+      
+      <tag>一致性学习</tag>
+      
+      <tag>弱监督图像伪造检测</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>CatmullRom Splines-Based Regression for Image Forgery Localization</title>
+    <link href="/2025/08/13/CatmullRom-Splines-Based-Regression-for-Image-Forgery-Localization/"/>
+    <url>/2025/08/13/CatmullRom-Splines-Based-Regression-for-Image-Forgery-Localization/</url>
+    
+    <content type="html"><![CDATA[<div class="note note-success">            <p>英文题目：《CatmullRom Splines-Based Regression for Image Forgery Localization》</p><p>中文题目：《基于CatmullRom样条的图像伪造定位回归》</p><p>发布于： AAAI</p><p>级别：CCF-A</p><p>论文链接： <a href="https://doi.org/10.1609/aaai.v38i7.28548">https://doi.org/10.1609/aaai.v38i7.28548</a></p>          </div><h2 id="摘要">摘要</h2><p>图像伪造定位（IFL）有助于数字媒体取证。然而，<strong>许多方法存在误检（即FP）和不准确的边界问题</strong>。在本文中，我们提出了基于CatmullRom样条的回归网络（ CSR‑Net），它首先从回归的角度重新思考IFL任务以 解决这一问题。具体而言，我们提出了一种自适应的 CatmullRom样条拟合方案，用于粗略定位伪造区域。 然后，对于误报情况，我们首先开发了一种新的重新评分机制，旨在过滤掉在分类分支和实例分支上都无法产 生响应的样本。随后，为了进一步限制边界，我们设计了一个可学习的纹理提取模块，该模块通过解耦水平和垂直伪造特征来提取更鲁棒的轮廓表示，从而抑制FP。 与基于分割的方法相比，我们的方法简单有效，因为无需后处理。大量实验表明，CSR‑Net在标准自然图像数 据集和社交媒体数据集上均优于现有最先进方法。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>本文聚焦于解决图像取证方法中存在<strong>误报</strong>和<strong>不准确的边界问题</strong>。</p><ul><li><strong>误报</strong>：指的是测试结果指示存在一个令人满意的靶区，但实际上并不令人信服。然而，许多方法在关注潜在的篡改区域时，通常忽略了误报率。这对数字内容的传播产生负面影响，影响相关新闻来源的盈利能力，从而限制了实验结果在更具说服力方向上的发展。</li><li><strong>边界不准确问题</strong>：传统的基于分割的方法在连续的解码器层之间存在不一致的掩码预测，这导致优化目标不一致以及特征空间耦合较弱。另一方面，当直接将通用回归方法引入处理任务时，定位效果也不令人满意，因为使用的边界框只能以四边形的方式定位目标区域，而目标区域通常主要出现在不规则曲线上。日益复杂的篡改图像提出了更大的挑战，因为大多数方法没有约束或明确地建模伪造区域边界，这很容易导致检测结果中其他目标的混合或不兼容的背景。</li></ul><h2 id="本文提出的方法">本文提出的方法</h2><p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgCSR-Net.bmp" alt="CSR-Net"></p><p>我们采用空洞空间金字塔池化（ASPP）与 ResNet‑50结合来捕获长距离上下文信息和多尺度特征。 这个无锚点卷积神经网络显著简化了我们的任务检测， 并且允许我们获得粗略特征图。稍后，我们使用<strong>重新评分机制（CRA）<strong>来过滤掉在粗略特征图上突出显示的可疑区域（蓝色部分）的误报样本。最后，我们在</strong>水平和垂直方向同时进行纹理提取（通过VTP</strong>），以期望获得更精确的边界（绿色部分）。请注意，每个保留的篡改区域将独立由VTP处理。</p><ol><li><strong>CatmullRom 样条检测</strong>：该方法将篡改区域的边界用 CatmullRom 样条曲线表示，通过回归曲线的控制点位置来替代传统的像素级分割。训练时，先从掩码边缘提取关键点并用 CatmullRom 样条拟合成闭合曲线（调节张力系数 τ 以平衡贴合度与平滑度），生成曲线参数作为监督信号；推理时，网络直接预测控制点位置，根据预测点重建完整曲线并填充成掩码。这样既能灵活贴合不规则边界，又减少计算量并提升边界精度。</li><li><strong>综合重评分算法（CRA）</strong>：CRA 旨在减少误报（False Positives）。它不只依赖分类分支的置信度（CLS），还结合了分割图上的实例响应强度（INS），通过自定义 softmax 将两者综合成新的总分。这样，既能保留在分割图上强响应但分类分偏低的真阳性，也能压低仅分类分高但分割响应弱的假阳性，从而更稳健地筛选出真正的篡改区域。</li><li><strong>垂直纹理交互感知（VTP）</strong>：VTP 用于精细化篡改区域边界。它将区域特征分成水平（1×k 卷积）和垂直（k×1 卷积）两个方向独立建模纹理特征，各自生成方向性热图，再通过双向响应一致性筛选边界点。只有在两个方向上都表现明显的点才会保留，这样既能抑制单向噪声，又能得到更准确、更清晰的边界轮廓。</li></ol><h2 id="阅读总结">阅读总结</h2><p><strong>优点：</strong></p><ol><li><p><strong>创新性高</strong>：首次把**回归式样条拟合（CatmullRom Splines）**引入像素级篡改定位任务，摆脱传统分割对阈值的依赖，边界建模更灵活精准。</p></li><li><p><strong>误报抑制效果好</strong>：设计了<strong>综合重评分（CRA）</strong>，结合分类分数和分割响应分数筛选结果，能有效降低 False Positive（假阳性）。</p></li><li><p><strong>边界精度提升明显</strong>：引入 <strong>垂直纹理交互感知（VTP）</strong>，分别在水平和垂直方向提取纹理特征，再做双向一致性筛选，让边界更干净清晰。</p></li><li><p><strong>多场景适用性强</strong>：在自然图像数据集和社交媒体数据集上都表现优异，特别是复杂形状的篡改区域拟合效果好。</p></li></ol><p><strong>缺点：</strong></p><ol><li><strong>在特定数据集表现欠佳</strong>：Columbia 数据集表现不如某些分割方法，说明跨域泛化能力仍有提升空间。</li><li><strong>多方向纹理信息不足</strong>：VTP 只考虑了水平和垂直方向，斜向或曲面纹理特征捕捉能力有限。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>图像伪造检测</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>图像伪造定位</tag>
+      
+      <tag>基于CatmullRom样条回归</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Adversarial Defence without Adversarial Defence: Enhancing Language Model Robustness via Instance-level Principal Component Removal</title>
+    <link href="/2025/08/11/Adversarial-Defence-without-Adversarial-Defence-Enhancing-Language-Model-Robustness-via-Instance-level-Principal-Component-Removal/"/>
+    <url>/2025/08/11/Adversarial-Defence-without-Adversarial-Defence-Enhancing-Language-Model-Robustness-via-Instance-level-Principal-Component-Removal/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RAC: Efficient LLM Factuality Correction with Retrieval Augmentation</title>
     <link href="/2025/08/11/RAC-Efficient-LLM-Factuality-Correction-with-Retrieval-Augmentation/"/>
     <url>/2025/08/11/RAC-Efficient-LLM-Factuality-Correction-with-Retrieval-Augmentation/</url>

@@ -16,29 +16,29 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="古义翔">
+  <meta name="author" content="Andy Zou1, Zifan Wang, Nicholas Carlini, Milad Nasr, J. Zico Kolter, Matt Fredrikson">
   <meta name="keywords" content="">
   
-    <meta name="description" content="英文题目：《RAC: Efficient LLM Factuality Correction with Retrieval Augmentation》中文题目：《RAC：通过检索增强实现高效的大语言模型事实性校正》发布于： arxiv级别：无论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2410.15667            摘要 大语言模型（LLMs）在广泛">
+    <meta name="description" content="英文题目：《Universal and Transferable Adversarial Attacks on Aligned Language Models》中文题目：《针对对齐语言模型的通用且可迁移的对抗攻击》发布于：arxiv级别：无论文链接： https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2307.15043            摘要 由于“开箱即用”的大型语言模">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RAC: Efficient LLM Factuality Correction with Retrieval Augmentation">
-<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/11/RAC-Efficient-LLM-Factuality-Correction-with-Retrieval-Augmentation/index.html">
+<meta property="og:title" content="Universal and Transferable Adversarial Attacks on Aligned Language Models">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/16/Universal-and-Transferable-Adversarial-Attacks-on-Aligned-Language-Models/index.html">
 <meta property="og:site_name" content="LLM Security Group &#39;s Notes">
-<meta property="og:description" content="英文题目：《RAC: Efficient LLM Factuality Correction with Retrieval Augmentation》中文题目：《RAC：通过检索增强实现高效的大语言模型事实性校正》发布于： arxiv级别：无论文链接：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2410.15667            摘要 大语言模型（LLMs）在广泛">
+<meta property="og:description" content="英文题目：《Universal and Transferable Adversarial Attacks on Aligned Language Models》中文题目：《针对对齐语言模型的通用且可迁移的对抗攻击》发布于：arxiv级别：无论文链接： https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2307.15043            摘要 由于“开箱即用”的大型语言模">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105607456.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105647832.png">
-<meta property="article:published_time" content="2025-08-11T02:43:01.000Z">
-<meta property="article:modified_time" content="2025-08-11T03:03:29.442Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814143715611.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814145054026.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814150730379.png">
+<meta property="article:published_time" content="2025-08-16T04:55:36.000Z">
+<meta property="article:modified_time" content="2025-08-16T04:58:17.832Z">
 <meta property="article:author" content="LLM Security Group">
-<meta property="article:tag" content="检索增强生成">
-<meta property="article:tag" content="RAC">
+<meta property="article:tag" content="GCG">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105607456.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814143715611.png">
   
   
   
-  <title>RAC: Efficient LLM Factuality Correction with Retrieval Augmentation - LLM Security Group &#39;s Notes</title>
+  <title>Universal and Transferable Adversarial Attacks on Aligned Language Models - LLM Security Group &#39;s Notes</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -322,7 +322,7 @@ mjx-container[display="true"] + br {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="RAC: Efficient LLM Factuality Correction with Retrieval Augmentation"></span>
+            <span id="subtitle" data-typed-text="Universal and Transferable Adversarial Attacks on Aligned Language Models"></span>
           
         </div>
 
@@ -333,8 +333,8 @@ mjx-container[display="true"] + br {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-11 10:43" pubdate>
-          August 11, 2025 am
+        <time datetime="2025-08-16 12:55" pubdate>
+          August 16, 2025 pm
         </time>
       </span>
     
@@ -345,7 +345,7 @@ mjx-container[display="true"] + br {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          903 words
+          1.5k words
         
       </span>
     
@@ -356,7 +356,7 @@ mjx-container[display="true"] + br {
         
         
         
-          8 mins
+          13 mins
         
       </span>
     
@@ -393,38 +393,53 @@ mjx-container[display="true"] + br {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">RAC: Efficient LLM Factuality Correction with Retrieval Augmentation</h1>
+            <h1 id="seo-header">Universal and Transferable Adversarial Attacks on Aligned Language Models</h1>
             
             
               <div class="markdown-body">
                 
                 <div class="note note-success">
-            <p>英文题目：《RAC: Efficient LLM Factuality Correction with Retrieval Augmentation》</p><p>中文题目：《RAC：通过检索增强实现高效的大语言模型事实性校正》</p><p>发布于： arxiv</p><p>级别：无</p><p>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2410.15667">https://arxiv.org/pdf/2410.15667</a></p>
+            <p>英文题目：《Universal and Transferable Adversarial Attacks on Aligned Language Models》</p><p>中文题目：《针对对齐语言模型的通用且可迁移的对抗攻击》</p><p>发布于：arxiv</p><p>级别：无</p><p>论文链接： <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2307.15043">https://arxiv.org/pdf/2307.15043</a></p>
           </div>
 <h2 id="摘要">摘要</h2>
-<p>大语言模型（LLMs）在广泛的自然语言处理（NLP）任务中展现出了令人瞩目的成果，但它们常常会产生事实性错误的输出。本文介绍了一种简单而有效的低延迟后校正方法——检索增强校正（RAC），旨在提升大语言模型的事实性表现，且无需额外的微调。我们的方法具有通用性，可与任何经过指令微调的大语言模型配合使用，并且与先前的方法相比，延迟大幅降低。RAC将大语言模型的输出分解为原子事实，并应用检索到的内容进行细粒度的验证和校正过程，以验证和校正大语言模型生成的输出。我们广泛的实验表明，在两个流行的事实性评估数据集上，RAC相较于最先进的基线方法有高达 30%的提升，验证了其在不同大语言模型中，无论是否集成检索增强生成（RAG）时的有效性和稳健性。</p>
+<p>由于“开箱即用”的大型语言模型能够生成大量令人反感的内容，因此最近的工作集中于对齐这些模型，以试图阻止不良内容的生成。<br>
+虽然在规避这些措施方面取得了一些成功——即所谓的针对 LLM 的“越狱”——但这些攻击需要大量的人为创造力，并且在实践中是脆弱的。自动对抗提示生成方面的尝试也取得了有限的成功。在本文中，我们提出了一种简单而有效的攻击方法，该方法会导致对齐的语言模型生成令人反感的行为。具体来说，我们的方法是找到一个后缀，当将其附加到 LLM 的各种查询中以产生令人反感的内容时，旨在最大化模型产生肯定响应（而不是拒绝回答）的概率。然而，我们的方法不是依赖于手动工程，而是通过贪婪和基于梯度的搜索技术的组合来自动生成这些对抗后缀，并且还优于过去的自动提示生成方法。</p>
+<p>令人惊讶的是，我们发现我们的方法生成的对抗提示具有高度的可迁移性，包括可迁移到黑盒、公开发布的生产 LLM。具体来说，我们在多个提示（即，询问许多不同类型的令人反感的内容的查询）以及多个模型（在我们的例子中为 Vicuna-7B 和 13B）上训练对抗攻击后缀。这样做时，生成的攻击后缀会在 ChatGPT、Bard 和 Claude 的公共接口以及 LLaMA-2-Chat、Pythia、Falcon 等开源 LLM 中诱导令人反感的内容。有趣的是，这种攻击迁移的成功率在基于 GPT 的模型上要高得多，这可能是因为 Vicuna 本身是在 ChatGPT 的输出上训练的。总而言之，这项工作显著提高了针对对齐语言模型的对抗攻击的水平，提出了关于如何防止此类系统产生令人反感的信息的重要问题。代码可在 <a target="_blank" rel="noopener" href="http://github.com/llm-attacks/llm-attacks">github.com/llm-attacks/llm-attacks</a> 上找到。</p>
 <h2 id="本文聚焦的问题">本文聚焦的问题</h2>
-<p>本文聚焦的核心问题是大语言模型生成内容时存在的幻觉问题，即使采用检索增强生成（RAG）技术，模型仍可能输出不符合事实的内容，这在医疗、教育等领域可能造成危害。同时，针对现有利用检索内容进行后校正的方法（如RARR、CRITIC等）存在检索和校正过程繁琐、 latency高、易引入新错误等问题，本文旨在提出一种更高效、通用的解决方案，在不额外微调模型的前提下提升大语言模型输出的事实性。</p>
+<p>设计出一种自动化的、通用的、且能跨模型迁移的对抗性攻击，以揭示当前 LLM 对齐措施的脆弱性和不足。</p>
 <h2 id="本文提出的方法">本文提出的方法</h2>
-<p>本文提出的方法是检索增强校正（RAC），这是一种轻量且通用的后处理方法，无需额外微调模型，可用于任何指令微调的大语言模型，旨在提升模型输出的事实性。<br>
-其核心流程是：先将大语言模型生成的内容分解为独立的原子事实，再利用检索到的内容对这些原子事实进行细粒度的验证和校正，最后据此修正原始输出。<br>
-具体来看，对于未使用检索增强生成（RAG）的模型，RAC会直接基于检索到的文档集，纠正提取出的错误陈述并保留正确陈述，再将这些陈述输入修订模块修正原始输出。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105607456.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>对于使用了RAG的模型，由于其生成内容多数正确，RAC会先增加一个验证环节，仅对经验证为错误的陈述进行校正，以减少因纠正正确内容而引入的新幻觉，之后再进行修订。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20250811105647832.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>该方法通过一次检索和一次校正，大幅降低了延迟，且在有或没有RAG的情况下都能适用。</p>
+<p>本文介绍了一种自动化实现越狱攻击的方法，简单来说就是在用户输入的问题后面添加特定的prompt来使得模型以肯定的回答开头，进而回答用户的问题，即使问题是有害的。</p>
+<p>以下为一个示例（蓝色为用户的输入，红色为生成的特定后缀，紫色是模型的回复）：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814143715611.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>这里的“！”为特定后缀初始化的状态。</p>
+<p>对于后缀的生成是重点，文章使用了贪婪梯度方法来生成后缀。这里后缀需要引导模型生成Sure, here is…，所以文章对于后缀的生成是在白盒中实现的，通过已知模型的梯度，针对梯度来使模型以Sure开头。</p>
+<p>下面是GCG对于单个用户问题以及单个模型所生成的后缀代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814145054026.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>这里x(1:n)是包含了用户原始查询和初始的对抗性后缀，I是可以修改的位置，T是循环次数，L是损失（即目前将所有的prompt给LLM的反馈和目标LLM输出Sure…的差异），k是在每一步中，计算梯度后选择的前 k 个最有希望的token替换候选，B为批次大小，在每轮迭代中，算法会从“有潜力”的替换token中随机选择 B 个不同的组合进行评估，并选择其中最好的一个。</p>
+<p>首先是循环T次。</p>
+<p>然后对于所有的可修改位置，每个位置计算出top-k个最小化loss的token。</p>
+<p>然后每次对于prompt即x，随机选择一个可修改位置，然后再从该位置对应的top-k个token中随机选择一个token，然后存起来，重复B次。</p>
+<p>将目前的prompt修改为这B个prompt中loss最小的。</p>
+<p>输出T次结束后最好的prompt。</p>
+<p>上面生成的后缀局限过大，为了让后缀可以适应不同的用户问题以及迁移到不同的模型上，下面是文章提出的改进方式：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250814150730379.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>这个算法是先根据第一个prompt生成有效后缀，然后是把第二个prompt加入，生成对1和2都有效的通用后缀，然后是1-3，1-4…直到所有的prompt都可以成功越狱。</p>
+<p>x是m个用户问题，p是初始后缀，L是每个用户问题的损失，T，k，B同上。</p>
+<p>mc为需要处理的prompt的结束位置，先置为1。</p>
+<p>循环T次。</p>
+<p>对每个可修改位置都生成top-k个token，这些token可以让1-mc的loss之和最小化</p>
+<p>然后每次对于p，随机选择一个可修改位置，然后再从该位置对应的top-k个token中随机选择一个token，然后存起来，重复B次。</p>
+<p>将目前的prompt修改为这B个p中loss最小的。</p>
+<p>检查时候第1个到第mc个prompt都可以成功越狱。</p>
+<p>输出通用的后缀。</p>
 <h2 id="阅读总结">阅读总结</h2>
-<p><strong>优点：</strong></p>
-<ol>
-<li>只进行一次检索和校正，延迟降低。适用于各类指令微</li>
-<li>调模型，无需重新训练。</li>
-</ol>
-<p><strong>缺点：</strong></p>
-<ol>
-<li>依赖检索质量，资料错误会影响校正效果。</li>
-<li>可能引入新幻觉，少数情况校正过程产生新错误。</li>
-</ol>
-<p>未来扩展至更多文本类型，适配更大模型并增强可解释性。</p>
+<p>优点：</p>
+<p>1、 自动化程度高</p>
+<p>2、 攻击的通用性和可迁移性都很强</p>
+<p>缺点：</p>
+<p>1、 对攻击可解释性有限，后缀是人类难以理解的“噪声”或“乱码”</p>
+<p>2、 对某些模型的攻击效果仍有差距</p>
+<p>未来可以增加可解释性研究</p>
 
                 
               </div>
@@ -443,7 +458,7 @@ mjx-container[display="true"] + br {
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B9%BB%E8%A7%89%E7%BC%93%E8%A7%A3/" class="category-chain-item">幻觉缓解</a>
+  <a href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/" class="category-chain-item">越狱攻击</a>
   
   
 
@@ -458,9 +473,7 @@ mjx-container[display="true"] + br {
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E7%94%9F%E6%88%90/" class="print-no-link">#检索增强生成</a>
-      
-        <a href="/tags/RAC/" class="print-no-link">#RAC</a>
+        <a href="/tags/GCG/" class="print-no-link">#GCG</a>
       
     </div>
   
@@ -472,20 +485,20 @@ mjx-container[display="true"] + br {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>RAC: Efficient LLM Factuality Correction with Retrieval Augmentation</div>
-      <div>https://fdreamer2002.github.io/2025/08/11/RAC-Efficient-LLM-Factuality-Correction-with-Retrieval-Augmentation/</div>
+      <div>Universal and Transferable Adversarial Attacks on Aligned Language Models</div>
+      <div>https://fdreamer2002.github.io/2025/08/16/Universal-and-Transferable-Adversarial-Attacks-on-Aligned-Language-Models/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>Author</div>
-          <div>古义翔</div>
+          <div>Andy Zou1, Zifan Wang, Nicholas Carlini, Milad Nasr, J. Zico Kolter, Matt Fredrikson</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>August 11, 2025</div>
+          <div>August 16, 2025</div>
         </div>
       
       
@@ -517,9 +530,9 @@ mjx-container[display="true"] + br {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/11/Adversarial-Defence-without-Adversarial-Defence-Enhancing-Language-Model-Robustness-via-Instance-level-Principal-Component-Removal/" title="Adversarial Defence without Adversarial Defence: Enhancing Language Model Robustness via Instance-level Principal Component Removal">
+                      <a href="/2025/08/16/Improved-Techniques-for-Optimization-Based-Jailbreaking-on-Large-Language-Models/" title="Improved Techniques for Optimization-Based Jailbreaking on Large Language Models">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Adversarial Defence without Adversarial Defence: Enhancing Language Model Robustness via Instance-level Principal Component Removal</span>
+                        <span class="hidden-mobile">Improved Techniques for Optimization-Based Jailbreaking on Large Language Models</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -527,8 +540,8 @@ mjx-container[display="true"] + br {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/11/Enhanced-Language-Model-Truthfulness-with-Learnable-Intervention-and-Uncertainty-Expression/" title="Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression">
-                        <span class="hidden-mobile">Enhanced Language Model Truthfulness with Learnable Intervention and Uncertainty Expression</span>
+                      <a href="/2025/08/16/TextGrad-Automatic-Differentiation-via-Text/" title="TextGrad: Automatic &#34;Differentiation&#34; via Text">
+                        <span class="hidden-mobile">TextGrad: Automatic &#34;Differentiation&#34; via Text</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
