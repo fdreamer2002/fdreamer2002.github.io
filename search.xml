@@ -4,6 +4,87 @@
   
     
     <entry>
+      <title>Universal adversarial perturbations</title>
+      <link href="/2025/08/29/Universal%20adversarial%20perturbations/"/>
+      <url>/2025/08/29/Universal%20adversarial%20perturbations/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《Universal adversarial perturbations》</p><p>中文题目：《普遍对抗性扰动》</p><p>论文作者：Seyed-Mohsen Moosavi-Dezfooli,Alhussein Fawzi,Omar Fawzi &amp; Pascal Frossard</p><p>发布于：CV</p><p>发布时间：2017 Mar 9</p><p>级别：CCF-A</p><p>论文链接：</p></div><h2 id="摘要">摘要</h2><p>给出了一个最先进的深度神经网络分类器，我们证明了存在一个通用的(与图像无关的)非常小的扰动向量，它会导致自然图像以很高的概率被错误分类。我们提出了一个系统的算法来计算普遍的扰动，并表明最新的深度神经网络非常容易受到这种扰动的影响，尽管人眼是准不可感知的。我们进一步经验性地分析了这些普遍的扰动，并特别表明，它们在神经网络中具有很好的泛化能力。普遍扰动的惊人存在揭示了分类器高维决策边界之间的重要几何相关性。它进一步概述了输入空间中存在的单一方向的潜在安全漏洞，攻击者可能会利用这些方向来破坏大多数自然图像上的分类器。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>近年来，图像分类器对结构化和非结构化扰动的鲁棒性受到广泛关注。尽管深度神经网络在视觉分类基准测试中表现出色，但被证明易受扰动影响。以往的对抗扰动依赖于特定数据点，计算新数据点的扰动需重新求解优化问题。本文旨在寻找一种单一的、与图像无关的通用扰动向量，使大多数自然图像被误分类，这对部署在现实（可能充满敌意）环境中的分类器具有重要意义，同时也有助于揭示深度神经网络决策边界的拓扑结构。</p><h2 id="本文提出的方法">本文提出的方法</h2><ul><li><strong>提出研究问题</strong>：能否找到一个小的图像扰动，使最先进的深度神经网络分类器对所有自然图像分类错误？</li><li><strong>构建研究框架</strong>：定义通用扰动概念，通过算法寻找满足特定约束的扰动向量。</li><li><strong>选择研究方法</strong>：提出迭代算法，通过聚合原子扰动向量，将连续数据点发送到分类器的决策边界。</li><li><strong>分析数据</strong>：在不同网络和数据集上评估通用扰动的愚弄率，分析其跨模型通用性和对不同大小训练集的泛化能力。</li><li><strong>得出结论</strong>：根据实验结果得出通用扰动的存在性、泛化性及深度网络对其的脆弱性等结论。</li><li>存在能使自然图像被高概率误分类的通用对抗扰动，且人眼难以察觉。</li><li>通用扰动在不同网络架构和未见过的数据点上具有良好的泛化性。</li><li>可在小训练集上计算出具有强大泛化能力的通用扰动。</li><li>可视化发现通用扰动使自然图像多被分类为少数主导标签。</li><li>微调网络虽能提升一定鲁棒性，但仍易受小通用扰动影响。</li></ul><h2 id="阅读总结">阅读总结</h2><p><strong>研究的创新性</strong>：首次发现与图像无关的通用扰动，提出计算该扰动的算法，且证明其在数据点和网络架构上的双重通用性，还通过分析决策边界相关性解释了深度网络的脆弱性。</p><p><strong>研究的不足之处</strong>：微调网络虽能提升鲁棒性，但仍易受小通用扰动影响，未找到完全解决网络对通用扰动脆弱性的方法。此外，微调可能导致验证集误差率略有上升，存在过拟合风险。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Universal adversarial perturbations </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Universal adversarial perturbations </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>One Pixel Attack for Fooling Deep Neural Networks</title>
+      <link href="/2025/08/29/One%20Pixel%20Attack%20for%20Fooling%20Deep%20Neural%20Networks/"/>
+      <url>/2025/08/29/One%20Pixel%20Attack%20for%20Fooling%20Deep%20Neural%20Networks/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《One Pixel Attack for Fooling Deep Neural Networks》</p><p>中文题目：《一种愚弄深度神经网络的像素攻击方法》</p><p>论文作者：Jiawei Su,Danilo Vasconcellos Vargas &amp; Kouichi Sakurai</p><p>发布于：LG</p><p>发布时间：2019 Oct 17</p><p>级别：CCF-A</p><p>论文链接：</p></div><h2 id="摘要">摘要</h2><p>最近的研究表明，通过向输入向量添加相对较小的扰动，可以很容易地改变深度神经网络(DNN)的输出。在本文中，我们分析了一个极其有限的场景下的攻击，其中只有一个像素可以被修改。为此，我们提出了一种新的基于差分进化的单像素对抗性扰动生成方法。由于DE的固有特性，它需要较少的敌意信息(黑盒攻击)，并且可以欺骗更多类型的网络。结果表明，在Kaggle CIFAR-10测试数据集和ImageNet(ILSVRC 2012)测试数据集中，67.97%的自然图像和16.04%的ImageNet(ILSVRC 2012)测试图像可以通过仅修改一个像素来扰动至少一个目标类，平均置信度分别为74.03%和22.91%。我们还在原始CIFAR-10数据集上显示了相同的漏洞。因此，提出的攻击在极端有限的场景下探索了一种不同的对抗性机器学习方法，表明当前的DNN也容易受到这种低维攻击。此外，我们还说明了进化计算在对抗性机器学习领域的一个重要应用：创建能够有效地生成针对神经网络的低成本对抗性攻击的工具，以评估健壮性。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>具体而言，作者提出了一种基于差分进化（Differential Evolution，DE）的黑盒攻击方法，仅需修改图像的一个像素，即可在CIFAR-10和ImageNet数据集上成功欺骗多种常见的深度神经网络模型（如AllConv、NiN、VGG16和AlexNet）。</p><h2 id="本文提出的方法">本文提出的方法</h2><ul><li><p><strong>提出研究问题</strong>：现有DNN攻击未考虑极端受限场景，本文研究仅修改一个像素能否有效攻击DNN。</p></li><li><p><strong>构建研究框架</strong>：将生成对抗图像问题形式化为带约束的优化问题，采用差分进化算法进行优化。</p></li><li><p><strong>选择研究方法</strong>：使用差分进化算法，编码扰动为候选解进行进化，设置初始种群、迭代次数等参数。</p></li><li><p><strong>分析数据</strong>：在Kaggle CIFAR - 10和ImageNet数据集上进行实验，引入成功率、对抗概率标签等指标评估攻击效果。</p></li><li><p><strong>得出结论</strong>：根据实验结果判断攻击的有效性，分析DNN对单像素攻击的脆弱性。</p></li><li><p>单像素攻击在不同网络和数据集上有一定成功率，部分图像可被扰动到多个目标类。</p></li><li><p>不同原始 - 目标类对的脆弱性不同，部分类在单像素攻击下更难被扰动。</p></li><li><p>差分进化算法在单像素攻击中优于随机攻击。</p></li><li><p>进化过程中适应度值总体下降，部分网络较难被攻击。</p><h2 id="阅读总结">阅读总结</h2></li><li><p><strong>研究的创新性</strong>：提出极端受限场景下的单像素攻击方法，为黑盒攻击，只需概率标签信息；利用差分进化算法生成对抗扰动，具有找到全局最优解概率高、所需信息少等优势。</p></li><li><p><strong>研究的不足之处</strong>：单像素攻击在检测方法面前的鲁棒性与其他L0攻击相比无显著提升；未对AlexNet采用不同预处理方法进行全面评估。</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Attack </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Differential Evolution </tag>
+            
+            <tag> Convolutional Neural Network </tag>
+            
+            <tag> Information Security </tag>
+            
+            <tag> Image Recognition </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>DELVING INTO TRANSFERABLE ADVERSARIAL EXAMPLES AND BLACK - BOX ATTACKS</title>
+      <link href="/2025/08/29/DELVING%20INTO%20TRANSFERABLE%20ADVERSARIAL%20EXAMPLES%20AND%20BLACK%20-%20BOX%20ATTACKS/"/>
+      <url>/2025/08/29/DELVING%20INTO%20TRANSFERABLE%20ADVERSARIAL%20EXAMPLES%20AND%20BLACK%20-%20BOX%20ATTACKS/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《DELVING INTO TRANSFERABLE ADVERSARIAL EXAMPLES AND BLACK - BOX ATTACKS》</p><p>中文题目：《深入研究可转移的对抗性例子和黑盒攻击》</p><p>论文作者：Yanpei Liu,Xinyun Chen,Chang Liu &amp; Dawn Song</p><p>发布于：ICLR</p><p>发布时间：2017 Feb 7</p><p>级别：CCF-A</p><p>论文链接：</p></div><h2 id="摘要">摘要</h2><p>深度神经网络的一个有趣的性质是存在对抗性的例子，这些例子可以在不同的体系结构之间转移。这些可转移的对抗性例子可能会严重阻碍基于神经网络的深度应用。以往的工作大多是使用小尺度数据集来研究可转移性。在这项工作中，我们首次对大规模模型和大规模数据集上的可转移性进行了广泛的研究，也首次研究了带有目标标签的目标对抗性实例的可转移性。我们研究了非目标对抗性实例和目标对抗性实例，并表明虽然可转移的非目标对抗性实例很容易找到，但使用现有方法生成的目标对抗性实例几乎不会与其目标标签一起转移。因此，我们提出了新的基于集成的方法来生成可转移的对抗性实例。使用这种方法，我们观察到很大比例的目标对抗性例子能够第一次转移到他们的目标标签上。我们还介绍了一些几何研究，以帮助理解可转移的对抗性例子。最后，<a href="http://xn--Clarifai-g00mscz7cu8cm4g85e0eu1ht74axzat3iruhm7oo3ztedgqiafp808teidz6c4x3gep3cwvjcscd13fx0dx1wd4st62hee9dq64c.com">我们证明了基于集成方法生成的恶意实例能够成功地攻击黑盒图像分类系统Clarifai.com</a>。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>近年来研究表明，深度架构易生成对抗样本，其存在会严重影响基于视觉理解的应用，如自动驾驶。多数研究需明确底层模型知识，如何高效为黑盒模型找到对抗样本仍是待解决问题。部分对抗样本具有可迁移性，可用于黑盒攻击，但目前可迁移性研究多在小数据集上进行，对大规模数据集（如图像网）上的可迁移性还缺乏深入理解。因此，本文开展了相关研究。</p><h2 id="本文提出的方法">本文提出的方法</h2><ul><li><p><strong>提出研究问题</strong>：现有方法在大规模数据集和模型上生成目标标签可迁移的目标对抗样本效果不佳，以及如何理解对抗样本的可迁移性。</p></li><li><p><strong>构建研究框架</strong>：研究非目标和目标对抗样本，对比不同生成方法，提出基于集成的方法，研究模型几何特性，测试对黑盒系统的攻击效果。</p></li><li><p><strong>选择研究方法</strong>：采用优化、快速梯度等方法生成对抗样本，通过实验评估可迁移性。</p></li><li><p><strong>分析数据</strong>：计算准确率、匹配率、均方根偏差等指标。</p></li><li><p><strong>得出结论</strong>：总结不同方法的可迁移性，验证基于集成方法的有效性。</p></li><li><p>非目标对抗样本较易找到且具有一定可迁移性，现有方法生成的目标对抗样本目标标签难以迁移。</p></li><li><p>基于集成的方法能使大量目标对抗样本的目标标签实现迁移，且生成的非目标对抗样本可迁移性更佳。</p></li><li><p>不同模型的梯度方向近似正交，决策边界对齐较好，这部分解释了非目标对抗样本的可迁移性。</p></li><li><p><a href="http://xn--Clarifai-vb5mx0hrd36fxz0a63qervba80uzytzijtmfko6fpogryby13epvctrs2lo6s7r.com">生成的对抗样本能成功攻击黑盒图像分类系统Clarifai.com</a>。</p></li></ul><h2 id="阅读总结">阅读总结</h2><ul><li><strong>研究的创新性</strong>：首次在大规模数据集和模型上研究对抗样本可迁移性，提出基于集成的方法使目标对抗样本目标标签可迁移，首次实现为黑盒在线图像分类系统生成目标和非目标对抗样本。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> BLACK BOX ATTACKS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> BLACK BOX ATTACKS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>WordGame: Efficient &amp; Effective LLM Jailbreak via Simultaneous Obfuscation in Query and Response</title>
       <link href="/2025/08/27/WordGame%20Efficient%20&amp;%20Effective%20LLM%20Jailbreak%20via%20Simultaneous%20Obfuscation%20in%20Query%20and%20Response/"/>
       <url>/2025/08/27/WordGame%20Efficient%20&amp;%20Effective%20LLM%20Jailbreak%20via%20Simultaneous%20Obfuscation%20in%20Query%20and%20Response/</url>
