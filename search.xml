@@ -4,12 +4,49 @@
   
     
     <entry>
+      <title>MUN:ImageForgery Localization Based on M3 Encoder and UN Decoder</title>
+      <link href="/2025/09/20/%E4%BC%8D%E4%BF%8A/%E7%B2%BE%E8%AF%BB%E6%96%87%E7%AB%A0/MUN-ImageForgery-Localization-Based-on-M3-Encoder-and-UN-Decoder/"/>
+      <url>/2025/09/20/%E4%BC%8D%E4%BF%8A/%E7%B2%BE%E8%AF%BB%E6%96%87%E7%AB%A0/MUN-ImageForgery-Localization-Based-on-M3-Encoder-and-UN-Decoder/</url>
+      
+        <content type="html"><![CDATA[<div class="pdf-container"><iframe src="/js/pdfjs/web/viewer.html?file=/pdf/MUN精读.pdf" width="100%" height="600px"></iframe></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 精读文章 </category>
+          
+          <category> 图像伪造取证 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编码器解码器 </tag>
+            
+            <tag> 损失函数优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>运用强化学习构建图像篡改定位的决策环境</title>
       <link href="/2025/09/20/%E4%BC%8D%E4%BF%8A/%E7%B2%BE%E8%AF%BB%E6%96%87%E7%AB%A0/%E8%BF%90%E7%94%A8%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9E%84%E5%BB%BA%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%86%B3%E7%AD%96%E7%8E%AF%E5%A2%83/"/>
       <url>/2025/09/20/%E4%BC%8D%E4%BF%8A/%E7%B2%BE%E8%AF%BB%E6%96%87%E7%AB%A0/%E8%BF%90%E7%94%A8%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9E%84%E5%BB%BA%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%86%B3%E7%AD%96%E7%8E%AF%E5%A2%83/</url>
       
-        <content type="html"><![CDATA[<div><pre><code>&lt;iframe src=&quot;/myjs/pdfjs/web/viewer.html?file=/pdf/运用强化学习构建图像篡改定位的决策环境.pdf&quot; width=&quot;100%&quot; height=&quot;800px&quot;&gt;&lt;/iframe&gt;</code></pre></div>]]></content>
+        <content type="html"><![CDATA[<div class="pdf-container"><iframe src="/js/pdfjs/web/viewer.html?file=/pdf/运用强化学习构建图像篡改定位的决策环境.pdf" width="100%" height="600px"></iframe></div>]]></content>
       
+      
+      <categories>
+          
+          <category> 精读文章 </category>
+          
+          <category> 图像伪造取证 </category>
+          
+      </categories>
       
       
         <tags>
