@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering》 中文题目：《通过软对比学习和无监督聚类重新思考图像伪造检测》 论文作者：Haiwei Wu; Yiming Chen; Jiantao Zhou; Yuanman Li 发布于： IEEE Trans">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/09/05/%E4%BC%8D%E4%BF%8A/2025-09-07/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering》 中文题目：《通过软对比学习和无监督聚类重新思考图像伪造检测》 论文作者：Haiwei Wu; Yiming Chen; Jiantao Zhou; Yuanman Li 发布于： IEEE Trans">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-09-05T11:53:16.000Z">
+<meta property="article:modified_time" content="2025-09-08T02:58:25.825Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="对比学习">
+<meta property="article:tag" content="聚类">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering",
+  "url": "https://fdreamer2002.github.io/2025/09/05/%E4%BC%8D%E4%BF%8A/2025-09-07/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-09-05T11:53:16.000Z",
+  "dateModified": "2025-09-08T02:58:25.825Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "伍俊",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/09/05/%E4%BC%8D%E4%BF%8A/2025-09-07/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-05T11:53:16.000Z" title="发表于 2025-09-05 19:53:16">2025-09-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-08T02:58:25.825Z" title="更新于 2025-09-08 10:58:25">2025-09-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E5%83%8F%E4%BC%AA%E9%80%A0%E5%8F%96%E8%AF%81/">图像伪造取证</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering》</p>
+<p>中文题目：《通过软对比学习和无监督聚类重新思考图像伪造检测》</p>
+<p>论文作者：<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37088228669">Haiwei Wu</a>; <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37085871047">Yiming Chen</a>; <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37291308900">Jiantao Zhou</a>; <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37076143400">Yuanman Li</a></p>
+<p>发布于： IEEE Transactions on Dependable and Secure Computing</p>
+<p>发布时间：2025-06-25</p>
+<p>级别：CCF-A</p>
+<p>论文链接：<a target="_blank" rel="noopener" href="https://doi.org/10.1109/TDSC.2025.3583167">10.1109/TDSC.2025.3583167</a></p>
+<p>论文代码：<a target="_blank" rel="noopener" href="https://github.com/HighwayWu/FOCAL">https://github.com/HighwayWu/FOCAL</a></p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>图像伪造检测的目标是识别并定位图像中的伪造区域。现有的大多数伪造检测算法通过分类问题来区分伪造像素和原始像素。然而，<strong>伪造像素与原始像素的定义仅在单个图像内部相对，例如，图像A中的伪造区域在其原始图像B中可能是原始的（拼接伪造）。这种相对定义被现有方法严重忽视，导致不同图像中的伪造（或原始）区域被不必要地归为同一类别</strong>。为了解决这一难题，我们提出了基于软对比学习和无监督聚类的新型、简单而有效的图像伪造检测方法——法医对比聚类（FOCAL，FOrensic ContrAstive cLustering）。具体来说，FOCAL<br>
+  1)设计了一种软对比学习（SCL，soft contrastive learning），以图像为单位监督高级法医特征的提取，明确体现了上述相对定义；<br>
+  2)采用即时无监督聚类算法（而非训练好的算法）将学习到的特征聚类为伪造和原始类别，进一步减少了训练数据对不同图像的影响；<br>
+  3)通过简单的特征级连接来提升检测性能，无需重新训练。</p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>这篇文章聚焦于解决**图像伪造检测（Image Forgery Detection）**中的一个关键问题：现有方法在定义“伪造”和“ pristine”（未被篡改）像素时，<strong>忽略了这些定义在单张图像内的相对性</strong>。例如，一张图像中的伪造区域可能在另一张图像中是未被篡改的区域，这种相对性被现有方法严重忽视，导致分类方法在跨图像混合伪造和未被篡改区域时出现标签冲突，进而影响检测性能</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<ol>
+<li><strong>软对比学习（SCL）模块</strong></li>
+</ol>
+<p>该模块负责在<strong>训练阶段</strong>提取高质量的法医特征，其作用是<strong>解决传统分类方法中因“伪造/原始”标签在不同图像间冲突而导致的特征混淆问题</strong>。具体做法是：对每张图像单独处理，利用像素级的伪造掩码初始化特征权重，引入可优化的软权重系数来刻画特征属于“伪造”或“原始”的程度，并通过最小化特征与类别中心之间的距离来迭代优化权重和特征表示，最终基于改进的对比损失函数（类似NCE）进行监督训练，使得同类特征更聚集、异类特征更分离，从而学到具有判别力的特征提取器。</p>
+<ol start="2">
+<li><strong>无监督聚类模块</strong></li>
+</ol>
+<p>该模块负责在<strong>测试阶段</strong>将提取的特征划分为“伪造”或“原始”区域，其作用是<strong>避免使用训练好的分类器带来的跨图像泛化偏差，实现图像级别的独立判断</strong>。具体做法是：对每张图像提取的特征使用无监督聚类算法（如HDBSCAN）进行在线聚类，假设伪造区域通常较小，因此将元素最多的簇标记为原始区域，其余簇合并为伪造区域，从而生成最终的伪造定位掩码，整个过程无需训练参数、不依赖训练数据，具有较强的泛化能力和适应性。</p>
+<p><img src="https://github.com/HighwayWu/FOCAL/blob/main/imgs/framework.jpg?raw=true" alt="framework"></p>
+<h2 id="阅读总结">阅读总结</h2>
+<ol>
+<li>
+<p><strong>优点</strong>：</p>
+<ul>
+<li><strong>问题视角新</strong>：指出并验证了“伪造/原始标签跨图冲突”这一被长期忽视的本质缺陷。</li>
+<li><strong>范式简洁</strong>：训练只做“对比特征”，测试只做“聚类”，无需分类头，跨域泛化能力极强。</li>
+</ul>
+</li>
+<li>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><strong>核心假设脆弱</strong>：聚类阶段“最大簇=原始”在<strong>大面积伪造</strong>或<strong>全图伪造</strong>时直接失效，<strong>导致漏检与误检激增</strong>。</li>
+<li><strong>伪造类型敏感</strong>：对<strong>GAN整图生成</strong>、<strong>深度人脸合成</strong>等<strong>无局部不一致性</strong>的伪造，特征判别力天然下降。</li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">伍俊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/09/05/%E4%BC%8D%E4%BF%8A/2025-09-07/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/">https://fdreamer2002.github.io/2025/09/05/%E4%BC%8D%E4%BF%8A/2025-09-07/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a><a class="post-meta__tags" href="/tags/%E8%81%9A%E7%B1%BB/">聚类</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/09/06/%E4%BC%8D%E4%BF%8A/2025-09-07/Image%20Copy-Move%20Forgery%20Detection%20via%20Deep%20PatchMatch%20and%20Pairwise%20Ranking%20Learning/" title="Image Copy-Move Forgery Detection via Deep PatchMatch and Pairwise Ranking Learning"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Image Copy-Move Forgery Detection via Deep PatchMatch and Pairwise Ranking Learning</div></div><div class="info-2"><div class="info-item-1">英文题目：《Image Copy-Move Forgery Detection via Deep PatchMatch and Pairwise Ranking Learning》 中文题目：《通过深度 PatchMatch 和成对排序学习检测图像复制/移动伪造》 论文作者：Yuanman Li; Yingjie He; Changsheng Chen; Li Dong; Bin Li; Jiantao Zhou 发布于：IEEE Transactions on Image Processing 发布时间：2024-08-25 级别：CCF-A 论文链接：10.1109/TIP.2024.3482191 论文代码：暂无  摘要 深度学习算法的最新进展在图像复制移动伪造检测 (CMFD) 方面取得了令人瞩目的进展。然而，这些算法在实际场景中缺乏通用性，例如训练图像中不存在复制区域，或者克隆区域是背景的一部分。此外，这些算法利用卷积运算来区分源区域和目标区域，当目标区域与背景融合良好时，结果并不理想。为了突破这些局限性，本研究提出了一种新颖的端到端 CMFD 框架，该框架融合了传统方...</div></div></div></a><a class="pagination-related" href="/2025/09/04/%E4%BC%8D%E4%BF%8A/2025-09-07/Exploring%20Multi-View%20Pixel%20Contrast%20for%20General%20and%20Robust%20Image%20Forgery%20Localization/" title="Exploring Multi-View Pixel Contrast for General and Robust Image Forgery Localization"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Exploring Multi-View Pixel Contrast for General and Robust Image Forgery Localization</div></div><div class="info-2"><div class="info-item-1">英文题目：《Exploring Multi-View Pixel Contrast for General and Robust Image Forgery Localization》 中文题目：《探索多视角像素对比度以实现通用且稳健的图像伪造定位》 论文作者：Zijie Lou; Gang Cao; Kun Guo; Lifang Yu; Shaowei Weng 发布于：IEEE Transactions on Information Forensics and Security 发布时间：2025-02-13 级别：CCF-A 论文链接：10.1109/TIFS.2025.3541957 论文代码：https://github.com/multimediaFor/MPC  摘要 图像伪造定位旨在分割图像中的篡改区域，是一项基础而又极具挑战性的数字取证任务。虽然一些基于深度学习的取证方法取得了令人瞩目的成果，**但它们直接学习像素到标签的映射，而没有充分利用特征空间中像素之间的关系。**为了解决这一缺陷，我们提出了一种用于图像伪造定位的多视角逐像素对比算法 (MPC)。具体而...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/15/%E4%BC%8D%E4%BF%8A/2025-08-15/M2RL-Net-Multi-View-and-Multi-Level-Relation-Learning-Network-for-Weakly-Supervised-Image-Forgery-Detection/" title=" M2RL-Net: Multi-View and Multi-Level Relation Learning Network for Weakly-Supervised Image Forgery Detection"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-15</div><div class="info-item-2"> M2RL-Net: Multi-View and Multi-Level Relation Learning Network for Weakly-Supervised Image Forgery Detection</div></div><div class="info-2"><div class="info-item-1">英文题目：《M2RL-Net: Multi-View and Multi-Level Relation Learning Network for Weakly-Supervised Image Forgery Detection》 中文题目：《M2RL-Net：用于弱监督图像伪造检测的多视图和多级关系学习网络》 发布于： AAAI 级别：CCF-A 论文链接： https://doi.org/10.1609/aaai.v39i5.32501  摘要 随着数字媒体操纵变得越来越复杂，在最小监督下准确检测和定位图像伪造已成为一项关键挑战。现有的弱监督图像伪造检测（W-IFD）方法通常依赖于卷积神经网络（CNNs）和对内部关系的有限探索，导致仅使用图像级标签时检测和定位性能较差。为了解决这些局限性，我们为W-IFD引入了一种新的多视角和多级关系学习网络（M²RL-Net）。M²RL-Net通过探索图像不同视角和层次之间的关系，仅使用图像级标注有效地识别伪造图像。具体来说，M²RL-Net在不同视角上实现了补丁级自洽学习（PSL）和特征级对比学习（FCL），促进了更通用的自监督伪造特征学...</div></div></div></a><a class="pagination-related" href="/2025/08/20/%E4%BC%8D%E4%BF%8A/2025-08-23/Attentive-and-Contrastive-Image-Manipulation-Localization-With-Boundary-Guidance/" title="Attentive and Contrastive Image Manipulation Localization With Boundary Guidance"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-20</div><div class="info-item-2">Attentive and Contrastive Image Manipulation Localization With Boundary Guidance</div></div><div class="info-2"><div class="info-item-1">英文题目：《Attentive and Contrastive Image Manipulation Localization With Boundary Guidance》 中文题目：《边界引导下的专注对比图像处理定位》 论文作者：Wenxi Liu , Member, IEEE, Hao Zhang , Xinyang Lin , Qing Zhang , Qi Li , Xiaoxiang Liu , Ying Cao 发布于：IEEE Transactions on Information Forensics and Security 发布时间：2024-07-08 级别：CCF-A 论文链接：10.1109/TIFS.2024.3424987 论文代码：暂无  摘要 近年来，图像生成技术的快速发展导致篡改图像被广泛滥用，引发了信任危机，并影响了社会公平。因此，我们的工作目标是检测并定位图像中的篡改区域。许多基于深度学习的方法来解决这个问题，但它们难以处理那些经过手动微调以融入图像背景的篡改区域。通过观察篡改区域的边界对于区分篡改部分和非篡改部分至关重要，我们提出了一种新...</div></div></div></a><a class="pagination-related" href="/2025/09/04/%E4%BC%8D%E4%BF%8A/2025-09-07/Exploring%20Multi-View%20Pixel%20Contrast%20for%20General%20and%20Robust%20Image%20Forgery%20Localization/" title="Exploring Multi-View Pixel Contrast for General and Robust Image Forgery Localization"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-04</div><div class="info-item-2">Exploring Multi-View Pixel Contrast for General and Robust Image Forgery Localization</div></div><div class="info-2"><div class="info-item-1">英文题目：《Exploring Multi-View Pixel Contrast for General and Robust Image Forgery Localization》 中文题目：《探索多视角像素对比度以实现通用且稳健的图像伪造定位》 论文作者：Zijie Lou; Gang Cao; Kun Guo; Lifang Yu; Shaowei Weng 发布于：IEEE Transactions on Information Forensics and Security 发布时间：2025-02-13 级别：CCF-A 论文链接：10.1109/TIFS.2025.3541957 论文代码：https://github.com/multimediaFor/MPC  摘要 图像伪造定位旨在分割图像中的篡改区域，是一项基础而又极具挑战性的数字取证任务。虽然一些基于深度学习的取证方法取得了令人瞩目的成果，**但它们直接学习像素到标签的映射，而没有充分利用特征空间中像素之间的关系。**为了解决这一缺陷，我们提出了一种用于图像伪造定位的多视角逐像素对比算法 (MPC)。具体而...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">59</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">65</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/20/%E4%BC%8D%E4%BF%8A/%E7%B2%BE%E8%AF%BB%E6%96%87%E7%AB%A0/MUN-ImageForgery-Localization-Based-on-M3-Encoder-and-UN-Decoder/" title="MUN:ImageForgery Localization Based on M3 Encoder and UN Decoder">MUN:ImageForgery Localization Based on M3 Encoder and UN Decoder</a><time datetime="2025-09-20T09:19:29.000Z" title="发表于 2025-09-20 17:19:29">2025-09-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/20/%E4%BC%8D%E4%BF%8A/%E7%B2%BE%E8%AF%BB%E6%96%87%E7%AB%A0/%E8%BF%90%E7%94%A8%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9E%84%E5%BB%BA%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%86%B3%E7%AD%96%E7%8E%AF%E5%A2%83/" title="运用强化学习构建图像篡改定位的决策环境">运用强化学习构建图像篡改定位的决策环境</a><time datetime="2025-09-20T08:00:21.000Z" title="发表于 2025-09-20 16:00:21">2025-09-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/19/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-22/Audio%20Jailbreak%20Attacks%20Exposing%20Vulnerabilities%20in%20SpeechGPT%20in%20a%20White-Box%20Frameworkgeneration%20models/" title="Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models">Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models</a><time datetime="2025-09-19T11:58:14.000Z" title="发表于 2025-09-19 19:58:14">2025-09-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/15/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Search-R1%20Training%20LLMs%20to%20Reason%20and%20Leverage%20Search%20Engines%20with%20Reinforcement%20Learning/" title="Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning">Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning</a><time datetime="2025-09-15T02:58:14.000Z" title="发表于 2025-09-15 10:58:14">2025-09-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/14/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Safe%20in%20Isolation,%20Dangerous%20Together%20Agent-Driven%20Multi-Turn%20Decomposition%20Jailbreaks%20on%20LLMs/" title="Safe in Isolation, Dangerous Together: Agent-Driven Multi-Turn Decomposition Jailbreaks on LLMs">Safe in Isolation, Dangerous Together: Agent-Driven Multi-Turn Decomposition Jailbreaks on LLMs</a><time datetime="2025-09-14T05:58:14.000Z" title="发表于 2025-09-14 13:58:14">2025-09-14</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
