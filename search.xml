@@ -4,6 +4,95 @@
   
     
     <entry>
+      <title>Multi-Turn Jailbreaking Large Language Models via Attention Shifting</title>
+      <link href="/2025/10/26/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-10-27/Multi-Turn%20Jailbreaking%20Large%20Language%20Models%20via%20Attention%20Shifting/"/>
+      <url>/2025/10/26/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-10-27/Multi-Turn%20Jailbreaking%20Large%20Language%20Models%20via%20Attention%20Shifting/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《Multi-Turn Jailbreaking Large Language Models via Attention Shifting》</p><p>中文题目：《通过注意力转移对大型语言模型进行多轮越狱攻击》</p><p>论文作者：Xiaohu Du, Fan Mo, Ming Wen, Tu Gu, Huadi Zheng, Hai Jin, Jie Shi</p><p>发布于： AAAI-25</p><p>发布时间：2025-04-11</p><p>级别：CCF-A</p><p>论文链接：<a href="https://doi.org/10.1609/aaai.v39i22.34553">https://doi.org/10.1609/aaai.v39i22.34553</a></p><p>论文代码：无</p></div><h2 id="摘要">摘要</h2><p>大型语言模型（LLM）在各种自然语言处理任务中取得了显着的性能，但也带来了安全和道德威胁，因此需要红队和对齐过程来加强它们的安全性。为了有效利用这些对齐的LLM，最近的研究引入了基于多轮对话的越狱攻击。这些攻击旨在通过上下文内容引导LLM生成有害或有偏见的内容。然而，多轮越狱有效性的根本原因仍然不清楚。现有的攻击通常侧重于优化查询和升级毒性以构建对话，缺乏对LLM固有漏洞的彻底分析。在本文中，我们首先对单轮越狱和多轮越狱之间的差异进行了深入分析，发现成功的多轮越狱可以有效分散LLM对与有害行为相关的关键字的注意力，特别是在历史响应中。基于此，我们提出了一种新的多回合越狱方法ASJA，通过转移LLM的注意力，特别是通过遗传算法迭代制造对话历史来诱导LLM产生有害内容。在三个LLM和两个数据集上的广泛实验表明，我们的方法在越狱有效性、越狱提示的隐蔽性和攻击效率方面超越了现有方法。我们的工作强调了增强LLM注意力机制在多回合对话场景中的鲁棒性以获得更好的防御策略的重要性。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>尽管当前的多轮越狱攻击已经取得了一些进展，但它们仍存在某些局限性。首先，从理论角度来看，现有研究缺乏分析关于多轮越狱为何有效的分析不足，且对于如何以及在何处将有害提示引入多轮对话的探索也不够深入。其次，在实际实施方面，这些多轮越狱仍然遵循单轮越狱的策略，即不断优化查询以突破大语言模型的安全对齐。</p><h2 id="本文提出的方法">本文提出的方法</h2><p>作者提出 <strong>ASJA</strong>：通过<strong>伪造/优化多轮对话历史</strong>，把模型对“最终有害问题”上应有的注意力转移到对话历史中的模型回复上，从而使模型无法识别/触发内置的拒绝逻辑，最终产出有害回答。</p><p>论文的初步实验发现：在<strong>成功的多轮越狱样本</strong>中，模型对最后一轮有害查询中“有害关键词”的注意力显著<strong>降低</strong>；而对话历史（尤其是中间轮次的<strong>模型回复</strong>）获得了更高注意力。作者以此推断：当注意力被稀释到某阈值以下，模型就不会把查询识别为需触发拒绝模板的“有害请求”。</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20251026134803933.png" alt=""></p><p>为了找到可以转移注意力的历史对话，文章设计了如下算法：</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20251026141148887.png" alt=""></p><table><thead><tr><th>组件</th><th>具体含义</th></tr></thead><tbody><tr><td><strong>Attack model FA</strong></td><td>攻击模型（文中为 Uncensored LLaMA-3.1-8b），无内置安全对齐，用于生成优化后的查询和响应</td></tr><tr><td><strong>Target model FT</strong></td><td>目标模型（如 LLaMA-2、Qwen-2），即需要被越狱的 LLM</td></tr><tr><td><strong>Judge model FJ</strong></td><td>判断模型（文中为 LLaMA-3.1-70b），用于评估 “FT 的响应是否构成成功越狱”（输出 1 = 成功，0 = 失败）</td></tr><tr><td><strong>Harmful query X</strong></td><td>初始有害查询（如 “如何策划抢劫”），是越狱的核心目标</td></tr><tr><td><strong>Max iterations G</strong></td><td>遗传算法的最大迭代次数（文中设为 5），控制优化收敛速度</td></tr><tr><td><strong>Population size N</strong></td><td>遗传算法的种群规模（文中设为 10），即每轮优化同时维护的 “候选多轮对话” 数量</td></tr><tr><td><strong>MT</strong></td><td>多轮对话（Multi-turn dialog），存储 “查询 + FT 响应” 的完整对话历史</td></tr><tr><td><strong>Pt</strong></td><td>第 t 轮迭代的种群，包含 N 个候选多轮对话样本（Pt_i 表示第 t 轮第 i 个样本）</td></tr><tr><td><strong>Fitness</strong></td><td>适应度函数，文中定义为 “末轮有害查询的注意力得分”（得分越低，注意力转移效果越好）</td></tr></tbody></table><p>算法分为 3 个核心阶段：<strong>多轮对话初始化→种群初始化→迭代优化（遗传算法核心）</strong></p><p>1：用<code>Init(X)</code>函数，基于初始有害查询 X，生成一组 “从良性到有害逐步过渡的 5 轮查询 Q”。</p><p>2-4：遍历每一轮查询 q（Q1 到 Q5），将 “q + FT 对 q 的响应（FT (q)）” 加入多轮对话 MT 中，最终 MT 是 “Q1+R1, Q2+R2, …, Q5+R5” 的完整对话。</p><p>以上整个初始化的阶段必须要引入人工审核，必须满足：没有被拒绝，后一轮没有偏离原始问题，数据格式与回合数满足规范。</p><p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20251026142746352.png" alt=""></p><p>5-6：这里主要对“对话后半段”（Q4、Q5、R4、R5）进行变异，且全部借助FA（无内置安全对齐模型），采用“定义角色”，“想象场景”，“研究和测试”，“开玩笑的借口”，“程序执行”，“文本延续”，“对立模型”，“代替模型”策略。</p><p>以下每轮迭代都围绕 “<strong>筛选最优样本→生成新样本→优化注意力转移效果</strong>” 展开。</p><p>7：从第 0 轮（t=0）到第 G 轮（t=5）迭代，若中间找到成功样本则提前终止，避免无效计算。</p><p>8-10：对当前种群 Pt 中的每个样本 Pt_i，先让 FT 生成对 Pt_i 的响应，再用 FJ 判断该响应是否为 “成功越狱”（FJ 输出 1）。若有任何一个 Pt_i 成功，直接返回该对话和 FT 的有害响应。</p><p>11：把Pt_i输入目标模型FT；提取其最后一轮查询 Qₖ 在FT内部的 attention 矩阵；计算每个 token 的平均注意力分数 A(tᵢ)，再求和得到 A(Qₖ)。把 A(Qₖ) 作为该样本的scores值（得分越低，说明 FT 对 Q5 的关注越少，注意力转移效果越好）。</p><p>12：从 Pt 中筛选出 “适应度最低（注意力转移最好）” 的 1 个样本作为 “精英”，直接保留到下一轮种群 Pt+1 中。</p><p>13：遗传循环</p><p>14：基于适应度scores选择 2 个 “父母样本”（parent1、parent2），适应度越低（得分小）的样本被选中概率越高 —— 确保优质样本的基因能传递。</p><p>15：随机选择父母的完整对话单元（Q，R），拼接成 1 个子代样本。</p><p>例子：</p><p><strong>父 A</strong> = (Q₁ᴬ,R₁ᴬ)…(Q₅ᴬ,R₅ᴬ)</p><p><strong>父 B</strong> = (Q₁ᴮ,R₁ᴮ)…(Q₅ᴮ,R₅ᴮ)</p><p>有可能得到：(Q₁ᴮ,R₁ᴮ), (Q₂ᴬ,R₂ᴬ), (Q₃ᴮ,R₃ᴮ), (Q₄ᴬ,R₄ᴬ), (Q₅ᴮ,R₅ᴮ)</p><p>16：对子代样本再次调用mutation函数（同步骤 6 的变异逻辑），然后将 “变异后的子代 + 精英样本” 组成下一轮种群 Pt+1。</p><h2 id="阅读总结">阅读总结</h2><p>优点：</p><p>1、从<strong>注意力机制</strong>角度揭示多轮越狱的核心逻辑 —— 成功的多轮对话通过分散 LLM 对 “有害关键词” 的注意力、转向 “历史响应” 实现越狱，解决了此前多轮越狱方法仅关注 “如何攻击”、缺乏 “为何有效” 机理分析的问题。</p><p>2、区别于传统仅优化 “查询” 的思路，同时优化 “对话历史中的查询与响应”，利用无审查模型生成 “肯定性有害响应”，强化注意力转移效果。</p><p>缺点：</p><p>1、遗传算法的关键参数（种群规模 N=10、最大迭代次数 G=5）为经验设定，未验证 “参数调整对效率的影响”。</p><p>未来可以研究多模态融合的注意力转移。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 越狱攻击 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 多轮越狱 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Images are Achilles’ Heel of Alignment: Exploiting Visual Vulnerabilities for Jailbreaking Multimodal Large Language Models</title>
+      <link href="/2025/10/26/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-10-27/Images%20are%20Achilles%E2%80%99%20Heel%20of%20Alignment%20Exploiting%20Visual%20Vulnerabilities%20for%20Jailbreaking%20Multimodal%20Large%20Language%20Models/"/>
+      <url>/2025/10/26/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-10-27/Images%20are%20Achilles%E2%80%99%20Heel%20of%20Alignment%20Exploiting%20Visual%20Vulnerabilities%20for%20Jailbreaking%20Multimodal%20Large%20Language%20Models/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《Images are Achilles’ Heel of Alignment: Exploiting Visual Vulnerabilities for Jailbreaking Multimodal Large Language Models》</p><p>中文题目：《图像是多模态对齐的阿喀琉斯之踵：利用视觉漏洞实现多模态大语言模型越狱》</p><p>论文作者：Yifan Li, Hangyu Guo, Kun Zhou, Wayne Xin Zhao, Ji-Rong Wen</p><p>单位：中国人民大学高瓴人工智能学院、信息学院、北京大数据管理与分析方法重点实验室</p><p>发布于：ECCV 2024（CCF B）</p><p>论文链接：<a href="https://arxiv.org/abs/2403.09792">https://arxiv.org/abs/2403.09792</a></p><p>代码链接：<a href="https://github.com/RUCAIBox/HADES">https://github.com/RUCAIBox/HADES</a></p></div><h2 id="摘要">摘要</h2><p>本文研究多模态大型语言模型（MLLMs）的安全对齐问题。我们对代表性MLLMs的无害性表现进行了系统性实证分析，发现图像输入会引发模型的对齐漏洞。基于此，我们提出名为hades的新型越狱方法，通过精心设计的图像隐藏并放大文本输入中的恶意意图。实验结果表明，hades能有效突破现有MLLMs的防御，LLaVA-1.5数据集的平均攻击成功率（ASR）达到90.26%，Gemini Pro Vision达到71.60%。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><blockquote><p>“为什么图像会成为多模态模型对齐的漏洞？如何系统地利用这一漏洞实现越狱攻击？”</p></blockquote><h2 id="本文提出的核心假设与框架">本文提出的核心假设与框架</h2><h3 id="一、核心发现：视觉输入是对齐的薄弱点">一、核心发现：视觉输入是对齐的薄弱点</h3><p>通过对多模态模型的系统实验，作者发现：</p><ul><li>视觉输入会削弱模型的无害性对齐能力；</li><li>跨模态微调（尤其是全参数微调）会损伤底座 LLM 原有的安全性；</li><li>图像语义越“有害”，模型输出的危险内容越多。</li></ul><p>这些现象说明模型的视觉模态在增强感知能力的同时也引入了安全漏洞。</p><h3 id="二、方法框架：HADES">二、方法框架：HADES</h3><p><img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/6b55cb4b-66d0-4ea9-9136-19e2d28a37b7.jpg" alt=""></p><p>HADES（Hiding and Amplifying Harmfulness in Images） 是一个分为三阶段的攻击流程，旨在通过视觉模态破坏无害性对齐。<br>总体思路是：</p><ul><li>先把文本中的有害语义隐藏到图像里；</li><li>再利用生成模型放大图像中隐含的危险暗示；</li><li>最后通过对抗扰动进一步突破模型防线。</li></ul><h4 id="阶段一：从文本到图像的隐藏（Hiding-Harmfulness-from-Text-to-Image）">阶段一：从文本到图像的隐藏（Hiding Harmfulness from Text to Image）</h4><p><strong>目的：</strong> 将文本中容易触发拒答的有害词转移到视觉通道中，从而绕过文本安全防护。</p><p><strong>实现方式：</strong></p><ol><li><strong>关键词自动分类</strong>：<br>利用 GPT-4 在生成指令时自动区分三类关键词——<strong>物体（object）</strong>、<strong>概念（concept）</strong>、<strong>行为（action）</strong>。这一分类过程完全自动，无需人工干预。</li><li><strong>文本改写（Text-to-Image Pointer）</strong>：<ul><li>对 <em>物体/概念</em> 类词语，将敏感文本改写为“图像中的对象/概念”；</li><li>对 <em>行为</em> 类词语，改写为“在图像中执行该行为”。<br>改写后文本表面安全，但语义仍依赖图像才能完整恢复。<br>eg：如何制作炸弹 —— （物品）—— 如何制作图中的物品[图片]</li><li><strong>排版图像生成（Typography Image）</strong>：<br>当关键词为抽象概念或难以直接画出的行为时，生成一张写有该词的“排版图像”（例如海报式图片）。  模型的 OCR 模块可从图像中识别这些文字，从而理解被隐藏的语义。</li></ul></li></ol><h4 id="阶段二：用-LLM-放大图像有害性（Amplifying-Image-Harmfulness-with-LLMs）">阶段二：用 LLM 放大图像有害性（Amplifying Image Harmfulness with LLMs）</h4><p><strong>目的：</strong> 让模型更容易从图像中捕获并响应危险意图。</p><p><strong>流程：</strong></p><ol><li>基于上一阶段生成的关键词图像 (i_{typ})，调用<strong>扩散模型</strong>生成一张与指令相关的场景图像 (i_{opt})；</li><li>使用 **LLM → caption 模型 → judge模型 → 扩散模型 ** 闭环自动优化生成：<ul><li>caption 模型生成描述；</li><li>judge 模型（GPT-4）对描述打分（1–10）并给出改进意见；</li><li>attacker LLM 根据反馈修改 prompt，</li><li>扩散模型再生成新图像；</li><li>重复 K=5 次迭代后得到最“危险”的图像；</li></ul></li><li>将危险放大后的图像与类型图像垂直拼接形成组合输入 (i_{opt} ⊕ i_{typ})。</li></ol><h4 id="阶段三：梯度对抗增强（Amplifying-Image-Harmfulness-with-Gradient-Update）">阶段三：梯度对抗增强（Amplifying Image Harmfulness with Gradient Update）</h4><p><strong>目的：</strong> 在开源模型上进一步突破防御，诱导模型生成肯定性或执行性回复。</p><p><strong>方法：</strong></p><ul><li>在组合图像前拼接一张<strong>对抗图像 (i_{adv})</strong>；</li><li>白盒模型中使用梯度优化，让模型输出“肯定性回答”的概率最大化；</li><li>闭源模型（如 GPT-4V、Gemini）则不执行此阶段，只使用 i_opt 与 i_typ 组合。</li></ul><p>最终输入结构为：</p><blockquote><p><code>i_{adv} ⊕ i_{opt} ⊕ i_{typ} + 改写后的安全文本指令 t′</code></p></blockquote><h2 id="阅读总结">阅读总结</h2><p><strong>优点：</strong></p><ol><li>隐藏 → 放大 → 对抗，逐步削弱模型防御；</li><li>系统化实验证明多模态对齐的脆弱性；</li><li>HADES 攻击框架整合了白盒与黑盒攻击思想；</li></ol><p><strong>缺点：</strong><br>攻击依赖多步生成与判别模型，涉及图像拼接，计算复杂；</p><p><strong>改进方向：</strong></p><p>可结合“分散式注意力攻击”（CS-DJ框架）进一步提升隐蔽性；</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 越狱攻击 </category>
+          
+          <category> 模型安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 越狱攻击 </tag>
+            
+            <tag> 多模态大语言模型 </tag>
+            
+            <tag> 安全对齐 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Distraction is All You Need for Multimodal Large Language Model Jailbreaking</title>
+      <link href="/2025/10/25/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-10-27/Distraction%20is%20All%20You%20Need%20for%20Multimodal%20Large%20Language%20Model%20Jailbreaking/"/>
+      <url>/2025/10/25/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-10-27/Distraction%20is%20All%20You%20Need%20for%20Multimodal%20Large%20Language%20Model%20Jailbreaking/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《Distraction is All You Need for Multimodal Large Language Model Jailbreaking》</p><p>中文题目：《分散即一切：面向多模态大语言模型的越狱攻击方法研究》</p><p>论文作者：Zuopeng Yang, Jiluan Fan, Anli Yan, Erdun Gao, Xin Lin, Tao Li, Kanghua Mo, Changyu Dong</p><p>单位：广州大学、上海交通大学、阿德莱德大学</p><p>发布于：CVPR-2025（CCF  A）</p><p>发布时间：2025年2月</p><p>论文链接：<a href="https://arxiv.org/abs/2502.10794">https://arxiv.org/abs/2502.10794</a></p><p>代码链接：<a href="https://github.com/TeamPigeonLab/CS-DJ">https://github.com/TeamPigeonLab/CS-DJ</a></p></div><hr><h2 id="摘要">摘要</h2><p>多模态大语言模型（MLLMs）结合视觉与文本模态，展现了强大的跨模态理解能力，但复杂的视觉-文本交互也可能引入新的安全漏洞。本文提出了<strong>分散假设（Distraction Hypothesis）</strong>，认为越狱攻击的关键并非图像内容本身，而是输入的复杂度与多样性对模型注意力的干扰作用。<br>基于此，作者设计了一个新的攻击框架——<strong>CS-DJ（Contrasting Subimage Distraction Jailbreaking）</strong>，通过“结构性分散”和“视觉增强分散”两种策略来干扰模型的多模态对齐机制，从而实现越狱攻击。</p><hr><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>目前多模态模型的安全对齐（主要基于RLHF）针对文本输入已较完善，但面对<strong>复杂视觉输入</strong>时仍存在漏洞。传统视觉越狱方法主要有两类：</p><ol><li><strong>图像扰动注入（Image Perturbation Injection）</strong>：需梯度信息，不适用于闭源模型；</li><li><strong>提示-图像感染（Prompt-to-Image Infection）</strong>：通过生成恶意图片诱导模型，但模型安全对齐的提升，现在难以构造有效的分布外（OOD）输入。</li></ol><p>本文提出：真正影响模型防御能力的不是图像的语义有害性，而是<strong>图像复杂度与注意力分散程度</strong>。</p><hr><h2 id="本文提出的核心假设与框架">本文提出的核心假设与框架</h2><h3 id="一、核心假设：Distraction-Hypothesis（分散假设）">一、核心假设：Distraction Hypothesis（分散假设）</h3><blockquote><p>“当输入中包含多个语义复杂、相互不相关的视觉子图时，模型的注意力被分散，内部安全检测机制减弱，从而更容易生成违禁或有害内容。”</p></blockquote><p>该假设认为，通过增加输入的复杂性，可人为制造<strong>语义分布外（Semantic Out-of-Distribution, SOOD）</strong> 情况，诱导模型防御机制失效。</p><hr><h3 id="二、方法框架：CS-DJ（Contrasting-Subimage-Distraction-Jailbreaking）">二、方法框架：CS-DJ（Contrasting Subimage Distraction Jailbreaking）</h3><p>CS-DJ 包含两个核心模块：</p><h4 id="1-Structured-Distraction（结构性分散）">1. Structured Distraction（结构性分散）</h4><ul><li><strong>目标</strong>：通过分解文本查询，使模型在多任务上分散注意力。</li><li><strong>实现步骤</strong>：<ol><li>将原始有害指令 ( Q ) 分解为多个子问题 ( Q_s^{(i)} )；</li><li>将这些子问题转换为图像形式（即文本转图像）；</li><li>每个子图对应不同的子任务，使模型难以识别整体意图；</li><li>组合这些子图为视觉输入，并搭配一个“无害任务”指令引导模型思考。</li></ol></li></ul><p>这种“碎片化”策略通过在任务层面制造分布偏移，使模型“无法对齐”原始问题的有害意图。</p><hr><h4 id="2-Visual-Enhanced-Distraction（视觉增强分散）">2. Visual-Enhanced Distraction（视觉增强分散）</h4><ul><li><strong>目标</strong>：利用对比性图像在视觉模态上进一步干扰注意力。</li><li><strong>核心思路</strong>：<ol><li>使用 CLIP 模型提取原始问题向量 ( v(Q) )；</li><li>从图像库中检索与 ( Q ) 最不相似的图像（即“对比性子图”）；</li><li>确保这些子图之间也互不相似；</li><li>最终组合成复合输入图像 ( I_{comp} )。</li></ol></li></ul><p><img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/251027-1.png" alt=""></p><hr><h3 id="三、整体攻击执行流程">三、整体攻击执行流程</h3><ol><li><strong>输入构建</strong>：将结构性分解的子图与视觉对比图组合为复合图像；</li><li><strong>提示设计（Prompt P）</strong>：<ul><li><strong>角色指引（role-guiding）</strong>：设置任务场景；</li><li><strong>任务指引（task-guiding）</strong>：要求模型同时分析多个图像；</li><li><strong>视觉指引（visual-guiding）</strong>：暗示“其他图片也有用”，诱导注意力扩散；</li></ul></li><li><strong>输入模型执行越狱</strong>：复合图像 + Prompt P → 模型输出 Y；</li></ol><hr><h2 id="阅读总结">阅读总结</h2><p><strong>优点：</strong></p><ol><li>提出了新的攻击视角——“分散而非对抗”；</li><li>无需白盒访问，适用于闭源模型；</li><li>理论+实验证明“视觉复杂度”是模型安全薄弱点；</li></ol><p><strong>缺点：</strong></p><ol><li>攻击依赖外部图像库和CLIP模型，计算成本高，时间成本大，输入比较复杂；</li><li>“分散假设”的理论基础仍待进一步验证；</li></ol><p><strong>改进方法:</strong></p><ol><li>CS-DJ在问题转化为图片上并不隐蔽，CS-DJ和Hades的结合可能有更好的效果。</li></ol><hr><h2 id="结论">结论</h2><p>本文揭示了多模态大模型在视觉复杂输入下的安全脆弱性，提出了基于“分散假设”的 CS-DJ 攻击框架。实验表明，通过制造任务与视觉的多层注意力分散，可显著削弱模型防御机制。该研究为未来多模态模型的安全对齐提供了全新视角。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 模型安全 </category>
+          
+          <category> 越狱攻击 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 越狱攻击 </tag>
+            
+            <tag> 多模态大语言模型 </tag>
+            
+            <tag> 安全对齐 </tag>
+            
+            <tag> 注意力分散 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SIDA: Social Media Image Deepfake Detection, Localization and Explanation with Large Multimodal Model</title>
       <link href="/2025/10/21/%E4%BC%8D%E4%BF%8A/2025-10-24/SIDA%20Social%20Media%20Image%20Deepfake%20Detection,%20Localization%20and%20Explanation/"/>
       <url>/2025/10/21/%E4%BC%8D%E4%BF%8A/2025-10-24/SIDA%20Social%20Media%20Image%20Deepfake%20Detection,%20Localization%20and%20Explanation/</url>
@@ -1911,6 +2000,39 @@
         <tags>
             
             <tag> CE损失对抗攻击梯度计算相对误差 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Jailbreaking? One Step Is Enough!</title>
+      <link href="/2024/12/17/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-10-27/Jailbreaking%20One%20Step%20Is%20Enough!/"/>
+      <url>/2024/12/17/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-10-27/Jailbreaking%20One%20Step%20Is%20Enough!/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《Jailbreaking? One Step Is Enough!》<br>中文题目：《越狱？一步就够！——基于反向嵌入防御机制的LLM越狱方法》</p><p>作者：Weixiong Zheng, Peijian Zeng, Yiwei Li, Hongyan Wu, Nankai Lin, Junhao Chen, Aimin Yang, Yongmei Zhou</p><p>单位：广东工业大学、岭南师范学院、国防科技大学、广东外语外贸大学</p><p>发布于：ACL 2024（CCF A）</p><p>论文链接：<a href="https://arxiv.org/abs/2412.12621">https://arxiv.org/abs/2412.12621</a></p></div><hr><h2 id="摘要">摘要</h2><p>大型语言模型（LLMs）在多种任务中表现出色，但仍然容易遭受越狱攻击——攻击者通过操纵提示词生成有害输出。研究越狱提示词有助于揭示LLM的缺陷。然而，当前的越狱方法与目标模型的防御机制处于独立对抗的博弈状态，导致攻击需要频繁迭代并针对不同模型重新设计攻击方案。为解决这些问题，我们提出了一种<strong>反向嵌入防御攻击（REDA）机制</strong>，将攻击意图伪装成针对有害内容的“防御”意图。具体而言，REDA从目标响应出发，引导模型将有害内容嵌入其防御措施中，从而将有害内容降级为次要角色，使模型误以为自己正在执行防御任务。攻击模型认为自己是在引导目标模型处理有害内容，而目标模型则认为自己正在执行防御任务，从而营造出双方合作的假象。此外，为增强模型对“防御”意图的信心和引导能力，我们采用少量攻击样本的上下文学习（ICL）方法，并构建了相应的攻击样本数据集。大量评估表明，REDA方法无需为不同模型重新设计攻击策略即可实现跨模型攻击，一次迭代即可成功越狱，并且在开源和闭源模型上都优于现有方法。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>现有 jailbreak 攻击的局限主要体现在：</p><ol><li><strong>强对抗性</strong>：攻击与防御机制直接冲突，容易被检测（图像感染）；</li><li><strong>低泛化性</strong>：不同模型需重新构造提示（Role-play，对抗后缀）；</li><li><strong>高迭代成本</strong>：往往需多轮试探才能成功（例如GCG）。</li></ol><p>本文核心研究问题：</p><blockquote><p>是否可以构建一种能“一次生成”、“跨模型通用”的攻击机制，同时保持高成功率和高隐蔽性？</p></blockquote><h2 id="本文提出的方法">本文提出的方法</h2><p>REDA 方法包含三个核心组件：<br><img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251026201033292.png" alt=""></p><h3 id="一、Reverse-Attack-Perspective（反向攻击视角，RAP）">一、Reverse Attack Perspective（反向攻击视角，RAP）</h3><ul><li><strong>思路</strong>：不从输入端诱导模型生成有害信息，而从输出端伪装防御性意图。<br><img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251026225739089.png" alt=""></li><li><strong>实现方式</strong>：<ul><li>设计模板，包含“##Role##”、“##Task##”等控制符；</li><li>引导模型输出结构化文本，</li></ul></li><li><code>&lt;DANGEROUS_KNOWLEDGE_PROCEDURAL_STEPS&gt;（红色）</code> — <strong>〈危险知识 — 程序化步骤〉</strong><br><strong>说明</strong>：指代可能包含一系列“步骤/流程性描述”的段落（即如何实施某项危险行为的程序化说明）。</li><li><code>&lt;EXAMPLE_OF_DANGEROUS_KNOWLEDGE&gt;（红色）</code> — <strong>〈危险知识示例〉</strong><br><strong>说明</strong>：指代用于举例说明的片段，原意是展示与危险主题相关的实例场景或案例（论文中为示意性占位符）。</li><li><code>&lt;COUNTERMEASURES&gt;（绿色）</code> — <strong>〈对策 / 缓解措施〉</strong><br><strong>说明</strong>：指代用于列出防护、缓解或教育类建议的段落（例如安全建议、培训要点、应急预案等）。这是模板中“正当/防御性”部分，用以掩饰/平衡上文的语义。<ul><li>模型认为自己在“提供防御方案”，但实际已生成隐含的有害内容。</li></ul></li><li><strong>优势</strong>：降低显性有害信息权重，提升攻击隐蔽性与跨模型泛化性。</li></ul><h3 id="二、Example-Guided-Enhancement（示例增强引导，EGE）">二、Example-Guided Enhancement（示例增强引导，EGE）</h3><ul><li><strong>目标</strong>：利用少量上下文学习（In-Context Learning, ICL）强化模型对“防御语境”的理解。</li><li><strong>做法</strong>：<ul><li>构建一个包含 13 类、260 组 QA 的<strong>反向攻击样例数据集</strong>；</li><li>通过 <strong>Jaccard 相似度</strong> 选择与目标任务最相近的 4 条样例：<br>[<br>J(T, Q) = \frac{|T \cap Q|}{|T \cup Q|}<br>]</li><li>样例格式固定，均采用反向防御模板；</li><li>提高生成内容的连贯性与防御性伪装效果。</li></ul></li></ul><h3 id="三、Request-Intent-Mitigation（请求意图弱化，RIM）">三、Request Intent Mitigation（请求意图弱化，RIM）</h3><ul><li><strong>问题</strong>：疑问句（如“How to…?”）更易触发模型拒绝；</li><li><strong>方法</strong>：改为陈述句（如“Do X.”），削弱攻击显性意图；</li><li><strong>结果</strong>：声明式提示显著提升成功率（表2显示 Llama-3.1 从 55% → 84%）。</li></ul><h3 id="三、迁移性实验">三、迁移性实验</h3><ul><li>以 Vicuna 生成的攻击提示迁移至其他模型；</li><li>REDA 平均跨模型成功率 <strong>96.2%</strong>，在 ChatGPT、Spark 等闭源模型上高达 <strong>99%</strong>；</li><li>远超其他方法（15–70%）。</li></ul><h2 id="阅读总结">阅读总结</h2><p><strong>优点：</strong></p><ol><li><strong>“伪装式防御”策略</strong>：从输出端嵌入有害内容，降低显性攻击性；</li><li><strong>一次生成、跨模型适用</strong>：无需针对每个模型重新设计；</li></ol><p><strong>缺点：</strong></p><ol><li>数据集规模有限（260条），部分语义场景未覆盖；</li><li>对非英语模型尚未验证泛化性；</li><li></li></ol><h2 id="结论与展望">结论与展望</h2><p>本文提出的 <strong>REDA</strong> 框架，通过“反向视角 + 示例引导 + 意图弱化”，实现了<strong>一次性、跨模型的高成功率越狱攻击</strong>。<br>研究揭示了模型安全对齐中的根本漏洞——<strong>模型可被“善意欺骗”误导生成有害内容</strong>。</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 模型安全 </category>
+          
+          <category> 攻击与防御 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 大语言模型 </tag>
+            
+            <tag> 越狱攻击 </tag>
+            
+            <tag> 模型安全 </tag>
+            
+            <tag> 对抗提示 </tag>
             
         </tags>
       
