@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation》 中文题目：《基于稀疏自编码器的分层扰动生成对抗性文本》 发布于：arxiv 级别： 论文链接：  摘要 随着自然语言处理（NLP），特别是大型语言模型（LLM）的快速发展，生成对抗性示例以越狱LLM仍然是理解模型漏洞和提高鲁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/15/%E6%98%93%E5%AD%90%E6%96%87/2025-08-15/Layer-Wise-Perturbations-via-Sparse-Autoencoders-for-Adversarial-Text-Generation/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation》 中文题目：《基于稀疏自编码器的分层扰动生成对抗性文本》 发布于：arxiv 级别： 论文链接：  摘要 随着自然语言处理（NLP），特别是大型语言模型（LLM）的快速发展，生成对抗性示例以越狱LLM仍然是理解模型漏洞和提高鲁">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-08-15T09:31:21.000Z">
+<meta property="article:modified_time" content="2025-09-01T09:13:32.764Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="Adversarial Text Generation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation",
+  "url": "https://fdreamer2002.github.io/2025/08/15/%E6%98%93%E5%AD%90%E6%96%87/2025-08-15/Layer-Wise-Perturbations-via-Sparse-Autoencoders-for-Adversarial-Text-Generation/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-08-15T09:31:21.000Z",
+  "dateModified": "2025-09-01T09:13:32.764Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "易子文",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/08/15/%E6%98%93%E5%AD%90%E6%96%87/2025-08-15/Layer-Wise-Perturbations-via-Sparse-Autoencoders-for-Adversarial-Text-Generation/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-15T09:31:21.000Z" title="发表于 2025-08-15 17:31:21">2025-08-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-01T09:13:32.764Z" title="更新于 2025-09-01 17:13:32">2025-09-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Adversarial-Text-Generation/">Adversarial Text Generation</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《Layer-Wise Perturbations via Sparse Autoencoders for Adversarial Text Generation》</p>
+<p>中文题目：《基于稀疏自编码器的分层扰动生成对抗性文本》</p>
+<p>发布于：arxiv</p>
+<p>级别：</p>
+<p>论文链接：</p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>随着自然语言处理（NLP），特别是大型语言模型（LLM）的快速发展，生成对抗性示例以越狱LLM仍然是理解模型漏洞和提高鲁棒性的关键挑战。在这种情况下，我们提出了一种新的黑盒攻击方法，利用大模型的可解释性。我们介绍了稀疏特征扰动框架（SFPF），这是一种用于对抗性文本生成的新方法，它利用稀疏自编码器来识别和操作文本中的关键特征。在使用SAE模型重建隐藏层表示后，我们对成功攻击的文本进行特征聚类，以识别具有较高激活度的特征。然后，这些高度激活的特征被扰动以生成新的对抗性文本。这种选择性干扰保留了恶意意图，同时放大了安全信号，从而增加了它们逃避现有防御的可能性。我们的方法实现了一种新的红队策略，该策略平衡了对抗有效性与安全性。实验结果表明，SFPF生成的对抗性文本可以绕过最先进的防御机制，揭示了当前NLP系统中持续存在的漏洞。然而，该方法的有效性在提示符和层之间存在差异，其对其他架构和更大模型的推广性仍有待验证。</p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>如何有效生成能够绕过现有防御机制、同时保持恶意意图的对抗性文本，以揭示大型语言模型（LLMs）在安全性与鲁棒性方面的深层漏洞。<br>
+具体而言，论文试图解决以下关键挑战：<br>
+对抗性文本的隐蔽性：传统的对抗性攻击往往容易被现有防御系统检测和过滤。本文提出一种更隐蔽的策略，通过稀疏自编码器（SAE）识别并操控文本中关键的稀疏特征，使得对抗性文本在语义上更接近正常文本，从而更难被察觉。<br>
+大规模模型的黑盒攻击问题：在不访问模型内部参数和结构的情况下，如何有效实施攻击？本文提出的Sparse Feature Perturbation Framework（SFPF）通过操控模型内部隐藏层的激活特征，避免了直接修改输入文本的显式特征，从而实现黑盒环境下的有效攻击。<br>
+攻击与安全的平衡：如何在成功实施攻击的同时，确保生成的文本仍然保持一定的语义连贯性和安全性，避免产生过于明显的有害输出？论文通过稀疏特征的精准操控，试图在攻击成功率（ASR）与文本质量（如BLEU、语义相似度）之间取得平衡。<br>
+模型内部机制的深入理解：通过稀疏自编码器对模型内部表征的解读，本文试图深入理解LLMs在面对对抗性输入时的内部决策机制，从而为未来的防御策略提供更深刻的洞察。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<p>本文提出了一种名为 Sparse Feature Perturbation Framework（SFPF） 的新方法，用于生成能够绕过现有防御机制的对抗性文本。该方法的核心思想是：<br>
+利用稀疏自编码器（Sparse Autoencoder, SAE）从大型语言模型（LLM）的中间层激活中提取可解释的稀疏特征，并通过精准操控这些特征来生成隐蔽且有效的对抗性文本。</p>
+<p>方法整体框架（SFPF）<br>
+SFPF 包含四个关键步骤：</p>
+<ol>
+<li>稀疏自编码器训练（SAE Training）<br>
+目标：从 LLM 的特定 MLP 层中提取可解释的稀疏特征。<br>
+输入：从 LLaMA-2-7B-chat 模型的多个 MLP 层（如第 1、3、5、9、11、13、15、17、19、21、23、25、27、29、31 层）提取的隐藏状态。<br>
+训练方式：<br>
+使用 MSE确保 SAE 能准确重建原始隐藏状态。<br>
+使用 L1 稀疏性损失 强制特征稀疏化，仅保留关键维度。</li>
+<li>对抗性敏感特征识别（Feature Extraction via Clustering）<br>
+输入：已知的成功攻击提示（jailbreak prompts）的 SAE 编码向量。<br>
+方法：<br>
+使用 K-Means 聚类（30 次独立运行）分析这些向量的激活模式。<br>
+计算每个维度的 平均激活值，并设置阈值 τ（如 0.03）生成 二进制危险掩码（danger mask） m∈{0,1}d。<br>
+掩码 m 标记了与对抗性攻击最相关的稀疏特征维度。</li>
+<li>稀疏特征扰动（Sparse Feature Perturbation）<br>
+扰动方式：<br>
+在模型前向传播时，通过 钩子（hook） 拦截目标 MLP 层的输出。<br>
+对 SAE 编码后的特征向量 z 施加扰动：<br>
+z′=z+α⋅m其中 α 是扰动强度（如 0.5）。<br>
+将扰动后的特征通过 SAE 解码器重构为新的隐藏状态 h^，替换原始输出。</li>
+<li>受控文本重构（Controlled Text Reconstruction）<br>
+目标：从扰动后的隐藏状态生成连贯且隐蔽的对抗性文本。<br>
+两种策略：<br>
+Top-1 嵌入搜索：直接选择最相似的 token，优先局部对齐。<br>
+Top-10 语义感知搜索：从 Top-10 相似 token 中选择与原始提示语义最一致的 token，平衡局部与全局一致性。</li>
+</ol>
+<p>方法创新点<br>
+稀疏特征操控：首次将 SAE 用于对抗性文本生成，通过操控可解释特征而非直接修改文本。<br>
+黑盒攻击：无需模型参数，仅通过隐藏层激活实现攻击。<br>
+隐蔽性与有效性平衡：通过稀疏掩码精准扰动，避免引入明显异常。<br>
+跨层泛化能力：实验表明第 17 层对攻击最敏感（ASR 达 29%），但方法可扩展到其他层。</p>
+<p>实验验证<br>
+数据集：AdvBench 和 HarmBench（评估对抗性与有害性）。<br>
+指标：攻击成功率（ASR）、文本质量（BLEU）、语义相似度。<br>
+结果：<br>
+SFPF 将 Adaptive 攻击的 ASR 从 77% 提升至 95%。<br>
+保持高语义相似度（0.46±0.09），优于传统方法（如 DRA 的 0.07）。</p>
+<h2 id="阅读总结">阅读总结</h2>
+<p>1、隐蔽性强：绕过防御机制<br>
+稀疏特征操控：通过稀疏自编码器（SAE）精准扰动模型内部的中间层激活，而非直接修改输入文本，避免引入明显的异常模式（如拼写错误、语义不连贯），从而有效绕过现有基于输入检测的防御机制（如关键词过滤、困惑度检测）。<br>
+实验验证：在 AdvBench 和 HarmBench 上，SFPF 将 Adaptive 攻击的 ASR 从 77% 提升至 95%，显著优于传统方法（如 DRA 仅 73%）。</p>
+<p>2、黑盒攻击能力：无需模型内部信息<br>
+不依赖模型参数：仅需访问模型的隐藏层激活（如 LLaMA-2-7B 的 MLP 输出），无需梯度或权重信息，适用于黑盒场景（如 API 调用）。<br>
+可扩展性：方法适用于不同架构（如 GPT、Claude），仅需针对目标模型的 MLP 层训练 SAE。</p>
+<p>3、语义保真：生成文本质量高<br>
+双重重构策略：<br>
+Top-1 嵌入搜索：确保局部 token 级对齐，避免语法错误。<br>
+Top-10 语义感知：全局语义一致性，使对抗文本与原始提示保持高相似度（实验显示 BLEU 分数优于 DRA 等方法）。<br>
+案例：在“炸弹走私”攻击示例中，SFPF 生成的文本逻辑连贯，未触发安全过滤（安全评分低至 0.0）。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">易子文</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/08/15/%E6%98%93%E5%AD%90%E6%96%87/2025-08-15/Layer-Wise-Perturbations-via-Sparse-Autoencoders-for-Adversarial-Text-Generation/">https://fdreamer2002.github.io/2025/08/15/%E6%98%93%E5%AD%90%E6%96%87/2025-08-15/Layer-Wise-Perturbations-via-Sparse-Autoencoders-for-Adversarial-Text-Generation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Adversarial-Text-Generation/">Adversarial Text Generation</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/16/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-15/TextGrad-Automatic-Differentiation-via-Text/" title="TextGrad: Automatic &quot;Differentiation&quot; via Text"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">TextGrad: Automatic "Differentiation" via Text</div></div><div class="info-2"><div class="info-item-1">英文题目：《TextGrad: Automatic “Differentiation” via Text》 中文题目：《TextGrad：文本自动“微分”》 发布于： arxiv 级别：无 论文链接：  https://arxiv.org/pdf/2406.07496  摘要 人工智能正在经历一场范式转变，其突破是由协调多个 large language models (LLMs) 和其他复杂组件的系统实现的。因此，为复合 AI 系统开发有原则的自动化优化方法是最重要的新挑战之一。神经网络在其早期也面临着类似的挑战，直到反向传播和自动微分通过使优化变得轻而易举而改变了该领域。受此启发，我们推出了 TEXTGRAD，这是一个通过文本执行自动“微分”的强大框架。TEXTGRAD 反向传播 LLM 提供的文本反馈，以改进复合 AI 系统的各个组件。在我们的框架中，LLM 提供丰富、通用、自然的语言建议来优化计算图中的变量，范围从代码片段到分子结构。TEXTGRAD 遵循 PyTorch 的语法和抽象，并且灵活易用。它可以直接用于各种任务，用户只需提供目标函数，而无需调整框架的组件或提示...</div></div></div></a><a class="pagination-related" href="/2025/08/15/%E6%98%93%E5%AD%90%E6%96%87/2025-08-15/Towards-Powerful-and-Practical-Patch-Attacks-for2D-Object-Detection-in-Autonomous-Driving/" title="Towards Powerful and Practical Patch Attacks for2D Object Detection in Autonomous Driving"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Towards Powerful and Practical Patch Attacks for2D Object Detection in Autonomous Driving</div></div><div class="info-2"><div class="info-item-1">英文题目：《Towards Powerful and Practical Patch Attacks for2D Object Detection in Autonomous Driving》 中文题目：《面向自动驾驶中2D目标检测的强大而实用的补丁攻击》 发布于：arxiv 级别：cvpr 论文链接：  摘要 尽管取得了进步，但基于学习的自动驾驶系统仍然非常容易受到对抗性补丁的影响，在其实际部署中构成严重的安全和安全风险。黑盒攻击，值得注意的是他们的高攻击成功率没有模型知识，特别是关注，其可转移性进行了广泛的研究，以减少计算成本相比，基于查询的攻击方法。以往的基于可传递性的黑盒攻击通常采用平均精度（mAP）作为评估指标，并相应地设计训练损失。然而，由于存在多个检测到的边界框和相对宽松的交并（IoU）阈值，这些方法的攻击有效性往往被高估，导致在实际攻击场景中的成功率降低。此外，在低分辨率数据上训练的补丁通常无法在高分辨率图像上保持有效性，限制了它们向高分辨率自动驾驶数据集的可移植性。为了填补这一空白，我们提出了P3A，这是一个强大而实用的补丁攻击框架，用于自动驾驶中的2D对象检测...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</a><time datetime="2025-11-01T12:58:14.000Z" title="发表于 2025-11-01 20:58:14">2025-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/SELFDEFEND%20LLMs%20Can%20Defend%20Themselves%20against%20Jailbreaking%20in%20a%20Practical%20Manner/" title="SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner">SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner</a><time datetime="2025-10-31T12:58:14.000Z" title="发表于 2025-10-31 20:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E4%BC%8D%E4%BF%8A/2025-11-01/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/" title="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</a><time datetime="2025-10-31T11:53:16.000Z" title="发表于 2025-10-31 19:53:16">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries">Jailbreaking Black Box Large Language Models in Twenty Queries</a><time datetime="2025-10-31T02:58:14.000Z" title="发表于 2025-10-31 10:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/RAIDX%20A%20Retrieval-Augmented%20Generation%20and%20GRPO%20Reinforcement%20Learning%20Framework%20for%20Explainable%20Deepfake%20Detection/" title="RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection">RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection</a><time datetime="2025-10-29T11:53:16.000Z" title="发表于 2025-10-29 19:53:16">2025-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

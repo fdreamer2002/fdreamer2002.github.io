@@ -1,0 +1,472 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Advancements in AI-Generated Content Forensics: A Systematic Literature Review | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《Advancements in AI-Generated Content Forensics: A Systematic Literature Review》 中文题目：《人工智能生成内容取证研究进展：一个系统的文献综述》 论文作者：Qiang Xu, Wenpeng Mu, Jianing Li, Tanfeng Sun, Xinghao Jiang 发布于：ACM Computin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advancements in AI-Generated Content Forensics: A Systematic Literature Review">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/10/15/%E4%BC%8D%E4%BF%8A/2025-10-20/Advancements%20in%20AI-Generated%20Content%20Forensics%20A%20Systematic%20Literature%20Review/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《Advancements in AI-Generated Content Forensics: A Systematic Literature Review》 中文题目：《人工智能生成内容取证研究进展：一个系统的文献综述》 论文作者：Qiang Xu, Wenpeng Mu, Jianing Li, Tanfeng Sun, Xinghao Jiang 发布于：ACM Computin">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-10-15T11:53:16.000Z">
+<meta property="article:modified_time" content="2025-10-20T05:27:00.514Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="循环神经网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Advancements in AI-Generated Content Forensics: A Systematic Literature Review",
+  "url": "https://fdreamer2002.github.io/2025/10/15/%E4%BC%8D%E4%BF%8A/2025-10-20/Advancements%20in%20AI-Generated%20Content%20Forensics%20A%20Systematic%20Literature%20Review/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-10-15T11:53:16.000Z",
+  "dateModified": "2025-10-20T05:27:00.514Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "伍俊",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/10/15/%E4%BC%8D%E4%BF%8A/2025-10-20/Advancements%20in%20AI-Generated%20Content%20Forensics%20A%20Systematic%20Literature%20Review/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Advancements in AI-Generated Content Forensics: A Systematic Literature Review',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">Advancements in AI-Generated Content Forensics: A Systematic Literature Review</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Advancements in AI-Generated Content Forensics: A Systematic Literature Review</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-15T11:53:16.000Z" title="发表于 2025-10-15 19:53:16">2025-10-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-20T05:27:00.514Z" title="更新于 2025-10-20 13:27:00">2025-10-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E5%83%8F%E4%BC%AA%E9%80%A0%E5%8F%96%E8%AF%81/">图像伪造取证</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《Advancements in AI-Generated Content Forensics: A Systematic Literature Review》</p>
+<p>中文题目：《人工智能生成内容取证研究进展：一个系统的文献综述》</p>
+<p>论文作者：<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3760526#">Qiang Xu</a>, <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3760526#">Wenpeng Mu</a>, <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3760526#">Jianing Li</a>, <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3760526#">Tanfeng Sun</a>, <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/3760526#">Xinghao Jiang</a></p>
+<p>发布于：<a target="_blank" rel="noopener" href="https://dl.acm.org/journal/csur">ACM Computing Surveys</a></p>
+<p>发布时间：2025-07-09</p>
+<p>级别：中科院一区</p>
+<p>论文链接：<a target="_blank" rel="noopener" href="https://doi.org/10.1145/3760526">https://doi.org/10.1145/3760526</a></p>
+<p>论文代码：无</p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>人工智能生成内容( AIGC )的快速发展，横跨文本、图像、视频和音频，创造了前所未有的创造力和重大社会风险的双刃剑，包括错误信息和虚假信息。该调查<strong>对AIGC检测技术的现状进行了全面和结构化的概述</strong>。我们首先回顾了生成模型的发展历程，从基础的GAN到最新的扩散和基于Transformer的架构。然后，我们系统地回顾了所有模态的检测方法，并将其组织成一个<strong>新的外部检测和内部检测分类</strong>。 对于每种模态，我们追溯了从早期基于特征的方法到高级深度学习的技术进展，同时也涵盖了关键任务，如模型归属和篡改区域定位。此外，我们还调查了可公开获得的检测工具和实际应用的生态系统。最后，我们总结了该领域<strong>面临的主要挑战- -包括泛化性、鲁棒性、可解释性和缺乏通用基准</strong>- -<strong>并概述了未来的主要方向，如开发整体的人工智能安全代理、动态评估标准和人工智能驱动的治理框架</strong>。 这项调查旨在为研究人员和实践者提供一个清晰、深入的了解，以了解在确保安全和可信的AIGC生态系统的持续努力中的最新和关键前沿。</p>
+<h2 id="图像生成与取证">图像生成与取证</h2>
+<h3 id="生成技术演进">生成技术演进</h3>
+<p><strong>核心框架</strong><br>
+现代图像生成主要由三类扩散理论支撑：</p>
+<ul>
+<li>Denoising Diffusion Probabilistic Models (DDPMs)</li>
+<li>Score-Based Generative Models</li>
+<li>Score-Based SDEs</li>
+</ul>
+<p><strong>代表模型</strong>：DALL-E3、Imagen 3、Midjourney、Stable Diffusion。<br>
+<strong>它们普遍与大型语言模型（LLMs，如 GPT-4）协同，利用自然语言提示词实现可控的视觉生成（控制色彩、风格、构图等）。</strong></p>
+<h3 id="检测数据集演进">检测数据集演进</h3>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>特点</th>
+<th>代表数据集</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>早期（GAN 时代）</td>
+<td>伪迹明显，侧重空间域检测</td>
+<td>传统 GAN 样本集</td>
+</tr>
+<tr>
+<td>扩散模型时代</td>
+<td>高逼真度、伪迹弱化、提示词多样</td>
+<td><strong>DiffusionDB</strong>, <strong>GenImage</strong></td>
+</tr>
+<tr>
+<td>新一代基准</td>
+<td>多模型、多域、多压缩、多提示词优化</td>
+<td><strong>Wildfake</strong>, <strong>HiFi-IFDL</strong>, <strong>Chameleon</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Chameleon</strong> 数据集尤为重要——由高质量提示词生成，经人工筛选与风格多样化，常用于“抗检测”评估，是当前最具挑战性的扩散检测基准。</p>
+</blockquote>
+<h3 id="外部检测">外部检测</h3>
+<ol>
+<li>
+<p><strong>特征融合与检测模型</strong></p>
+<ul>
+<li>
+<p>从传统<strong>空间-频域特征融合</strong>发展为<strong>多尺度 + 多模态</strong>检测；</p>
+</li>
+<li>
+<p>越来越多方法使用预训练特征（如 CLIP、DINO）来提升跨域泛化；</p>
+</li>
+<li>
+<p>检测模型逐渐模块化，结合局部伪迹与全局语义一致性分析。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>篡改定位与主动取证</strong></p>
+<ul>
+<li>检测任务由“真伪分类”扩展为“伪造区域定位”；</li>
+<li>典型方法 <strong>TruFor</strong> 同时建模语义内容与相机指纹；</li>
+<li><strong>EditGuard</strong>（CVPR 2024）提出**“主动取证”**：在生成阶段嵌入不可见水印，实现篡改可追溯性与版权保护。</li>
+</ul>
+</li>
+<li>
+<p><strong>模型归因（Model Attribution）</strong></p>
+<ul>
+<li>
+<p><strong>目标</strong>：不仅识别“真伪”，还要确定“由哪个模型生成”；</p>
+</li>
+<li>
+<p><strong>方法发展</strong>：</p>
+<ol>
+<li><strong>指纹识别</strong>（如 DE-FAKE, SemGIR）——提取模型内在伪迹；</li>
+<li><strong>训练数据归因</strong>（Data Attribution）——追踪生成内容与训练样本间的因果关系；</li>
+<li><strong>主动水印溯源</strong>（ProMark, CVPR 2024）——通过扩散过程中的因果链实现可验证的生成来源</li>
+<li><strong>模型谱系追踪</strong>——分析微调模型与底座模型之间的继承关系。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>扩散模型检测（Diffusion Model Detection）</strong></p>
+</li>
+</ol>
+<ul>
+<li><strong>挑战</strong>：扩散模型极高逼真度导致传统检测失效；</li>
+<li><strong>特征方向</strong>：
+<ul>
+<li><strong>频域伪迹</strong>（Diffusion 模型仍存在可检测微特征）；</li>
+<li><strong>重建误差</strong>（LaRE, DIRE）：比较输入图像与其扩散模型重建之间的差异；</li>
+<li><strong>多专家系统 + VLM（Vision-Language Model）协同</strong>提升跨域泛化；</li>
+<li><strong>Chameleon</strong> 数据集揭示了检测器对新分布失效的问题，促使研究向“通用多模态检测”演进</li>
+</ul>
+</li>
+</ul>
+<h3 id="内部检测">内部检测</h3>
+<ol>
+<li><strong>幻觉检测与抑制（Hallucination）</strong></li>
+</ol>
+<ul>
+<li><strong>问题</strong>：生成图像出现不符合物理或语义事实的成分；</li>
+<li><strong>检测方法</strong>：
+<ul>
+<li>早期基于监督数据集；</li>
+<li>新兴无监督框架（利用 LLM 大规模未标注样本）；</li>
+<li>量化模型内部不确定性以识别虚构内容；</li>
+</ul>
+</li>
+<li><strong>缓解策略</strong>：
+<ul>
+<li>调整注意力分布，使生成更依赖视觉证据；</li>
+<li>引入外部知识或对比学习进行约束</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><strong>偏差检测（Bias）</strong></li>
+</ol>
+<ul>
+<li>从文本偏差方法扩展到多模态领域；</li>
+<li>通过数据再标注、参数高效微调（PEFT）及显式透明偏差建模，提升模型公平性</li>
+</ul>
+<h2 id="视频生成与取证">视频生成与取证</h2>
+<h3 id="生成技术与代表模型">生成技术与代表模型</h3>
+<p><strong>发展脉络</strong>：</p>
+<ul>
+<li>从基于图像的序列生成（Make-A-Video, EMU-Video）；</li>
+<li>到具备跨帧一致性的 <strong>Video-LLaMA、SVD</strong>；</li>
+<li>再到 <strong>OpenAI Sora (2024)</strong>，实现物理合理、时间连续的视频生成；</li>
+<li>后续 <strong>Veo、Gen-3、Vidu、Kling</strong> 等进一步提升分辨率与物理一致性。</li>
+</ul>
+<p><strong>核心架构</strong>：Diffusion Transformer (DiT)。</p>
+<h3 id="检测数据与评测">检测数据与评测</h3>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>特征</th>
+<th>典型数据集</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deepfake 时代</td>
+<td>局部换脸或篡改</td>
+<td>FaceForensics++, DFDC, Celeb-DF</td>
+</tr>
+<tr>
+<td>端到端生成时代</td>
+<td>从零合成、跨模态一致性</td>
+<td><strong>GenVidBench</strong> 等</td>
+</tr>
+</tbody>
+</table>
+<h3 id="外部检测-2">外部检测</h3>
+<ol>
+<li><strong>特征建模与时空一致性</strong></li>
+</ol>
+<p>​	<strong>问题</strong>：静态帧检测忽略时间伪迹；</p>
+<p>​	<strong>方法演化</strong>：</p>
+<p>​		<strong>MSVT</strong>：多尺度时空特征融合；</p>
+<p>​		<strong>UNITE</strong>：通用视频伪造检测；</p>
+<p>​		<strong>Style Latent Flow</strong>（CVPR 2024）捕获时间维度的风格变化</p>
+<p>​		<strong>M2TR</strong>：多模态多尺度 Transformer 提取跨帧一致性特征</p>
+<ol start="2">
+<li><strong>多任务与多层检测</strong></li>
+</ol>
+<ul>
+<li>结合帧级与视频级预测；</li>
+<li>辅助任务（伪造定位）提升主任务鲁棒性；</li>
+<li>多模态融合（音视频同步）：<strong>AVT2-DWF</strong> 引入动态加权的音视频特征融合策略</li>
+</ul>
+<ol start="3">
+<li><strong>修复-再检测</strong></li>
+</ol>
+<ul>
+<li>对压缩、噪声等破坏性预处理先“修复”，再检测；</li>
+<li><strong>DF-UDetector</strong> 采用特征恢复机制增强对低质视频鲁棒性；</li>
+<li><strong>Motion Magnification</strong>（WACV 2024）放大亚像素运动差异，以揭示隐藏伪迹</li>
+</ul>
+<h3 id="内部检测-2">内部检测</h3>
+<ol>
+<li>幻觉检测与一致性评估</li>
+</ol>
+<ul>
+<li><strong>Sora Detector</strong>（2024）实现统一的文本-视频幻觉检测框架；<br>
+结合 <strong>多模态大模型 (MLLM)</strong> 与 <strong>知识图谱</strong>，衡量视频内容与文本提示的一致性；</li>
+<li>研究使用“等义扰动提示”的预测方差衡量模型幻觉强度；</li>
+<li><strong>缓解方法</strong>：
+<ul>
+<li>Temporal Contrastive Decoding：通过时间对比学习增强物理一致性；</li>
+<li>视觉再加权：使用 DINOv2 显著图在推理阶段重调注意力；</li>
+<li>强化学习（GRPO）显式注入物理与常识约束。</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>偏差检测与公平性</li>
+</ol>
+<ul>
+<li><strong>检测器公平性</strong>：
+<ul>
+<li><strong>HODFF-DD</strong> 保证不同种族、光照条件下检测稳定；</li>
+<li><strong>MMVD</strong> 聚焦多模态假新闻检测中的偏差传播；</li>
+</ul>
+</li>
+<li><strong>生成架构公平性</strong>：
+<ul>
+<li><strong>LLaVA-MLB</strong> 通过网格注意力池化均衡时空表示</li>
+</ul>
+</li>
+</ul>
+<h2 id="趋势与启示">趋势与启示</h2>
+<table>
+<thead>
+<tr>
+<th>层面</th>
+<th>图像</th>
+<th>视频</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>主流检测特征</strong></td>
+<td>空间 + 频域 + 重建误差 + 模型指纹</td>
+<td>时序一致性 + 声画同步 + 运动伪迹</td>
+</tr>
+<tr>
+<td><strong>最新方法</strong></td>
+<td>多专家系统、VLM 联合</td>
+<td>多任务协同、修复-再检测</td>
+</tr>
+<tr>
+<td><strong>内部治理</strong></td>
+<td>幻觉检测与注意力再加权</td>
+<td>物理一致性、跨模态幻觉评估</td>
+</tr>
+<tr>
+<td><strong>研究方向</strong></td>
+<td>主动水印 + 数据归因</td>
+<td>时空一致性 + 多模态公平性</td>
+</tr>
+</tbody>
+</table>
+<h2 id="未来研究方向总结">未来研究方向总结</h2>
+<ol>
+<li><strong>跨模态统一检测框架</strong>：建立文本-图像-视频一致性判定机制，实现端到端 AIGC 溯源。</li>
+<li><strong>主动水印与因果链追踪</strong>： 结合生成模型结构嵌入可验证水印，形成内容-模型-数据三层可追溯关系。</li>
+<li><strong>鲁棒性与泛化</strong>： 针对后处理、压缩、平台噪声的稳健检测；对未知生成器的零样本泛化。</li>
+<li><strong>幻觉量化与可解释性</strong>： 统一度量标准（不确定度/一致性分数），强化可解释可视化取证。</li>
+<li><strong>公平性与责任评测</strong>： 建立标准化基准：分群检测性能 + 偏差透明化报告机制。</li>
+</ol>
+<p>在扩散模型主导的生成时代，<strong>AIGC取证的重心正从伪迹识别转向一致性验证与责任溯源——即从被动防御到主动治理。</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">伍俊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/10/15/%E4%BC%8D%E4%BF%8A/2025-10-20/Advancements%20in%20AI-Generated%20Content%20Forensics%20A%20Systematic%20Literature%20Review/">https://fdreamer2002.github.io/2025/10/15/%E4%BC%8D%E4%BF%8A/2025-10-20/Advancements%20in%20AI-Generated%20Content%20Forensics%20A%20Systematic%20Literature%20Review/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a><a class="post-meta__tags" href="/tags/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">循环神经网络</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/16/%E4%BC%8D%E4%BF%8A/2025-10-20/Query-efficient%20Attack%20for%20Black-box%20Image%20Inpainting%20Forensics%20via%20Reinforcement%20Learning/" title="Query-efficient Attack for Black-box Image Inpainting Forensics via Reinforcement Learning"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Query-efficient Attack for Black-box Image Inpainting Forensics via Reinforcement Learning</div></div><div class="info-2"><div class="info-item-1">英文题目：《Query-efficient Attack for Black-box Image Inpainting Forensics via Reinforcement Learning》 中文题目：《基于强化学习的黑盒图像修复取证的高效查询攻击》 论文作者：Xianbo Mo; Shunquan Tan; Bin Li; Jiwu Huang 发布于：AAAI 发布时间：2025-04-11 级别：CCF-A 论文链接：  https://doi.org/10.1609/aaai.v39i18.34147  论文代码：无  摘要 最近，图像修复已经成为恶意操纵自然图像的常用工具，这导致了修复取证的快速发展。尽管目前的取证方法已经显示出修复区域的精确定位和对图像后处理操作的可靠鲁棒性，但它们是否能够有效地抵抗现实场景中可能的攻击仍然不清楚。为了识别潜在的缺陷，我们提出了一种新的黑盒反取证框架来攻击修复取证方法，该框架使用强化学习来生成一个查询高效的对抗，命名为RLGC。为此，我们定义强化学习范式，对基于查询的黑盒反取证场景的马尔科夫决策过程进行建模。 具体来说，基于动作选择...</div></div></div></a><a class="pagination-related" href="/2025/10/14/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-10-20/Weak-to-Strong%20Jailbreaking%20on%20Large%20Language%20Models/" title="Weak-to-Strong Jailbreaking on Large Language Models"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Weak-to-Strong Jailbreaking on Large Language Models</div></div><div class="info-2"><div class="info-item-1">英文题目：《Weak-to-Strong Jailbreaking on Large Language Models》 中文题目：《大语言模型的弱到强越狱攻击》 论文作者： Xuandong Zhao, Xianjun Yang, Tianyu Pang, Chao Du, Lei Li, Yu-Xiang Wang, William Yang Wang 发布于： ICML 发布时间：2025-07-23 级别：无 论文链接：https://doi.org/10.48550/arXiv.2401.17256 论文代码：https://github.com/XuandongZhao/weak-to-strong  摘要 大型语言模型（LLMs）容易遭受“越狱”攻击，从而产生有害、不道德或带有偏见的文本。然而，现有的“越狱”方法计算成本较高。在本文中，我们提出了“弱到强”越狱攻击，这是一种针对对齐的大型语言模型的高效推理时间攻击，用于生成有害文本。我们的关键思路基于这样的观察：越狱和对齐的模型仅在它们的初始解码分布上有所不同。弱到强攻击的关键技术见解是使用两个较小的模型（一个安全的和...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/12/%E4%BC%8D%E4%BF%8A/2025-10-20/DRL-FAS%20A%20Novel%20Framework%20Based%20on%20Deep%20%20Reinforcement%20Learning%20for%20Face%20Anti-Spoofing/" title="DRL-FAS: A Novel Framework Based on Deep  Reinforcement Learning for Face Anti-Spoofing"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-12</div><div class="info-item-2">DRL-FAS: A Novel Framework Based on Deep  Reinforcement Learning for Face Anti-Spoofing</div></div><div class="info-2"><div class="info-item-1"> 摘要 人类在判断人脸样本真伪时，首先会全局浏览样本，然后仔细观察局部区域以获取更具判别性的信息。受此启发，我们针对人脸反欺骗问题，提出了一个基于卷积神经网络 (CNN) 和循环神经网络 (RNN) 的新型框架。具体而言，我们利用深度强化学习，模拟从图像子块中探索人脸欺骗相关信息的行为。我们进一步引入一种循环机制，使用 RNN 从探索到的子块中顺序学习局部信息的表示。最后，为了进行分类，我们将局部信息与全局信息融合，全局信息可以通过 CNN 从原始输入图像中学习到。此外，我们进行了大量的实验，包括消融研究和可视化分析，以在各种公共数据库上评估我们提出的框架。实验结果表明，我们的方法在所有场景中通常都能达到最佳性能，证明了其有效性。 本文聚焦的问题 该论文旨在解决人脸反欺骗（Face Anti-Spoofing, FAS）中的判别性特征提取与泛化能力不足的问题。具体而言，论文关注以下核心挑战：  欺骗线索的多样性：攻击样本可能呈现多种欺骗线索（如纸张边界、屏幕边框、反光、摩尔纹等），这些线索可能出现在图像的任何区域，且在不同攻击类型中表现各异。传统方法或单一全局特征难以覆盖所有情况...</div></div></div></a><a class="pagination-related" href="/2025/10/16/%E4%BC%8D%E4%BF%8A/2025-10-20/Query-efficient%20Attack%20for%20Black-box%20Image%20Inpainting%20Forensics%20via%20Reinforcement%20Learning/" title="Query-efficient Attack for Black-box Image Inpainting Forensics via Reinforcement Learning"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-16</div><div class="info-item-2">Query-efficient Attack for Black-box Image Inpainting Forensics via Reinforcement Learning</div></div><div class="info-2"><div class="info-item-1">英文题目：《Query-efficient Attack for Black-box Image Inpainting Forensics via Reinforcement Learning》 中文题目：《基于强化学习的黑盒图像修复取证的高效查询攻击》 论文作者：Xianbo Mo; Shunquan Tan; Bin Li; Jiwu Huang 发布于：AAAI 发布时间：2025-04-11 级别：CCF-A 论文链接：  https://doi.org/10.1609/aaai.v39i18.34147  论文代码：无  摘要 最近，图像修复已经成为恶意操纵自然图像的常用工具，这导致了修复取证的快速发展。尽管目前的取证方法已经显示出修复区域的精确定位和对图像后处理操作的可靠鲁棒性，但它们是否能够有效地抵抗现实场景中可能的攻击仍然不清楚。为了识别潜在的缺陷，我们提出了一种新的黑盒反取证框架来攻击修复取证方法，该框架使用强化学习来生成一个查询高效的对抗，命名为RLGC。为此，我们定义强化学习范式，对基于查询的黑盒反取证场景的马尔科夫决策过程进行建模。 具体来说，基于动作选择...</div></div></div></a><a class="pagination-related" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/RAIDX%20A%20Retrieval-Augmented%20Generation%20and%20GRPO%20Reinforcement%20Learning%20Framework%20for%20Explainable%20Deepfake%20Detection/" title="RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-29</div><div class="info-item-2">RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection</div></div><div class="info-2"><div class="info-item-1">英文题目：《RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection》 中文题目：《RAIDX：一种用于可解释深度伪造检测的检索增强生成和GRPO强化学习框架》 论文作者： Tianxiao Li, Zhenglin Huang, Haiquan Wen, Yiwei He, Shuchang Lyu, Baoyuan Wu, Guangliang Cheng 发布于：MM ’25: Proceedings of the 33rd ACM International Conference on Multimedia 发布时间：2025-05-20 级别：CCF-A 论文链接：https://doi.org/10.1145/3746027.3754798 论文代码：暂无  摘要 人工智能生成模型的快速发展使得超逼真图像的创建成为可能，但也因此引发了广泛的虚假信息传播，带来了伦理风险。目前，...</div></div></div></a><a class="pagination-related" href="/2025/10/14/%E4%BC%8D%E4%BF%8A/2025-10-20/ReLOAD%20Using%20Reinforcement%20Learning%20to%20%20Optimize%20Asymmetric%20Distortion%20for%20%20Additive%20Steganography/" title="ReLOAD: Using Reinforcement Learning to Optimize Asymmetric Distortion for Additive Steganography"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-14</div><div class="info-item-2">ReLOAD: Using Reinforcement Learning to Optimize Asymmetric Distortion for Additive Steganography</div></div><div class="info-2"><div class="info-item-1">英文题目：《ReLOAD: Using Reinforcement Learning to  Optimize Asymmetric Distortion for  Additive Steganography》 中文题目：《Reload：利用强化学习优化非对称失真进行加性隐写》 论文作者：Xianbo Mo; Shunquan Tan; Weixuan Tang; Bin Li; Jiwu Huang 发布于：TIFS 发布时间：2023-02-10 级别：CCF-A 论文链接： 10.1109/TIFS.2023.3244094 论文代码：无  摘要 最近，非加性隐写的成功表明，与对称代价函数相比，非对称失真可以显著提高安全性能。然而，目前已有的加性隐写方法大多仍基于对称失真。在本文中，我们首次对加性隐写的非对称失真进行了优化，并提出了一个基于A3C (异步优势演员-评论家)的隐写框架，称为ReLOAD。ReLOAD由一个执行器和一个评论者组成，前者指导像素级失真调制的动作选择，后者评估调制失真的性能。 同时，提出了一种考虑嵌入效应的奖励函数来统一隐写和强化学习的目标，从而可...</div></div></div></a><a class="pagination-related" href="/2025/09/20/%E4%BC%8D%E4%BF%8A/%E7%B2%BE%E8%AF%BB%E6%96%87%E7%AB%A0/%E8%BF%90%E7%94%A8%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9E%84%E5%BB%BA%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%86%B3%E7%AD%96%E7%8E%AF%E5%A2%83/" title="运用强化学习构建图像篡改定位的决策环境"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-20</div><div class="info-item-2">运用强化学习构建图像篡改定位的决策环境</div></div><div class="info-2"><div class="info-item-1">   </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E4%B8%8E%E5%8F%96%E8%AF%81"><span class="toc-number">2.</span> <span class="toc-text">图像生成与取证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF%E6%BC%94%E8%BF%9B"><span class="toc-number">2.1.</span> <span class="toc-text">生成技术演进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E9%9B%86%E6%BC%94%E8%BF%9B"><span class="toc-number">2.2.</span> <span class="toc-text">检测数据集演进</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E6%A3%80%E6%B5%8B"><span class="toc-number">2.3.</span> <span class="toc-text">外部检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E6%A3%80%E6%B5%8B"><span class="toc-number">2.4.</span> <span class="toc-text">内部检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E7%94%9F%E6%88%90%E4%B8%8E%E5%8F%96%E8%AF%81"><span class="toc-number">3.</span> <span class="toc-text">视频生成与取证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF%E4%B8%8E%E4%BB%A3%E8%A1%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">生成技术与代表模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E4%B8%8E%E8%AF%84%E6%B5%8B"><span class="toc-number">3.2.</span> <span class="toc-text">检测数据与评测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E6%A3%80%E6%B5%8B-2"><span class="toc-number">3.3.</span> <span class="toc-text">外部检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E6%A3%80%E6%B5%8B-2"><span class="toc-number">3.4.</span> <span class="toc-text">内部检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%8B%E5%8A%BF%E4%B8%8E%E5%90%AF%E7%A4%BA"><span class="toc-number">4.</span> <span class="toc-text">趋势与启示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">未来研究方向总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</a><time datetime="2025-11-01T12:58:14.000Z" title="发表于 2025-11-01 20:58:14">2025-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/SELFDEFEND%20LLMs%20Can%20Defend%20Themselves%20against%20Jailbreaking%20in%20a%20Practical%20Manner/" title="SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner">SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner</a><time datetime="2025-10-31T12:58:14.000Z" title="发表于 2025-10-31 20:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E4%BC%8D%E4%BF%8A/2025-11-01/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/" title="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</a><time datetime="2025-10-31T11:53:16.000Z" title="发表于 2025-10-31 19:53:16">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries">Jailbreaking Black Box Large Language Models in Twenty Queries</a><time datetime="2025-10-31T02:58:14.000Z" title="发表于 2025-10-31 10:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/RAIDX%20A%20Retrieval-Augmented%20Generation%20and%20GRPO%20Reinforcement%20Learning%20Framework%20for%20Explainable%20Deepfake%20Detection/" title="RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection">RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection</a><time datetime="2025-10-29T11:53:16.000Z" title="发表于 2025-10-29 19:53:16">2025-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

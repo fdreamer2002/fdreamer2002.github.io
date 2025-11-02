@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning》 中文题目：《Search-R1：利用强化学习训练大型语言模型以进行推理并利用搜索引擎》 论文作者：Bowen Jin, Hansi Zeng, Zhenrui Yue, Jinsung Yoon, Ser">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/09/15/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Search-R1%20Training%20LLMs%20to%20Reason%20and%20Leverage%20Search%20Engines%20with%20Reinforcement%20Learning/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning》 中文题目：《Search-R1：利用强化学习训练大型语言模型以进行推理并利用搜索引擎》 论文作者：Bowen Jin, Hansi Zeng, Zhenrui Yue, Jinsung Yoon, Ser">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-09-15T02:58:14.000Z">
+<meta property="article:modified_time" content="2025-09-15T07:31:35.219Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="Search-R1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning",
+  "url": "https://fdreamer2002.github.io/2025/09/15/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Search-R1%20Training%20LLMs%20to%20Reason%20and%20Leverage%20Search%20Engines%20with%20Reinforcement%20Learning/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-09-15T02:58:14.000Z",
+  "dateModified": "2025-09-15T07:31:35.219Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "游俊爽",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/09/15/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Search-R1%20Training%20LLMs%20to%20Reason%20and%20Leverage%20Search%20Engines%20with%20Reinforcement%20Learning/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-15T02:58:14.000Z" title="发表于 2025-09-15 10:58:14">2025-09-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-15T07:31:35.219Z" title="更新于 2025-09-15 15:31:35">2025-09-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/RAG%E4%BC%98%E5%8C%96/">RAG优化</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning》</p>
+<p>中文题目：《Search-R1：利用强化学习训练大型语言模型以进行推理并利用搜索引擎》</p>
+<p>论文作者：Bowen Jin, Hansi Zeng, Zhenrui Yue, Jinsung Yoon, Sercan Arik, Dong Wang, Hamed Zamani, Jiawei Han</p>
+<p>发布于： COLM 2025</p>
+<p>发布时间：2024-08-05</p>
+<p>级别：无</p>
+<p>论文链接：<a target="_blank" rel="noopener" href="https://doi.org/10.48550/arXiv.2503.09516">https://doi.org/10.48550/arXiv.2503.09516</a></p>
+<p>论文代码：<a target="_blank" rel="noopener" href="https://github.com/PeterGriffinJin/Search-R1">https://github.com/PeterGriffinJin/Search-R1</a></p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>在大型语言模型（LLM）中，高效获取外部知识和最新信息对于有效的推理和文本生成至关重要。给具备推理能力的先进 LLM 提供提示，使其在推理过程中使用搜索引擎的做法往往并非最佳选择，因为 LLM 可能无法完全掌握如何以最佳方式与搜索引擎进行交互。本文介绍了 Search-R1，这是一种强化学习（RL）的扩展，用于推理框架，其中 LLM 学习在逐步推理过程中自主生成（多个）搜索查询，并进行实时检索。Search-R1 通过多轮搜索交互来优化 LLM 的推理轨迹，利用检索到的标记掩码进行稳定的 RL 训练，并采用简单的基于结果的奖励函数。在七个问答数据集上的实验表明，Search-R1 在相同设置下比各种基于检索的基准方法提高了 41%（Qwen2.5-7B）和 20%（Qwen2.5-3B）的性能。本文还提供了关于 RL 优化方法、LLM 选择和响应长度动态在检索增强推理中的实证见解。代码和模型检查点可在该网址获取：<a target="_blank" rel="noopener" href="https://github.com/PeterGriffinJin/Search-R1">https://github.com/PeterGriffinJin/Search-R1</a></p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>将 RL 应用于搜索和推理场景提出了三个关键挑战：</p>
+<p>1、RL 框架和稳定性——如何有效地将搜索引擎集成到 LLM 的 RL 方法中，同时确保稳定的优化，尤其是在结合检索到的上下文时，仍然不清楚。</p>
+<p>2、多轮交错推理和搜索——理想情况下，LLM 应该能够进行迭代推理和搜索引擎调用，并根据问题的复杂性动态调整检索策略。</p>
+<p>3、奖励设计——为搜索和推理任务设计有效的奖励函数仍然是一个根本性的挑战，因为尚不清楚简单的基于结果的奖励是否足以指导 LLM 学习有意义且一致的搜索行为。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<p>文章介绍了SEARCH-R1，这是一个新颖的RL框架，使LLM能够以交错的方式与搜索引擎进行交互，并进行自己的推理。</p>
+<p>文章使用两种方式（PPO和GRPO）对训练模型进行优化，具体过程图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250915104443538.png" alt=""></p>
+<p>首先对于PPO：</p>
+<ol>
+<li><code>q</code> → <code>Rollout Module</code>：<br>
+输入问题<code>q</code>到<code>Rollout Module</code>，启动 “推理 + 搜索” 的轨迹生成过程，关于<code>Rollout Module</code>内部具体过程下面讲解。</li>
+<li><code>Rollout Module</code> → <code>o</code>：<br>
+<code>Rollout Module</code>结合<code>Policy LLM</code>的推理和<code>Search Engine</code>的结果，生成<strong>完整轨迹<code>o</code></strong>（包含推理步骤、搜索调用、中间信息等）。</li>
+<li><code>o</code> → <code>Value LLM</code> → <code>v</code>：<br>
+轨迹<code>o</code>输入<code>Value LLM</code>，<code>Value LLM</code>输出对轨迹<code>o</code>的<strong>价值估计<code>v</code></strong>。</li>
+<li><code>o</code> → <code>Reward Model</code>：<br>
+轨迹<code>o</code>输入<code>Reward Model</code>，计算<strong>该轨迹的基础奖励</strong>（如答案的精确匹配度）。</li>
+<li><code>o</code> → <code>Reference LLM</code>：<br>
+轨迹<code>o</code>输入<code>Reference LLM</code>（参考模型，冻结不更新），生成<strong>参考输出</strong>，用于计算<code>Policy LLM</code>与参考模型的 KL 散度（防止策略更新幅度过大）。</li>
+<li><code>Reward Model</code> + <code>Reference LLM</code> → <code>r</code>：<br>
+<code>Reward Model</code>的基础奖励与<code>Reference LLM</code>相关的<strong>KL 正则项</strong>结合，得到最终奖励信号<code>r</code>。</li>
+<li><code>v</code> + <code>r</code> → <code>GAE</code> →<code>A</code>：<br>
+价值估计<code>v</code>（当前状态价值）和奖励<code>r</code>（即时奖励）输入<code>GAE</code>（广义优势估计）模块，计算<strong>优势函数<code>A</code></strong>（衡量 “实际奖励与预期价值的差距”）。</li>
+<li><code>GAE</code>→<code>Value LLM</code>:<br>
+<code>GAE</code>计算的 “优势 / 误差信号” 反馈给<code>Value LLM</code>，用于<strong>更新价值模型</strong>。</li>
+<li><code>A</code> → <code>Policy LLM</code>：<br>
+利用优势值<code>A</code>更新<code>Policy LLM</code>的参数。</li>
+</ol>
+<p>然后是GRPO：</p>
+<ol>
+<li>前面第一，二步同 PPO。</li>
+<li><code>Rollout Module</code> → <code>o₁, o₂, ..., o_G</code>：<br>
+<code>Rollout Module</code>生成 **<code>G</code>条轨迹 **（组大小为<code>G</code>），每条轨迹<code>o_i</code>是独立的 “推理 + 搜索” 结果。</li>
+<li><code>o_i</code> → <code>Reward Model</code>：<br>
+每条轨迹<code>o_i</code>输入<code>Reward Model</code>，计算<strong>对应奖励<code>r_i</code></strong>（如单条轨迹的答案精确匹配度）。</li>
+<li><code>o_i</code> → <code>Reference LLM</code>：<br>
+每条轨迹<code>o_i</code>输入<code>Reference LLM</code>，计算<code>Policy LLM</code>与<code>Reference LLM</code>的<strong>KL 散度</strong>（正则项，防止策略偏离）。</li>
+<li><code>Reward Model</code> → <code>r₁, r₂, ..., r_G</code>：<br>
+<code>Reward Model</code>为每条轨迹<code>o_i</code>输出<strong>单独奖励<code>r_i</code></strong>。</li>
+<li><code>r₁, r₂, ..., r_G</code> → <code>Group Computation</code> → <code>A₁, A₂, ..., A_G</code>：<br>
+所有组内轨迹的奖励输入<code>Group Computation</code>模块，<code>Group Computation</code>为每条轨迹<code>o_i</code>计算<strong>优势值<code>A_i</code></strong>。</li>
+<li><code>Reference LLM</code> + <code>A₁, A₂, ..., A_G</code> → <code>Policy LLM</code>：<br>
+<code>A₁, A₂, ..., A_G</code>与<code>Reference LLM</code>相关的<strong>KL 正则项</strong>结合，更新<code>Policy LLM</code>的参数。</li>
+</ol>
+<p>下面是Rollout Module内部的具体过程：</p>
+<p>这是用于指导Policy LLM的提示词：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250915104513571.png" alt=""></p>
+<p>这内部的伪代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250915104527260.png" alt=""></p>
+<p>输入：输入查询 x、策略模型 πθ、搜索引擎 R 和最大行动预算 B</p>
+<p>输出：最终的生成响应 y</p>
+<p>初始化一个空的y。y 将累积 LLM 生成的所有文本和检索到的所有信息，形成完整的交互轨迹。</p>
+<p>初始化行动计数器。b 用于追踪当前是第几轮交互，防止模型无限循环。</p>
+<p>循环：</p>
+<p>在每一轮主循环开始时，初始化一个空的yb。yb 将存储当前轮次中 LLM 生成的token，例如一段思考、一个搜索查询或最终答案。</p>
+<p>LLM 在这个内部循环中持续生成token，直到生成一个特定的结束token。</p>
+<p>y ← y + yb: 将当前完成的行动序列 yb 添加到总的交互序列 y 中。</p>
+<p>如果 yb 中检测到搜索请求，调用搜索引擎 R，传入查询 q，获取检索结果 d。</p>
+<p>如果 yb 中检测到最终答案，算法终止。</p>
+<p>如果 LLM 生成的既不是有效的搜索请求，也不是最终答案，算法会在 y 中添加一条“我的行动不正确，让我重新思考”的信息，促使 LLM 在下一轮中重新评估。</p>
+<p>行动计数器 b 增加，进入下一轮交互。</p>
+<h2 id="阅读总结">阅读总结</h2>
+<p>优点：</p>
+<p>1、SEARCH-R1通过强化学习让 LLM 自主决定何时搜索、搜索什么、如何整合结果，实现多轮 “推理 - 搜索 - 推理” 闭环，尤其适合需要多跳推理的复杂任务。</p>
+<p>2、支持不同 RL 算法（PPO/GRPO）和 LLM 类型（Base/Instruct 模型），且在在域和域外数据集上均有效，泛化能力突出。</p>
+<p>缺点：</p>
+<p>1、仅依赖 “答案精确匹配” 作为奖励，在需要细粒度推理或复杂任务中可能无法充分引导 LLM 学习。</p>
+<p>未来可以设计分层奖励（如 “推理合理性”“检索相关性”“答案准确性”），引导 LLM 在过程中学习。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">游俊爽</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/09/15/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Search-R1%20Training%20LLMs%20to%20Reason%20and%20Leverage%20Search%20Engines%20with%20Reinforcement%20Learning/">https://fdreamer2002.github.io/2025/09/15/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Search-R1%20Training%20LLMs%20to%20Reason%20and%20Leverage%20Search%20Engines%20with%20Reinforcement%20Learning/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Search-R1/">Search-R1</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/09/19/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-22/Audio%20Jailbreak%20Attacks%20Exposing%20Vulnerabilities%20in%20SpeechGPT%20in%20a%20White-Box%20Frameworkgeneration%20models/" title="Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models</div></div><div class="info-2"><div class="info-item-1">英文题目：《Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models》 中文题目：《音频越狱攻击：在白盒框架中揭露语音生成模型“SpeechGPT”的漏洞》 论文作者： Binhao Ma, Hanqing Guo, Zhengping Jay Luo, Rui Duan 发布于： arxiv 发布时间：2025-05-24 级别：无 论文链接： https://doi.org/10.48550/arXiv.2505.18864 论文代码：https://github.com/Magic-Ma-tech/Audio-Jailbreak-Attacks  摘要 多模态大型语言模型（MLLM）的最新进展显著提升了人机交互的自然度和灵活性，使其能够在文本、视觉和音频等多种模态之间实现无缝理解。其中，诸如 SpeechGPT 这类语音驱动的模型在可用性方面取得了显著进步，能够提供富有表现力且能表达情感的交互，从而在现实世界的交流场景中促进...</div></div></div></a><a class="pagination-related" href="/2025/09/14/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Safe%20in%20Isolation,%20Dangerous%20Together%20Agent-Driven%20Multi-Turn%20Decomposition%20Jailbreaks%20on%20LLMs/" title="Safe in Isolation, Dangerous Together: Agent-Driven Multi-Turn Decomposition Jailbreaks on LLMs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Safe in Isolation, Dangerous Together: Agent-Driven Multi-Turn Decomposition Jailbreaks on LLMs</div></div><div class="info-2"><div class="info-item-1">英文题目：《Safe in Isolation, Dangerous Together: Agent-Driven Multi-Turn Decomposition Jailbreaks on LLMs》 中文题目：《单独使用时安全，协同使用时危险：基于智能体驱动的多轮分解式大语言模型越狱攻击》 论文作者：Devansh Srivastav, Xiao Zhang 发布于： the 1st Workshop for Research on Agent Language Models (REALM 2025) 发布时间：2025-07-31 级别：无 论文链接： https://doi.org/10.18653/v1/2025.realm-1.13 论文代码：无  摘要 大型语言模型（LLMs）正日益应用于关键领域，但其在越狱攻击面前的脆弱性仍是一个重大问题。本文提出一种多智能体、多轮次越狱策略，该策略通过将有害查询分解为看似无害的子任务，系统性绕过 LLM 的安全机制。我们基于一个包含问题分解器（Question Decomposer）、子问题回答器（Sub-Question A...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</a><time datetime="2025-11-01T12:58:14.000Z" title="发表于 2025-11-01 20:58:14">2025-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/SELFDEFEND%20LLMs%20Can%20Defend%20Themselves%20against%20Jailbreaking%20in%20a%20Practical%20Manner/" title="SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner">SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner</a><time datetime="2025-10-31T12:58:14.000Z" title="发表于 2025-10-31 20:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E4%BC%8D%E4%BF%8A/2025-11-01/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/" title="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</a><time datetime="2025-10-31T11:53:16.000Z" title="发表于 2025-10-31 19:53:16">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries">Jailbreaking Black Box Large Language Models in Twenty Queries</a><time datetime="2025-10-31T02:58:14.000Z" title="发表于 2025-10-31 10:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/RAIDX%20A%20Retrieval-Augmented%20Generation%20and%20GRPO%20Reinforcement%20Learning%20Framework%20for%20Explainable%20Deepfake%20Detection/" title="RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection">RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection</a><time datetime="2025-10-29T11:53:16.000Z" title="发表于 2025-10-29 19:53:16">2025-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

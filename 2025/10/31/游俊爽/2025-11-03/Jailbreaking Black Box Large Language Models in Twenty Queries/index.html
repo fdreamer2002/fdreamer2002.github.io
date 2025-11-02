@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Jailbreaking Black Box Large Language Models in Twenty Queries | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《Jailbreaking Black Box Large Language Models in Twenty Queries》 中文题目：《在二十次查询中破解黑盒大型语言模型》 论文作者： Patrick Chao, Alexander Robey, Edgar Dobriban, Hamed Hassani, George J. Pappas, Eric Wong 发布于： arxi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jailbreaking Black Box Large Language Models in Twenty Queries">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《Jailbreaking Black Box Large Language Models in Twenty Queries》 中文题目：《在二十次查询中破解黑盒大型语言模型》 论文作者： Patrick Chao, Alexander Robey, Edgar Dobriban, Hamed Hassani, George J. Pappas, Eric Wong 发布于： arxi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-10-31T02:58:14.000Z">
+<meta property="article:modified_time" content="2025-11-02T07:13:41.026Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="LLM辅助越狱">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Jailbreaking Black Box Large Language Models in Twenty Queries",
+  "url": "https://fdreamer2002.github.io/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-10-31T02:58:14.000Z",
+  "dateModified": "2025-11-02T07:13:41.026Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "游俊爽",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jailbreaking Black Box Large Language Models in Twenty Queries',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">Jailbreaking Black Box Large Language Models in Twenty Queries</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Jailbreaking Black Box Large Language Models in Twenty Queries</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-31T02:58:14.000Z" title="发表于 2025-10-31 10:58:14">2025-10-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-02T07:13:41.026Z" title="更新于 2025-11-02 15:13:41">2025-11-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《Jailbreaking Black Box Large Language Models in Twenty Queries》</p>
+<p>中文题目：《在二十次查询中破解黑盒大型语言模型》</p>
+<p>论文作者： <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chao,+P">Patrick Chao</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Robey,+A">Alexander Robey</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Dobriban,+E">Edgar Dobriban</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Hassani,+H">Hamed Hassani</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Pappas,+G+J">George J. Pappas</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Wong,+E">Eric Wong</a></p>
+<p>发布于： arxiv</p>
+<p>发布时间：2023-10-12</p>
+<p>级别：无</p>
+<p>论文链接：<a target="_blank" rel="noopener" href="https://doi.org/10.48550/arXiv.2310.08419"> https://doi.org/10.48550/arXiv.2310.08419</a></p>
+<p>论文代码：<a target="_blank" rel="noopener" href="https://github.com/patrickrchao/JailbreakingLLMs">https://github.com/patrickrchao/JailbreakingLLMs</a></p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>人们越来越关注确保大型语言模型（LLMs）与人类价值观保持一致。然而，此类模型的一致性很容易受到对抗性jailbreak的攻击，这些攻击会诱使LLM覆盖其安全防护措施。因此，识别这些漏洞有助于理解固有的弱点并防止未来的滥用。为此，我们提出了一种提示自动迭代改进（Prompt Automatic Iterative Refinement, PAIR）算法，该算法仅通过黑盒访问LLM来生成语义jailbreak。PAIR——其灵感来自社会工程攻击——使用攻击者LLM自动为单独的目标LLM生成jailbreak，而无需人工干预。通过这种方式，攻击者LLM迭代地查询目标LLM，以更新和改进候选jailbreak。从经验上看，PAIR通常只需要不到20次查询即可生成jailbreak，这比现有算法的效率高几个数量级。PAIR还在开放和闭源LLM（包括GPT-3.5/4、Vicuna和Gemini）上实现了具有竞争力的jailbreak成功率和可迁移性。</p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>最近已发现两类所谓的jailbreak攻击绕过了LLM对齐防护措施，这导致人们担心LLM可能还不适合在安全关键领域进行大规模部署。<br>
+第一类提示级别jailbreak包括基于社会工程、具有语义意义的提示，这些提示会从LLM中引出令人反感的内容。虽然有效，但这种技术需要创造力、手动数据集管理和定制的人工反馈，从而导致大量的人工时间和资源投入。<br>
+第二类token级别jailbreak涉及优化作为输入传递给目标LLM的token集合。虽然非常有效，但此类攻击需要对目标模型进行数十万次查询，并且通常对人类来说难以理解。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<p>文章提出Prompt Automatic Iterative Refinement（PAIR），这是一种依赖辅助LLM来完成越狱攻击的一种方法，过程图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20251031144541118.png" alt=""></p>
+<p>代码如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20251031144617933.png" alt=""></p>
+<p>输入：<br>
+算法允许的最大迭代次数K<br>
+阈值参数t（未使用）<br>
+攻击的目标O，即希望目标LLM生成的不良内容类型（例如，“如何制造炸弹”）</p>
+<p>初始化：<br>
+攻击者LLM (Attacker LLM) A 的系统提示词（system prompt）会用攻击目标 O 进行初始化。<br>
+一个空的列表 CCCC 用于记录攻击者和目标LLM之间的所有交互，以便攻击者LLM可以学习和改进其攻击策略。</p>
+<p>主循环：<br>
+攻击生成: 攻击者LLM A 根据当前的对话历史 C 生成一个候选的越狱提示 P。这里的 q<sub>A</sub>© 表示攻击者LLM A 在给定历史 C 的情况下生成提示的概率分布。<br>
+目标响应: 生成的提示 P 被发送给目标LLM (Target LLM) T，目标LLM会根据 P 生成一个响应 R。这里的 q<sub>T</sub>(P) 表示目标LLM T 在给定提示 P 的情况下生成响应的概率分布。<br>
+越狱评分: 一个名为 JUDGE 的二元分类器函数会评估提示 P 和目标LLM的响应 R 是否构成一次成功的越狱。如果成功，S 为 1，否则为 0。<br>
+越狱成功判断: 如果 JUDGE 判定为越狱成功（S = 1），则当前生成的提示 P 被返回，算法终止。<br>
+迭代细化: 如果越狱不成功（S = 0），当前的提示 P、响应 R 和评分 S 会被添加到对话历史 C 中。这个更新后的历史 C 将用于攻击者LLM在下一轮迭代中生成更精细、更具攻击性的提示，形成一个迭代改进的循环。</p>
+<p>文章针对JUDGE函数进行了评估：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20251031144632154.png" alt=""></p>
+<p>文章指出，在选择 JUDGE 函数时，最小化FPR至关重要。这是因为，尽管较低的FPR可能会系统性地降低所有攻击算法的成功率，但更重要的是保持保守，避免将无害行为错误分类为越狱。鉴于此，本文选择了 Llama Guard 作为 JUDGE 函数，因为它在提供有竞争力的一致性的同时，FPR最低 (7%)。此外，Llama Guard是开源的，这使得实验结果可以完全复现。</p>
+<p>同样，文章也提供了用于目标LLM和攻击者LLM的完整系统提示：</p>
+<p>目标LLM使用默认的系统提示。</p>
+<p>攻击者LLM使用了不同的三种攻击策略：<br>
+逻辑吸引：通过解释合乎逻辑的理由来诱导目标模型响应有害请求。<br>
+权威认可：通过引用可信的权威人士来“合法化”有害行为，从而说服目标模型。<br>
+角色扮演：通过创建虚构场景或赋予LLM特定角色（如作家、侦探）来规避其安全防护，使其在“角色”下执行有害任务。</p>
+<h2 id="阅读总结">阅读总结</h2>
+<p>优点：</p>
+<p>1、仅需不到 20 次查询即可实现成功越狱，解决了传统方法 “查询成本过高” 的核心痛点。</p>
+<p>2、在 CPU 上即可运行，平均 34 秒完成一次成功越狱。</p>
+<p>缺点：</p>
+<p>1、针对经过严格安全对齐的 LLM，PAIR 的成功率显著下降。</p>
+<p>2、PAIR 对 “弱安全对齐的开源攻击者模型” 依赖性强。</p>
+<p>未来可结合 “优化思想”（如基于 JUDGE 评分的梯度近似、强化学习），量化提示修改对越狱成功率的影响，实现 “可解释的提示优化过程”，进一步揭示 LLM 安全漏洞的规律。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">游俊爽</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/">https://fdreamer2002.github.io/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LLM%E8%BE%85%E5%8A%A9%E8%B6%8A%E7%8B%B1/">LLM辅助越狱</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/10/31/%E4%BC%8D%E4%BF%8A/2025-11-01/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/" title="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</div></div><div class="info-2"><div class="info-item-1">英文题目：《Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering》 中文题目：《通过软对比学习和无监督聚类重新思考图像伪造检测》 论文作者：Haiwei Wu; Yiming Chen; Jiantao Zhou; Yuanman Li 发布于： IEEE Transactions on Dependable and Secure Computing 发布时间：2025-06-25 级别：CCF-A 论文链接：10.1109/TDSC.2025.3583167 论文代码：https://github.com/HighwayWu/FOCAL  摘要 图像伪造检测的目标是识别并定位图像中的伪造区域。现有的大多数伪造检测算法通过分类问题来区分伪造像素和原始像素。然而，伪造像素与原始像素的定义仅在单个图像内部相对，例如，图像A中的伪造区域在其原始图像B中可能是原始的（拼接伪造）。这种相对定义被现有方法严重忽视，导致不同图像中的伪造（或原始）区域被不必要地归为...</div></div></div></a><a class="pagination-related" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/Let%20Images%20Speak%20More%20An%20Efficient%20Method%20for%20Detecting%20Image%20Manipulation%20History/" title=" Let Images Speak More: An Efficient Method for Detecting Image Manipulation History"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2"> Let Images Speak More: An Efficient Method for Detecting Image Manipulation History</div></div><div class="info-2"><div class="info-item-1">英文题目：《Let Images Speak More: An Efficient Method for  Detecting Image Manipulation History》 中文题目：《让图像更能“开口说话”：高效检测图像篡改历史的方法》 论文作者：Yang Wei; Haowei Liu; Xiaochen Yuan; Xiuli Bi; Bin Xiao 发布于：TCSVT 发布时间：2025-05-20 级别：CCF-B 论文链接：10.1109/TCSVT.2025.3571767 论文代码：https://github.com/CherishL-J/Op-detection  摘要 数字图像取证旨在验证数字图像的真实性，已成为一 个重要的研究领域。为了揭示图像的篡改历史，现有方法只能检测特定的图像操作，或者基于高维度的通用取证特征。此外，这些方法只有在操作链长度不超过2时表现良好。然而，对于操作链更长、更能代表现实场景的图像，它们的检测精度会显著下降。 为了打破这些局限性，我们提出了一种基于直方图和细节图的取证频率特征（FHDM(79D)），它可以区分包含不同...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</a><time datetime="2025-11-01T12:58:14.000Z" title="发表于 2025-11-01 20:58:14">2025-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/SELFDEFEND%20LLMs%20Can%20Defend%20Themselves%20against%20Jailbreaking%20in%20a%20Practical%20Manner/" title="SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner">SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner</a><time datetime="2025-10-31T12:58:14.000Z" title="发表于 2025-10-31 20:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E4%BC%8D%E4%BF%8A/2025-11-01/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/" title="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</a><time datetime="2025-10-31T11:53:16.000Z" title="发表于 2025-10-31 19:53:16">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries">Jailbreaking Black Box Large Language Models in Twenty Queries</a><time datetime="2025-10-31T02:58:14.000Z" title="发表于 2025-10-31 10:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/RAIDX%20A%20Retrieval-Augmented%20Generation%20and%20GRPO%20Reinforcement%20Learning%20Framework%20for%20Explainable%20Deepfake%20Detection/" title="RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection">RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection</a><time datetime="2025-10-29T11:53:16.000Z" title="发表于 2025-10-29 19:53:16">2025-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

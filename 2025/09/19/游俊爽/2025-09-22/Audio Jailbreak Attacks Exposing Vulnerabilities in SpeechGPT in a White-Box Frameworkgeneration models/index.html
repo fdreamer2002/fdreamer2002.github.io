@@ -1,0 +1,375 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models》 中文题目：《音频越狱攻击：在白盒框架中揭露语音生成模型“SpeechGPT”的漏洞》 论文作者： Binhao Ma, Hanqing Guo, Zhengping Jay L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/09/19/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-22/Audio%20Jailbreak%20Attacks%20Exposing%20Vulnerabilities%20in%20SpeechGPT%20in%20a%20White-Box%20Frameworkgeneration%20models/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models》 中文题目：《音频越狱攻击：在白盒框架中揭露语音生成模型“SpeechGPT”的漏洞》 论文作者： Binhao Ma, Hanqing Guo, Zhengping Jay L">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-09-19T11:58:14.000Z">
+<meta property="article:modified_time" content="2025-09-22T02:43:29.747Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="音频越狱攻击">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models",
+  "url": "https://fdreamer2002.github.io/2025/09/19/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-22/Audio%20Jailbreak%20Attacks%20Exposing%20Vulnerabilities%20in%20SpeechGPT%20in%20a%20White-Box%20Frameworkgeneration%20models/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-09-19T11:58:14.000Z",
+  "dateModified": "2025-09-22T02:43:29.747Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "游俊爽",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/09/19/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-22/Audio%20Jailbreak%20Attacks%20Exposing%20Vulnerabilities%20in%20SpeechGPT%20in%20a%20White-Box%20Frameworkgeneration%20models/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-19T11:58:14.000Z" title="发表于 2025-09-19 19:58:14">2025-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-22T02:43:29.747Z" title="更新于 2025-09-22 10:43:29">2025-09-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《Audio Jailbreak Attacks: Exposing Vulnerabilities in SpeechGPT in a White-Box Frameworkgeneration models》</p>
+<p>中文题目：《音频越狱攻击：在白盒框架中揭露语音生成模型“SpeechGPT”的漏洞》</p>
+<p>论文作者： Binhao Ma, Hanqing Guo, Zhengping Jay Luo, Rui Duan</p>
+<p>发布于： arxiv</p>
+<p>发布时间：2025-05-24</p>
+<p>级别：无</p>
+<p>论文链接： <a target="_blank" rel="noopener" href="https://doi.org/10.48550/arXiv.2505.18864">https://doi.org/10.48550/arXiv.2505.18864</a></p>
+<p>论文代码：<a target="_blank" rel="noopener" href="https://github.com/Magic-Ma-tech/Audio-Jailbreak-Attacks">https://github.com/Magic-Ma-tech/Audio-Jailbreak-Attacks</a></p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>多模态大型语言模型（MLLM）的最新进展显著提升了人机交互的自然度和灵活性，使其能够在文本、视觉和音频等多种模态之间实现无缝理解。其中，诸如 SpeechGPT 这类语音驱动的模型在可用性方面取得了显著进步，能够提供富有表现力且能表达情感的交互，从而在现实世界的交流场景中促进更深入的联系。然而，语音的使用带来了新的安全风险，因为攻击者可以利用口语语言的独特特征，如时间、发音的可变性以及语音转文本转换等，来设计绕过防御机制的输入，而这种攻击方式在基于文本的系统中是未曾出现过的。尽管在基于文本的绕圈攻击方面进行了大量研究，但语音模态在攻击策略和防御机制方面仍很大程度上未得到充分探索。在本研究中，我们提出了一种针对在白盒场景中对齐的 MLLM 的语音输入的对抗性攻击。具体而言，我们引入了一种新颖的词级攻击，该攻击利用对模型语音分词的访问来生成对抗性词序列。随后，这些序列被转化为音频提示，从而有效地绕过了对齐保护机制，并能够诱导出被禁止的输出。在 SpeechGPT 上进行评估后，我们的方法在多个受限任务中实现了高达 89%的攻击成功率，显著优于现有的基于语音的破解方法。我们的研究结果揭示了语音驱动的多模态系统的漏洞，并有助于指导开发更强大的下一代多语言语言模型。</p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>现有多模态大语言模型逐渐将语音作为核心输入通道，但针对语音模态的安全攻防研究极少（多数聚焦文本模态 “越狱攻击”）。本文旨在探索：利用语音的连续流、声学特性等独特性，能否构造对抗性音频，突破模型的安全策略，诱导其输出违反安全政策的内容，以此揭示语音模态下多模态大语言模型的安全漏洞。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<p>传统语言模型：音频→ASR 转文字→文本输入</p>
+<p>SpeechGPT：音频→离散 Token（特征提取 + 聚类）→语义处理</p>
+<p>本文提出了一种语音 token 级别的对抗攻击流水线，该流水线使用贪婪搜索离散音频 token，具体如图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250919200452355.png" alt=""></p>
+<p>文章构造攻击音频的方式具体为：</p>
+<p><strong>步骤 1：提取原始恶意语音的离散 token</strong>恶意音频先经过 “Discrete Speech Unit Extractor（离散语音单元提取器）”，被转换为<strong>离散的语音 token 序列</strong>（如 <code>&lt;45&gt;&lt;18&gt;&lt;9&gt;……&lt;55&gt;&lt;37&gt;</code>），这些 token 对应原始恶意语音的语义。该步骤是<strong>基于语音的声学特征（如音调、韵律、时频特性等）</strong>，将连续的语音信号直接转化为<strong>离散的 “语音单元 token”</strong>，这些 token 是对语音底层声学表征的编码，并非先识别语音中的 “每个字” 再转成文字对应的 token。这一步使用了离散单元提取器（例如 HuBERT）</p>
+<p><strong>步骤 2：生成对抗性语音 token</strong>通过 “Greedy search（贪婪搜索）” 算法，生成一组<strong>对抗性语音 token</strong>（如 <code>&lt;3&gt;&lt;4&gt;&lt;5&gt;……&lt;1&gt;&lt;2&gt;</code>）。这类 token 的作用是 “欺骗模型的安全检测”，同时不破坏原始恶意语义的核心特征。其算法过程如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250919200917149.png" alt=""></p>
+<p>输入：a<sub>jailbreak</sub>为原始的有害音频，y<sub>target</sub>为期望模型输出的有害响应，L为损失函数，V为Token 词汇表，n为对抗性 Token 序列的长度，k为每次迭代中，为每个位置采样的候选 Token 数量</p>
+<p>输出：x<sub>final</sub>为最终的对抗性 Token 序列</p>
+<p>使用一个离散单元提取器（例如 HuBERT），将输入的有害音频转换为一系列离散的 Token。</p>
+<p>随机从 Token 词汇表 V 中采样 n 个 Token，形成初始的对抗性 Token 序列。</p>
+<p>将原始有害语音 Token 与初始的对抗性 Token 序列拼接起来，形成完整的输入 Token 序列 。</p>
+<p>循环优化，直到模型表现出越狱行为，每次循环都会尝试优化x<sub>adv</sub>。</p>
+<p>在每次主循环中，算法会依次检查对抗性 Token 序列 x<sub>adv</sub> 中的每个 Token 位置。</p>
+<p>初始化最小损失。</p>
+<p>从 Token 词汇表 V 中随机采样 k 个候选 Token v。</p>
+<p>在 x<sub>adv</sub> 的当前位置 i 上，用候选 Token v 替换原来的 Token，得到一个新的临时对抗性 Token 序列。</p>
+<p>将原始有害语音 Token与这个新的临时对抗性 Token 序列拼接，形成临时的完整输入 Token 序列。</p>
+<p>将x<sub>temp</sub> 输入到模型中，计算模型输出与目标响应 y<sub>target</sub> 之间的损失。</p>
+<p>如果当前候选 Token v 产生的损失小于当前的最小损失，则更新。</p>
+<p>在遍历完所有k个候选 Token 后，将当前位置i的 Token更新为找到的最佳 Token。</p>
+<p>更新总输入，并返回最终的对抗性 Token 序列。</p>
+<p>处理完后，进入下一个步骤，即流程图最下方：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250920153130252.png" alt=""></p>
+<p>这一步主要是将 Algorithm 1 优化后的离散聚类 token 序列，转化为 “模型可接受的音频”，同时通过噪声优化确保音频对应的 token 序列与目标完全一致，不丢失对抗效果。</p>
+<p>输入：目标聚类 token 序列（即 Algorithm 1 输出的x<sub>final</sub>），<em>L</em>是 token 序列长度。</p>
+<p>输出：优化后的最终攻击音频波形，满足：其对应的聚类 token 序列 = 目标 y，且音质自然。</p>
+<p>调用声码器V（HiFiGAN），将目标聚类 token 序列y直接转化为连续音频波形。</p>
+<p>初始化一个微小的、可学习的噪声参数。</p>
+<p>将当前的噪声叠加到初始音频上。</p>
+<p>下面两步完全复用 SpeechGPT 的输入预处理逻辑，首先特征提取，调用与 SpeechGPT 相同的特征提取器，提取高层语音特征；然后聚类预测，调用与 SpeechGPT 相同的聚类模型C，将特征f映射回离散的聚类 token 序列。</p>
+<p>然后用损失函数D计算y-hat与y的差异，D使用<strong>交叉熵损失</strong>。</p>
+<p>通过<strong>梯度下降</strong>调整噪声参数。</p>
+<p>若某次迭代后，y-hat与y完全一致则停止迭代，或者达到迭代次数上限。</p>
+<p>实验配置要求：Ubuntu 20.04，4×NVIDIA L40S GPU（单个显存48G）</p>
+<h2 id="阅读总结">阅读总结</h2>
+<p>优点：</p>
+<p>1、提出了第一个针对对齐的多模态语言模型的语音输入的白盒对抗攻击的系统研究</p>
+<p>2、设计了一种全自动的贪婪搜索方法</p>
+<p>缺点：</p>
+<p>1、文章给出的后缀没有办法做到对所有问题都是通用的</p>
+<p>2、需要预先知道问题的一部分答案</p>
+<p>未来可以研究通用的语音后缀。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">游俊爽</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/09/19/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-22/Audio%20Jailbreak%20Attacks%20Exposing%20Vulnerabilities%20in%20SpeechGPT%20in%20a%20White-Box%20Frameworkgeneration%20models/">https://fdreamer2002.github.io/2025/09/19/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-22/Audio%20Jailbreak%20Attacks%20Exposing%20Vulnerabilities%20in%20SpeechGPT%20in%20a%20White-Box%20Frameworkgeneration%20models/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9F%B3%E9%A2%91%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">音频越狱攻击</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/09/20/%E4%BC%8D%E4%BF%8A/%E7%B2%BE%E8%AF%BB%E6%96%87%E7%AB%A0/%E8%BF%90%E7%94%A8%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%9E%84%E5%BB%BA%E5%9B%BE%E5%83%8F%E7%AF%A1%E6%94%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%86%B3%E7%AD%96%E7%8E%AF%E5%A2%83/" title="运用强化学习构建图像篡改定位的决策环境"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">运用强化学习构建图像篡改定位的决策环境</div></div><div class="info-2"><div class="info-item-1">   </div></div></div></a><a class="pagination-related" href="/2025/09/15/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-09-14/Search-R1%20Training%20LLMs%20to%20Reason%20and%20Leverage%20Search%20Engines%20with%20Reinforcement%20Learning/" title="Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning</div></div><div class="info-2"><div class="info-item-1">英文题目：《Search-R1: Training LLMs to Reason and Leverage Search Engines with Reinforcement Learning》 中文题目：《Search-R1：利用强化学习训练大型语言模型以进行推理并利用搜索引擎》 论文作者：Bowen Jin, Hansi Zeng, Zhenrui Yue, Jinsung Yoon, Sercan Arik, Dong Wang, Hamed Zamani, Jiawei Han 发布于： COLM 2025 发布时间：2024-08-05 级别：无 论文链接：https://doi.org/10.48550/arXiv.2503.09516 论文代码：https://github.com/PeterGriffinJin/Search-R1  摘要 在大型语言模型（LLM）中，高效获取外部知识和最新信息对于有效的推理和文本生成至关重要。给具备推理能力的先进 LLM 提供提示，使其在推理过程中使用搜索引擎的做法往往并非最佳选择，因为 LLM 可能无法完全掌握如何以最佳方式与搜...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</a><time datetime="2025-11-01T12:58:14.000Z" title="发表于 2025-11-01 20:58:14">2025-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/SELFDEFEND%20LLMs%20Can%20Defend%20Themselves%20against%20Jailbreaking%20in%20a%20Practical%20Manner/" title="SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner">SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner</a><time datetime="2025-10-31T12:58:14.000Z" title="发表于 2025-10-31 20:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E4%BC%8D%E4%BF%8A/2025-11-01/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/" title="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</a><time datetime="2025-10-31T11:53:16.000Z" title="发表于 2025-10-31 19:53:16">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries">Jailbreaking Black Box Large Language Models in Twenty Queries</a><time datetime="2025-10-31T02:58:14.000Z" title="发表于 2025-10-31 10:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/RAIDX%20A%20Retrieval-Augmented%20Generation%20and%20GRPO%20Reinforcement%20Learning%20Framework%20for%20Explainable%20Deepfake%20Detection/" title="RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection">RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection</a><time datetime="2025-10-29T11:53:16.000Z" title="发表于 2025-10-29 19:53:16">2025-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

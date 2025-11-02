@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent》 中文题目：《RedAgent：利用具有情境感知能力的自主语言代理对大型语言模型进行红队攻击》 发布于：arxiv 级别：无 论文链接： https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2407.16667  摘要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/08/10/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/RedAgent-Red-Teaming-Large-Language-Models-with-Context-aware-Autonomous-Language-Agent/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent》 中文题目：《RedAgent：利用具有情境感知能力的自主语言代理对大型语言模型进行红队攻击》 发布于：arxiv 级别：无 论文链接： https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;2407.16667  摘要">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-08-10T06:31:21.000Z">
+<meta property="article:modified_time" content="2025-09-01T08:47:39.839Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="多智能体协作">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent",
+  "url": "https://fdreamer2002.github.io/2025/08/10/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/RedAgent-Red-Teaming-Large-Language-Models-with-Context-aware-Autonomous-Language-Agent/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-08-10T06:31:21.000Z",
+  "dateModified": "2025-09-01T08:47:39.839Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "游俊爽",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/08/10/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/RedAgent-Red-Teaming-Large-Language-Models-with-Context-aware-Autonomous-Language-Agent/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-10T06:31:21.000Z" title="发表于 2025-08-10 14:31:21">2025-08-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-01T08:47:39.839Z" title="更新于 2025-09-01 16:47:39">2025-09-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《RedAgent: Red Teaming Large Language Models with Context-aware Autonomous Language Agent》</p>
+<p>中文题目：《RedAgent：利用具有情境感知能力的自主语言代理对大型语言模型进行红队攻击》</p>
+<p>发布于：arxiv</p>
+<p>级别：无</p>
+<p>论文链接： <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2407.16667">https://arxiv.org/pdf/2407.16667</a></p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>近年来，像 GPT-4 这样的先进大型语言模型（LLMs）已被集成到许多现实世界的应用中，例如 Code Copilot。这些应用显著扩大了 LLMs 的攻击面，使其暴露于各种威胁之中。其中，通过精心设计的越狱提示诱导有毒响应的越狱攻击引发了关键的安全问题。为了有效识别这些威胁，越来越多的红队方法通过制作越狱提示来模拟潜在的敌对场景以测试目标 LLM。然而，现有的红队测试方法并未考虑 LLM 在不同场景中的独特漏洞（例如，代码相关任务），因此难以调整越狱提示以发现特定情境的漏洞，从而缺乏效率。同时，这些方法仅限于通过少量变异操作（如同义词替换）优化手工制作的越狱模板，缺乏自动化和可扩展性以持续适应不同场景。</p>
+<p>为了实现情境感知且高效的红队测试，我们抽象并建模现有攻击为一个连贯的概念，称为“越狱策略”，并提出了一种名为 RedAgent 的多智能体 LLM 系统，该系统利用这些策略生成情境感知的越狱提示。通过在额外的记忆缓冲区中自我反思情境反馈和红队测试试验，RedAgent 不断学习如何利用这些策略在特定情境中实现更有效的越狱。广泛的实验表明，我们的系统可以在短短五次查询内越狱大多数黑盒 LLM，效率是现有红队方法的两倍。此外，RedAgent 能够更高效地越狱定制的 LLM 应用程序。通过针对 GPT 上流行应用生成情境感知的越狱提示，我们仅用两次查询就发现了这些现实世界应用程序中的 60 个严重漏洞。我们已报告所有发现的问题，并与 OpenAI 和 Meta 进行了沟通以便修复漏洞。此外，我们的结果表明，增强外部数据或工具的 LLM 应用程序比基础模型更容易受到越狱攻击。</p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>现有的红队测试方法难以克服以下挑战：1、缺乏高质量的越狱提示。2、缺乏自动化和可扩展性。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250810151016257.png" alt=""></p>
+<p>采用了4个独立的LLM来实现整个代理系统，其中包括Profile Constructor, Planner, Attacker, Evaluator，这些角色的作用如下：</p>
+<p>Profile Constructor: 确定目标LLM的范围和支持的功能</p>
+<p>Planner: 更具历史记忆来进行攻击计划的制订</p>
+<p>Attacker: 按照攻击计划来生成相应的攻击并执行</p>
+<p>Evaluator: 对被攻击LLM的输出精选评估，来确认是否满足需求</p>
+<p>这里的数据库用来存储长短期记忆供Planner模型进行学习</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20250810151023970.png" alt=""></p>
+<p>长期记忆存储过去的成功试验及其相关经验，并标记有标签，如恶意目标的场景、使用的策略和成功越狱提示的关键部分，这种标记考虑了不同恶意目标的有效策略之间的关系。</p>
+<p>短期记忆存储最近几次迭代的详细经验，提供关于交互的丰富上下文信息，这包括评估分数、上下文反馈以及如何提高有效性。</p>
+<p>RedAgent 通过 “生成提示→查询目标 LLM→评估响应→更新记忆→优化策略” 的循环，不断从交互中学习。</p>
+<h2 id="阅读总结">阅读总结</h2>
+<p><strong>优点：</strong></p>
+<ol>
+<li>
+<p>实现了先进的自动化越狱攻击，效率以及成功率高</p>
+</li>
+<li>
+<p>提出上下文感知提示生成技术，适配 LLM 独特漏洞</p>
+</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>
+<p>记忆机制效率低</p>
+</li>
+<li>
+<p>不支持多模态</p>
+</li>
+</ol>
+<p><strong>未来可以引入RAG技术来提升记忆处理效率</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">游俊爽</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/08/10/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/RedAgent-Red-Teaming-Large-Language-Models-with-Context-aware-Autonomous-Language-Agent/">https://fdreamer2002.github.io/2025/08/10/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/RedAgent-Red-Teaming-Large-Language-Models-with-Context-aware-Autonomous-Language-Agent/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93%E5%8D%8F%E4%BD%9C/">多智能体协作</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/11/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/X-Teaming-Multi-Turn-Jailbreaks-and-Defenses-with-Adaptive-Multi-Agents/" title="X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents</div></div><div class="info-2"><div class="info-item-1">英文题目：《X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents》 中文题目：《X-Teaming：使用自适应多代理进行多回合越狱和防御》 发布于：arxiv 级别：无 论文链接： https://arxiv.org/pdf/2504.13203  摘要 与语言模型 （LM） 的多轮交互会带来严重的安全风险，因为有害意图可能会战略性地在交易所之间传播。然而，绝大多数先前的工作都集中在单弯安全上，而适应性和多样性仍然是多弯红队的主要挑战之一。为了应对这些挑战，我们提出了 X-Teaming，这是一个可扩展的框架，它系统地探索看似无害的交互如何升级为有害结果并生成相应的攻击场景。X-Teaming 采用协作代理进行规划、攻击优化和验证，实现了最先进的多轮越狱有效性和多样性，在具有代表性的领先开权重和闭源模型中成功率高达 98.1%。特别是，X-Teaming 在最新的 Claude 3.7 Sonnet 模型中实现了 96.2% 的攻击成功率，该模型被认为几乎不受单回合攻击的影响。在 X-Te...</div></div></div></a><a class="pagination-related" href="/2025/08/10/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/AutoDefense-Multi-Agent-LLM-Defense-against-Jailbreak-Attacks/" title="AutoDefense: Multi-Agent LLM Defense against Jailbreak Attacks"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">AutoDefense: Multi-Agent LLM Defense against Jailbreak Attacks</div></div><div class="info-2"><div class="info-item-1">英文题目：《AutoDefense: Multi-Agent LLM Defense against Jailbreak Attacks》 中文题目：《自动防御：多智能体大语言模型针对越狱攻击的防御》 发布于：arxiv 级别：无 论文链接： https://arxiv.org/pdf/2403.04783  摘要 尽管在道德对齐方面进行了广泛的预训练以防止生成有害信息，但大语言模型（LLMs）仍然容易受到越狱攻击。在本文中，我们提出了AutoDefense，这是一种多智能体防御框架，可过滤大语言模型产生的有害回复。通过回复过滤机制，我们的框架对不同的越狱攻击提示具有鲁棒性，并可用于保护不同的目标模型。AutoDefense为大语言模型智能体分配不同的角色，并利用它们协作完成防御任务。任务分工提高了大语言模型的整体指令遵循能力，并能够将其他防御组件作为工具进行整合。借助AutoDefense，小型开源大语言模型可以作为智能体，保护更大的模型免受越狱攻击。我们的实验表明，AutoDefense可以有效地抵御不同的越狱攻击，同时保持对正常用户请求的性能。例如，我们使用具有3个智能体的...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/10/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/AutoDefense-Multi-Agent-LLM-Defense-against-Jailbreak-Attacks/" title="AutoDefense: Multi-Agent LLM Defense against Jailbreak Attacks"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-10</div><div class="info-item-2">AutoDefense: Multi-Agent LLM Defense against Jailbreak Attacks</div></div><div class="info-2"><div class="info-item-1">英文题目：《AutoDefense: Multi-Agent LLM Defense against Jailbreak Attacks》 中文题目：《自动防御：多智能体大语言模型针对越狱攻击的防御》 发布于：arxiv 级别：无 论文链接： https://arxiv.org/pdf/2403.04783  摘要 尽管在道德对齐方面进行了广泛的预训练以防止生成有害信息，但大语言模型（LLMs）仍然容易受到越狱攻击。在本文中，我们提出了AutoDefense，这是一种多智能体防御框架，可过滤大语言模型产生的有害回复。通过回复过滤机制，我们的框架对不同的越狱攻击提示具有鲁棒性，并可用于保护不同的目标模型。AutoDefense为大语言模型智能体分配不同的角色，并利用它们协作完成防御任务。任务分工提高了大语言模型的整体指令遵循能力，并能够将其他防御组件作为工具进行整合。借助AutoDefense，小型开源大语言模型可以作为智能体，保护更大的模型免受越狱攻击。我们的实验表明，AutoDefense可以有效地抵御不同的越狱攻击，同时保持对正常用户请求的性能。例如，我们使用具有3个智能体的...</div></div></div></a><a class="pagination-related" href="/2025/08/11/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-10/X-Teaming-Multi-Turn-Jailbreaks-and-Defenses-with-Adaptive-Multi-Agents/" title="X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-11</div><div class="info-item-2">X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents</div></div><div class="info-2"><div class="info-item-1">英文题目：《X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents》 中文题目：《X-Teaming：使用自适应多代理进行多回合越狱和防御》 发布于：arxiv 级别：无 论文链接： https://arxiv.org/pdf/2504.13203  摘要 与语言模型 （LM） 的多轮交互会带来严重的安全风险，因为有害意图可能会战略性地在交易所之间传播。然而，绝大多数先前的工作都集中在单弯安全上，而适应性和多样性仍然是多弯红队的主要挑战之一。为了应对这些挑战，我们提出了 X-Teaming，这是一个可扩展的框架，它系统地探索看似无害的交互如何升级为有害结果并生成相应的攻击场景。X-Teaming 采用协作代理进行规划、攻击优化和验证，实现了最先进的多轮越狱有效性和多样性，在具有代表性的领先开权重和闭源模型中成功率高达 98.1%。特别是，X-Teaming 在最新的 Claude 3.7 Sonnet 模型中实现了 96.2% 的攻击成功率，该模型被认为几乎不受单回合攻击的影响。在 X-Te...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</a><time datetime="2025-11-01T12:58:14.000Z" title="发表于 2025-11-01 20:58:14">2025-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/SELFDEFEND%20LLMs%20Can%20Defend%20Themselves%20against%20Jailbreaking%20in%20a%20Practical%20Manner/" title="SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner">SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner</a><time datetime="2025-10-31T12:58:14.000Z" title="发表于 2025-10-31 20:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E4%BC%8D%E4%BF%8A/2025-11-01/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/" title="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</a><time datetime="2025-10-31T11:53:16.000Z" title="发表于 2025-10-31 19:53:16">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries">Jailbreaking Black Box Large Language Models in Twenty Queries</a><time datetime="2025-10-31T02:58:14.000Z" title="发表于 2025-10-31 10:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/RAIDX%20A%20Retrieval-Augmented%20Generation%20and%20GRPO%20Reinforcement%20Learning%20Framework%20for%20Explainable%20Deepfake%20Detection/" title="RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection">RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection</a><time datetime="2025-10-29T11:53:16.000Z" title="发表于 2025-10-29 19:53:16">2025-10-29</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

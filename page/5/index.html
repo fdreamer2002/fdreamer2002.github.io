@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LLM Security Group 's Notes - 分享知识，认识世界</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="分享知识，认识世界">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LLM Security Group &#39;s Notes">
+<meta property="og:url" content="https://fdreamer2002.github.io/page/5/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="分享知识，认识世界">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:author" content="LLM Security Group">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/page/5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'LLM Security Group \'s Notes',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">LLM Security Group 's Notes</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/29/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-08-30/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries">Jailbreaking Black Box Large Language Models in Twenty Queries</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-29T11:58:14.000Z" title="发表于 2025-08-29 19:58:14">2025-08-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="content">英文题目：《Jailbreaking Black Box Large Language Models in Twenty Queries》 中文题目：《在 20 次查询内对黑盒大语言模型实施越狱攻击》 论文作者：  Patrick Chao, Alexander Robey, Edgar Dobriban, Hamed Hassani, George J.Pappas, Eric Wong 发布于： Computing Research Repository 发布时间：2023-10-12 级别：无 论文链接：https://cz5waila03cyo0tux1owpyofgoryroob.aminer.cn/27/D3/F0/27D3F04A17CE6E1DB47D32AE395B4A26.pdf 论文代码：  摘要 越来越多的人关注确保大型语言模型（LLM）与人类价值观保持一致。然而，这类模型的对齐容易受到对抗性越狱的影响，这会诱导LLM忽略其安全护栏。因此，识别这些漏洞对于理解内在的弱点并预防未来的滥用是至关重要的。为此，我们提出了Prompt Automatic Iter...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/29/%E6%98%93%E5%AD%90%E6%96%87/2025-08-30/DELVING%20INTO%20TRANSFERABLE%20ADVERSARIAL%20EXAMPLES%20AND%20BLACK%20-%20BOX%20ATTACKS/" title="DELVING INTO TRANSFERABLE ADVERSARIAL EXAMPLES AND BLACK - BOX ATTACKS">DELVING INTO TRANSFERABLE ADVERSARIAL EXAMPLES AND BLACK - BOX ATTACKS</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-29T02:58:14.000Z" title="发表于 2025-08-29 10:58:14">2025-08-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/BLACK-BOX-ATTACKS/">BLACK BOX ATTACKS</a></span></div><div class="content">英文题目：《DELVING INTO TRANSFERABLE ADVERSARIAL EXAMPLES AND BLACK - BOX ATTACKS》 中文题目：《深入研究可转移的对抗性例子和黑盒攻击》 论文作者：Yanpei Liu,Xinyun Chen,Chang Liu &amp; Dawn Song 发布于：ICLR 发布时间：2017 Feb 7 级别：CCF-A 论文链接：  摘要 深度神经网络的一个有趣的性质是存在对抗性的例子，这些例子可以在不同的体系结构之间转移。这些可转移的对抗性例子可能会严重阻碍基于神经网络的深度应用。以往的工作大多是使用小尺度数据集来研究可转移性。在这项工作中，我们首次对大规模模型和大规模数据集上的可转移性进行了广泛的研究，也首次研究了带有目标标签的目标对抗性实例的可转移性。我们研究了非目标对抗性实例和目标对抗性实例，并表明虽然可转移的非目标对抗性实例很容易找到，但使用现有方法生成的目标对抗性实例几乎不会与其目标标签一起转移。因此，我们提出了新的基于集成的方法来生成可转移的对抗性实例。使用这种方法，我们观察到很大比例的目标对抗性例子能够...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/29/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-08-30/Voice%20Jailbreak%20Attacks%20Against%20GPT-4o/" title="Voice Jailbreak Attacks Against GPT-4o">Voice Jailbreak Attacks Against GPT-4o</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-29T01:58:14.000Z" title="发表于 2025-08-29 09:58:14">2025-08-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="content">英文题目：《Voice Jailbreak Attacks Against GPT-4o》 中文题目：《针对GPT-4o的语音越狱攻击》 论文作者：  Xinyue Shen, Yixin Wu, Michael Backes, Yang Zhang 发布于：Computing Research Repository 发布时间：2024-05-29 级别：无 论文链接： https://arxiv.org/abs/2405.19103 论文代码：  摘要 最近，人工智能助手的概念已从科幻小说走进现实应用。GPT-4o作为最新的跨音频、视觉和文本的多模态大语言模型（MLLM），通过实现更自然的人机交互，进一步模糊了虚构与现实之间的界限。然而，GPT-4o语音模式的出现也可能带来新的攻击面。在本文中，我们首次对针对GPT-4o语音模式的越狱攻击进行了系统性评估。我们发现，当将违禁问题和文本越狱提示直接转换为语音模式时，GPT-4o对其表现出良好的抗性。这种抗性主要源于GPT-4o的内部防护机制以及将文本越狱提示适配到语音模式的难度。受GPT-4o类似人类行为的启发，我们提出了Voic...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/27/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-30/WordGame%20Efficient%20&amp;%20Effective%20LLM%20Jailbreak%20via%20Simultaneous%20Obfuscation%20in%20Query%20and%20Response/" title="WordGame: Efficient &amp; Effective LLM Jailbreak via Simultaneous Obfuscation in Query and Response">WordGame: Efficient &amp; Effective LLM Jailbreak via Simultaneous Obfuscation in Query and Response</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-27T08:58:14.000Z" title="发表于 2025-08-27 16:58:14">2025-08-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="content">英文题目：《WordGame: Efficient &amp; Effective LLM Jailbreak via Simultaneous Obfuscation in Query and Response》 中文题目：《WordGame：基于查询与响应混淆的大语言模型高效越狱攻击方法》 论文作者：Tianrong Zhang, Bochuan Cao, Yuanpu Cao, Lu Lin, Prasenjit Mitra, Jinghui Chen 发布于： arxiv 发布时间：2024-05-22 级别：无 论文链接：https://doi.org/10.48550/arXiv.2405.14023 论文代码：无  摘要 近期，诸如 ChatGPT 等大型语言模型（LLM）取得的重大突破以前所未有的速度革新了生产流程。与此同时，人们也越来越担忧 LLM 容易遭受破解攻击，从而生成有害或不安全的内容。尽管已经在 LLM 中实施了安全对齐措施来减轻现有的破解尝试，并使其变得越来越复杂，但这些措施仍远非完美。在本文中，我们分析了当前安全对齐的常见模式，并表明可以通过在查询...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/26/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-30/Enhancing%20Jailbreak%20Attacks%20on%20LLMs%20via%20Persona%20Prompts/" title="Enhancing Jailbreak Attacks on LLMs via Persona Prompts">Enhancing Jailbreak Attacks on LLMs via Persona Prompts</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-26T07:58:14.000Z" title="发表于 2025-08-26 15:58:14">2025-08-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="content">英文题目：《Enhancing Jailbreak Attacks on LLMs via Persona Prompts》 中文题目：《通过角色提示增强大型语言模型（LLMs）的越狱攻击》 论文作者：Zheng Zhang, Peilin Zhao, Deheng Ye, Hao Wang 发布于： arxiv 发布时间：2024-07-28 级别：无 论文链接： https://doi.org/10.48550/arXiv.2507.22171 论文代码：https://github.com/CjangCjengh/Generic_Persona  摘要 越狱攻击旨在通过诱导大型语言模型（LLMs）生成有害内容来利用其漏洞，进而揭示模型的安全缺陷。理解并应对此类攻击对于推动 LLM 安全领域发展至关重要。以往的越狱方法主要聚焦于对有害意图的直接操纵，却较少关注角色提示（persona prompts）的影响。本研究系统探究了角色提示在突破 LLM 防御机制中的有效性，提出一种基于遗传算法的方法，可自动生成角色提示以绕过 LLM 的安全机制。实验结果表明：（1）经进化生成的角色...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/25/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-30/PRISM%20Programmatic%20Reasoning%20with%20Image%20Sequence%20Manipulation%20for%20LVLM%20Jailbreaking/" title="PRISM: Programmatic Reasoning with Image Sequence Manipulation for LVLM Jailbreaking">PRISM: Programmatic Reasoning with Image Sequence Manipulation for LVLM Jailbreaking</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-25T02:58:14.000Z" title="发表于 2025-08-25 10:58:14">2025-08-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="content">英文题目：《PRISM: Programmatic Reasoning with Image Sequence Manipulation for LVLM Jailbreaking》 中文题目：《PRISM：面向大型视觉语言模型（LVLM）越狱的、基于图像序列操纵的程序化推理》 论文作者：Quanchen Zou, Zonghao Ying, Moyang Chen, Wenzhuo Xu, Yisong Xiao, Yakai Li, Deyue Zhang, Dongdong Yang, Zhao Liu, Xiangzheng Zhang 发布于： arxiv 发布时间：2025-07-29 级别：无 论文链接： https://doi.org/10.48550/arXiv.2507.21540 论文代码：无  摘要 大型视觉语言模型（LVLMs）的复杂程度不断提升，与此同时，旨在防止生成有害内容的安全对齐机制也在逐步发展。然而，这些防御机制在复杂的对抗性攻击面前仍显脆弱。现有越狱方法通常依赖直接且语义明确的提示词，却忽视了大型视觉语言模型（LVLMs）在多步推理过程中整合...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/23/%E6%98%93%E5%AD%90%E6%96%87/2025-08-23/Deep%20Neural%20Networks%20are%20Easily%20FooledHigh%20Confidence%20Predictions%20for%20Unrecognizable%20Images/" title="Deep Neural Networks are Easily Fooled:High Confidence Predictions for Unrecognizable Images">Deep Neural Networks are Easily Fooled:High Confidence Predictions for Unrecognizable Images</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-23T11:58:14.000Z" title="发表于 2025-08-23 19:58:14">2025-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/High-Confidence-Predictions-for-Unrecognizable-Images/">High Confidence Predictions for Unrecognizable Images</a></span></div><div class="content">英文题目：《Deep Neural Networks are Easily Fooled:High Confidence Predictions for Unrecognizable Images》 中文题目：《深度神经网络很容易被愚弄：对无法识别的图像进行高置信度预测》 论文作者：Anh Nguyen,Jason Yosinski &amp; Jeff Clune 发布于：CVPR 发布时间：2015 Apr 2 级别：CCFA 论文链接：  摘要 深度神经网络(DNN)最近在各种模式识别任务上取得了最先进的性能，最显著的是视觉分类问题。鉴于DNN现在能够以接近人类水平的性能对图像中的对象进行分类，自然会出现计算机和人类视觉之间存在哪些差异的问题。最近的一项研究[30]显示，以人类无法察觉的方式更改图像(例如，狮子)可能会导致DNN将图像标记为完全不同的东西(例如，错误地将狮子标记为图书馆)。这里我们展示了一个相关的结果：很容易产生人类完全无法识别的图像，但最先进的DNN相信是可识别的对象，置信度为99.99%(例如，确定地标记白噪声静态是一只狮子)。具体地说，我们使用经过训练...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/23/%E6%98%93%E5%AD%90%E6%96%87/2025-08-23/ADVERSARIAL%20EXAMPLES%20IN%20THE%20PHYSICAL%20WORLD/" title="ADVERSARIAL EXAMPLES IN THE PHYSICAL WORLD">ADVERSARIAL EXAMPLES IN THE PHYSICAL WORLD</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-23T11:58:14.000Z" title="发表于 2025-08-23 19:58:14">2025-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Adversarial/">Adversarial</a></span></div><div class="content">英文题目：《ADVERSARIAL EXAMPLES IN THE PHYSICAL WORLD》 中文题目：《物理世界中的对抗性例子》 论文作者：Alexey Kurakin,Ian J. GoodfellowIan  &amp; Samy Bengio 发布于：ICLR 发布时间：2017 Feb 11 级别：CCF-A 论文链接： 摘要 大多数现有的机器学习分类器都非常容易受到对抗性例子的攻击。一个对抗性的例子是输入数据的样本，它经过了非常轻微的修改，意在导致机器学习分类器对其进行错误分类。在许多情况下，这些修改可能是如此微妙，以至于人类观察者甚至根本没有注意到修改，但分类器仍然犯下了错误。敌意例子会造成安全问题，因为它们可能被用来对机器学习系统进行攻击，即使对手无法访问底层模型。到目前为止，所有以前的工作都假设了威胁模型，在该模型中，对手可以直接将数据馈送到机器学习分类器中。对于在物理世界中运行的系统来说，情况并不总是这样，例如，那些使用来自摄像机和其他传感器的信号作为输入的系统。这篇论文表明，即使在这样的物理世界场景中，机器学习系统也很容易受到对手例子的攻击。我们通过将...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/23/%E6%98%93%E5%AD%90%E6%96%87/2025-08-23/Explaining%20and%20Harnessing%20Adversarial%20Examples/" title="Explaining and Harnessing Adversarial Examples">Explaining and Harnessing Adversarial Examples</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-23T11:58:14.000Z" title="发表于 2025-08-23 19:58:14">2025-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Adversarial/">Adversarial</a></span></div><div class="content">英文题目：《Explaining and Harnessing Adversarial Examples》 中文题目：《解释和利用对抗性》 论文作者：Ian J.Goodfellow,Jonathon Shlens &amp; Christian Szegedy 发布于：ICLR 发布时间：2015 Mar 20 级别：CCF-A 论文链接：  摘要 Several machine learning models, including neural networks, consistently misclassify adversarial examples—inputs formed by applying small but intentionally worst-case perturbations to examples from the dataset, such that the perturbed in-put results in the model outputting an incorrect answer with high confidence. Earl...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/08/23/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-08-23/ArtPrompt%20ASCII%20Art-based%20Jailbreak%20Attacks%20against%20Aligned%20LLMs/" title="ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs">ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-23T01:58:14.000Z" title="发表于 2025-08-23 09:58:14">2025-08-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="content">英文题目：《ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs》 中文题目：《艺术提示：针对对齐语言模型的基于ASCII艺术的越狱攻击》 论文作者： Fengqing Jiang,Zhangchen Xu,Luyao Niu… 发布于：arxiv 发布时间：2024-02-19 级别：无 论文链接： https://aclanthology.org/2024.acl-long.809.pdf 论文代码：  摘要 安全性对于大语言模型（LLMs）的使用至关重要。已经开发了多种技术，如数据过滤和监督微调，以加强语言模型的安全性。然而，目前已知的技术假定用于语言模型安全对齐的语料库仅通过语义来解释。然而，这一假设在实际应用中并不成立，这导致了语言模型中存在严重的漏洞。例如，论坛用户经常使用ASCII艺术（一种基于文本的艺术形式）来传达图像信息。在本文中，我们提出了一种新颖的基于ASCII艺术的越狱攻击，并引入了一个全面的基准文本视觉挑战（VITC），以评估语言模型识别不能仅通过语义解释的提示的能力。我们表明...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/4/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#content-inner">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#content-inner">9</a><a class="extend next" rel="next" href="/page/6/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">85</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</a><time datetime="2025-11-01T12:58:14.000Z" title="发表于 2025-11-01 20:58:14">2025-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/SELFDEFEND%20LLMs%20Can%20Defend%20Themselves%20against%20Jailbreaking%20in%20a%20Practical%20Manner/" title="SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner">SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner</a><time datetime="2025-10-31T12:58:14.000Z" title="发表于 2025-10-31 20:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E4%BC%8D%E4%BF%8A/2025-11-01/Rethinking%20Image%20Forgery%20Detection%20via%20Soft%20Contrastive%20Learning%20and%20Unsupervised%20Clustering/" title="Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering">Rethinking Image Forgery Detection via Soft Contrastive Learning and Unsupervised Clustering</a><time datetime="2025-10-31T11:53:16.000Z" title="发表于 2025-10-31 19:53:16">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries">Jailbreaking Black Box Large Language Models in Twenty Queries</a><time datetime="2025-10-31T02:58:14.000Z" title="发表于 2025-10-31 10:58:14">2025-10-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/RAIDX%20A%20Retrieval-Augmented%20Generation%20and%20GRPO%20Reinforcement%20Learning%20Framework%20for%20Explainable%20Deepfake%20Detection/" title="RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection">RAIDX: A Retrieval-Augmented Generation and GRPO Reinforcement Learning Framework for Explainable Deepfake Detection</a><time datetime="2025-10-29T11:53:16.000Z" title="发表于 2025-10-29 19:53:16">2025-10-29</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ADVERSARIAL-DEFENSE/"><span class="card-category-list-name">ADVERSARIAL DEFENSE</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI%E7%B3%BB%E7%BB%9F%E4%BC%98%E5%8C%96/"><span class="card-category-list-name">AI系统优化</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Adversarial/"><span class="card-category-list-name">Adversarial</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Adversarial-Text-Generation/"><span class="card-category-list-name">Adversarial Text Generation</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Adversarial-attack/"><span class="card-category-list-name">Adversarial attack</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Attack/"><span class="card-category-list-name">Attack</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/BLACK-BOX-ATTACKS/"><span class="card-category-list-name">BLACK BOX ATTACKS</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/High-Confidence-Predictions-for-Unrecognizable-Images/"><span class="card-category-list-name">High Confidence Predictions for Unrecognizable Images</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/adaptive-perturbation/" style="font-size: 1.1em; color: #999">adaptive perturbation</a> <a href="/tags/%E5%9F%BA%E6%9C%AC%E8%BF%AD%E4%BB%A3%E6%B3%95/" style="font-size: 1.1em; color: #999">基本迭代法</a> <a href="/tags/%E5%BC%B1%E7%9B%91%E7%9D%A3%E5%9B%BE%E5%83%8F%E4%BC%AA%E9%80%A0%E6%A3%80%E6%B5%8B/" style="font-size: 1.1em; color: #999">弱监督图像伪造检测</a> <a href="/tags/ADVERSARIAL-DEFENSE/" style="font-size: 1.1em; color: #999">ADVERSARIAL DEFENSE</a> <a href="/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E4%BC%98%E5%8C%96/" style="font-size: 1.1em; color: #999">损失函数优化</a> <a href="/tags/PSA/" style="font-size: 1.1em; color: #999">PSA</a> <a href="/tags/%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88/" style="font-size: 1.1em; color: #999">特征融合</a> <a href="/tags/%E5%9B%BE%E5%83%8F%E4%BC%AA%E9%80%A0%E5%AE%9A%E4%BD%8D/" style="font-size: 1.3em; color: #99a1ac">图像伪造定位</a> <a href="/tags/JailFuzzer/" style="font-size: 1.1em; color: #999">JailFuzzer</a> <a href="/tags/%E5%8F%8C%E6%B5%81%E6%8F%90%E5%8F%96/" style="font-size: 1.1em; color: #999">双流提取</a> <a href="/tags/State-Space-Models/" style="font-size: 1.1em; color: #999">State Space Models</a> <a href="/tags/%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 1.1em; color: #999">多智能体</a> <a href="/tags/Adversarial-attack-ransfer-based-attack/" style="font-size: 1.1em; color: #999">Adversarial attack,ransfer-based attack</a> <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81%E8%B6%8A%E7%8B%B1/" style="font-size: 1.3em; color: #99a1ac">多模态越狱</a> <a href="/tags/Information-Security/" style="font-size: 1.1em; color: #999">Information Security</a> <a href="/tags/%E5%AF%B9%E6%8A%97%E6%8F%90%E7%A4%BA/" style="font-size: 1.1em; color: #999">对抗提示</a> <a href="/tags/Convolutional-Neural-Network/" style="font-size: 1.1em; color: #999">Convolutional Neural Network</a> <a href="/tags/%E5%8F%AF%E5%AD%A6%E4%B9%A0%E5%B9%B2%E9%A2%84/" style="font-size: 1.1em; color: #999">可学习干预</a> <a href="/tags/%E5%A4%9A%E8%BD%AE%E8%B6%8A%E7%8B%B1/" style="font-size: 1.1em; color: #999">多轮越狱</a> <a href="/tags/%E9%A2%91%E5%9F%9F%E7%89%B9%E5%BE%81/" style="font-size: 1.1em; color: #999">频域特征</a> <a href="/tags/TextGrad/" style="font-size: 1.1em; color: #999">TextGrad</a> <a href="/tags/%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">上下文学习</a> <a href="/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">一致性学习</a> <a href="/tags/%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%88%86%E6%95%A3/" style="font-size: 1.1em; color: #999">注意力分散</a> <a href="/tags/%E5%8F%8C%E8%B6%85%E5%9B%BE%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">双超图卷积网络</a> <a href="/tags/Adversarial-Text-Generation/" style="font-size: 1.1em; color: #999">Adversarial Text Generation</a> <a href="/tags/Image-Recognition/" style="font-size: 1.1em; color: #999">Image Recognition</a> <a href="/tags/%E5%A4%9A%E6%A8%A1%E6%80%81%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/" style="font-size: 1.5em; color: #99a9bf">多模态大语言模型</a> <a href="/tags/MASTERKEY/" style="font-size: 1.1em; color: #999">MASTERKEY</a> <a href="/tags/%E9%9F%B3%E9%A2%91%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/" style="font-size: 1.1em; color: #999">音频越狱攻击</a> <a href="/tags/%E5%8F%8C%E6%B5%81%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96/" style="font-size: 1.1em; color: #999">双流特征提取</a> <a href="/tags/%E7%AF%A1%E6%94%B9%E9%93%BE%E5%8F%96%E8%AF%81/" style="font-size: 1.1em; color: #999">篡改链取证</a> <a href="/tags/transformer/" style="font-size: 1.1em; color: #999">transformer</a> <a href="/tags/%E5%99%AA%E5%A3%B0%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">噪声表示学习</a> <a href="/tags/%E7%9B%91%E7%9D%A3%E5%BE%AE%E8%B0%83/" style="font-size: 1.1em; color: #999">监督微调</a> <a href="/tags/Boosting%E5%B0%84%E7%BA%BF%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">Boosting射线算法</a> <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8%E5%AF%B9%E9%BD%90/" style="font-size: 1.1em; color: #999">大模型安全对齐</a> <a href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" style="font-size: 1.5em; color: #99a9bf">对比学习</a> <a href="/tags/GCG/" style="font-size: 1.1em; color: #999">GCG</a> <a href="/tags/GCG%E4%BC%98%E5%8C%96/" style="font-size: 1.1em; color: #999">GCG优化</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">23</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/09/">
+            <span class="card-archive-list-date">
+              九月 2025
+            </span>
+            <span class="card-archive-list-count">13</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              八月 2025
+            </span>
+            <span class="card-archive-list-count">45</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">82</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-11-02T09:07:53.019Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
