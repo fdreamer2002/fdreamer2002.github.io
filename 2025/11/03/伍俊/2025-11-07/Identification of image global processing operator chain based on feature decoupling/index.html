@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Identification of image global processing operator chain based on feature decoupling | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《Identification of image global processing operator chain based on feature decoupling》 中文题目：《基于特征解耦的图像全局处理算子链识别》 论文作者：Jiaxin Chen , Xin Liao a, Wei Wang b, Zheng Qin 发布于：Information Sciences">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Identification of image global processing operator chain based on feature decoupling">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Identification%20of%20image%20global%20processing%20operator%20chain%20based%20on%20feature%20decoupling/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《Identification of image global processing operator chain based on feature decoupling》 中文题目：《基于特征解耦的图像全局处理算子链识别》 论文作者：Jiaxin Chen , Xin Liao a, Wei Wang b, Zheng Qin 发布于：Information Sciences">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-11-03T11:53:16.000Z">
+<meta property="article:modified_time" content="2025-11-07T13:41:54.393Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="篡改链取证">
+<meta property="article:tag" content="频域特征">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Identification of image global processing operator chain based on feature decoupling",
+  "url": "https://fdreamer2002.github.io/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Identification%20of%20image%20global%20processing%20operator%20chain%20based%20on%20feature%20decoupling/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-11-03T11:53:16.000Z",
+  "dateModified": "2025-11-07T13:41:54.393Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "伍俊",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Identification%20of%20image%20global%20processing%20operator%20chain%20based%20on%20feature%20decoupling/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Identification of image global processing operator chain based on feature decoupling',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">88</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">Identification of image global processing operator chain based on feature decoupling</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Identification of image global processing operator chain based on feature decoupling</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-03T11:53:16.000Z" title="发表于 2025-11-03 19:53:16">2025-11-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T13:41:54.393Z" title="更新于 2025-11-07 21:41:54">2025-11-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E5%83%8F%E4%BC%AA%E9%80%A0%E5%8F%96%E8%AF%81/">图像伪造取证</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《Identification of image global processing operator chain based on feature decoupling》</p>
+<p>中文题目：《基于特征解耦的图像全局处理算子链识别》</p>
+<p>论文作者：Jiaxin Chen , Xin Liao a, Wei Wang b, Zheng Qin</p>
+<p>发布于：Information Sciences</p>
+<p>发布时间：2023-08-23</p>
+<p>级别：中科院二区</p>
+<p>论文链接：https://doi.org/10.1016/j.ins.2023.118961</p>
+<p>论文代码：暂无</p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>图像真实性验证是一个重要的问题，近年来受到了越来越多的关注。大多数现有的取证方法都是针 对检测特定的篡改。然而，由于使用不同的操作伪造图像导致的叠加处理伪影，由多个按一定顺序 执行的全局操作组成的图像全局处理算子链识别仍然是一个挑战。在本文中，我们专注于检测多个 操作并识别这些操作的顺序。通过分析盲源信号分离和算子链识别之间的关系，我们发现当图像被 多个操作处理时，不同操作的自分源特征将会耦合，这与盲源信号分离中的情况类似。因此，用盲 源信号分离来构建算子链识别问题是合理的。然后，提出了一种特征解耦方法，通过优化解耦矩阵 从耦合特征中估计源特征。这些估计的解耦特征是算子链识别的有效证据。对于图像以JPEG格式 保存的现实场景，与一些最先进的方法相比，所提出的方法在算子链识别方面表现出更好的性能。</p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>多全局操作串联后，操作痕迹会<strong>互相污染</strong>，传统伪造取证方法无法直接识别。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<p>原来伪造取证方法，大家习惯直接对“混叠特征”做识别，而本文逻辑是：<strong>先做特征解耦，再识别</strong>。也就是说伪造取证不再直接对污染特征做判断，<strong>而是先恢复干净、独立的每个操作痕迹，再分类。</strong></p>
+<blockquote>
+<p>为了得到训练图像和测试图像，我们先用M张原始图像执行</p>
+</blockquote>
+<figure>
+<img src="C:/Users/fdreamer/AppData/Roaming/Typora/typora-user-images/image-20251107192245712.png" alt="image-20251107192245712" /><figcaption aria-hidden="true">image-20251107192245712</figcaption>
+</figure>
+<h3 id="特征解耦">特征解耦</h3>
+<p>在多全局操作串联后，图像中提取到的特征本质上已经不再是单一操作的痕迹，而是多个操作痕迹线性叠加后的“混合特征”，<strong>这种混合特征与盲信号分离（BSS）中多源信号混合后的数学形式一致。</strong>因此，本研究将每种独立操作所对应的特征视为“源信号”，将最终的混合特征视为“混合观测”。<strong>在此类比基础上，可以将操作链识别问题转化为一个求解“分离矩阵”的过程</strong>：即学习一个解耦矩阵，使混合特征能够投影回独立操作特征空间。换句话说，特征解耦的目标就是学习这个分离矩阵，使被多次 tampering 污染、互相叠加的 forensics 特征重新分离成各自独立干净的操作痕迹，从而取证过程不再在污染特征空间做判断，而是回到 clean feature space 下再进行识别与顺序判定。</p>
+<figure>
+<img src="C:/Users/fdreamer/AppData/Roaming/Typora/typora-user-images/image-20251107192711708.png" alt="image-20251107192711708" /><figcaption aria-hidden="true">image-20251107192711708</figcaption>
+</figure>
+<h3 id="如何识别操作-操作顺序">如何识别操作 &amp; 操作顺序？</h3>
+<p>解耦之后，先有了每个操作的独立源特征，再用监督分类直接学习“每个操作对应什么特征”和“不同操作在不同顺序下的差异模式”，即可完成图像篡改链的识别。</p>
+<h2 id="阅读总结">阅读总结</h2>
+<h3 id="不足">不足</h3>
+<p><strong>这篇论文能识别的篡改链最长为2步操作。</strong>具体原因：在做“特征解耦”时，是把问题当成“盲信号混合”在做（像把混在一起的声音拆开一样）。这种方法有一个硬规则：想分几种来源特征，就至少要有对应数量的不同“观察角度/通道”。但是一张图片本身只有一个角度，所以论文只能通过“旋转等方式去人为多造几张图”当不同角度的通道使用。可问题就是：通道造太多，会带来新的伪影，会把取证线索搞坏，所以他们最后只在安全范围内做两步操作。</p>
+<h3 id="改进措施">改进措施</h3>
+<p>改成在“特征层”造更多通道。例如：把不同尺度、不同方向的残差特征、不同频率的DCT子带，当成新的“通道”。这些其实就是图像里的多个“自然视角”，不用再动图像本身，不会产生额外伪影。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">伍俊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Identification%20of%20image%20global%20processing%20operator%20chain%20based%20on%20feature%20decoupling/">https://fdreamer2002.github.io/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Identification%20of%20image%20global%20processing%20operator%20chain%20based%20on%20feature%20decoupling/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AF%A1%E6%94%B9%E9%93%BE%E5%8F%96%E8%AF%81/">篡改链取证</a><a class="post-meta__tags" href="/tags/%E9%A2%91%E5%9F%9F%E7%89%B9%E5%BE%81/">频域特征</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Is%20Artificial%20Intelligence%20Generated%20Image%20Detection%20a%20Solved%20Problem/" title="Is Artificial Intelligence Generated Image Detection a Solved Problem"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Is Artificial Intelligence Generated Image Detection a Solved Problem</div></div><div class="info-2"><div class="info-item-1">英文题目：《Is Artificial Intelligence Generated Image Detection a Solved Problem?》 中文题目：《人工智能生成的图像检测问题已经解决了吗？》 论文作者： Ziqiang Li， Jiazhen Yan， Ziwen He，Kai Zeng， Weiwei Jiang， Lizhi Xiong， Zhangjie Fu 发布于：NeurIPS 发布时间：2025-09-19 级别：CCF-A 论文链接：https://doi.org/10.48550/arXiv.2505.12335 论文代码： https://github.com/HorizonTEL/AIGIBench  摘要 生成模型（例如生成对抗网络 (GAN) 和扩散模型）的快速发展使得创建高度逼真的合成图像成为可能，同时也引发了人们对虚假信息、深度伪造和版权侵权的严重担忧。尽管已经提出了许多人工智能生成图像 (AIGI) 检测器，并且通常报告了较高的准确率，但它们在实际场景中的有效性仍然值得怀疑。为了弥合这一差距，我们推出了 AI...</div></div></div></a><a class="pagination-related" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</div></div><div class="info-2"><div class="info-item-1">英文题目：《MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots》 中文题目：《通过注意力转移对大型语言模型进行多轮越狱攻击》 论文作者：Gelei Deng, Yi Liu, Yuekang Li, Kailong Wang, Ying Zhang, Zefeng Li, Haoyu Wang, Tianwei Zhang, Yang Liu 发布于： NDSS 发布时间：2023-07-16 级别：CCF-A 论文链接：https://doi.org/10.48550/arXiv.2307.08715 论文代码：无  摘要 大型语言模型（LLMs）由于其卓越的理解、生成和完成类人文本的能力而迅速普及，LLM 聊天机器人也因此成为非常受欢迎的应用。这些聊天机器人容易受到越狱攻击，即恶意用户操纵提示词，以违反使用策略的方式泄露敏感、专有或有害信息。虽然已经进行了一系列的越狱尝试来揭示这些漏洞，但本文中的实证研究表明，现有方法在主流 LLM 聊天机器人上效果不佳。其效力降低的根本原因似乎是服务提供商为应...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/29/%E4%BC%8D%E4%BF%8A/2025-11-01/Let%20Images%20Speak%20More%20An%20Efficient%20Method%20for%20Detecting%20Image%20Manipulation%20History/" title=" Let Images Speak More: An Efficient Method for Detecting Image Manipulation History"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-29</div><div class="info-item-2"> Let Images Speak More: An Efficient Method for Detecting Image Manipulation History</div></div><div class="info-2"><div class="info-item-1">英文题目：《Let Images Speak More: An Efficient Method for  Detecting Image Manipulation History》 中文题目：《让图像更能“开口说话”：高效检测图像篡改历史的方法》 论文作者：Yang Wei; Haowei Liu; Xiaochen Yuan; Xiuli Bi; Bin Xiao 发布于：TCSVT 发布时间：2025-05-20 级别：CCF-B 论文链接：10.1109/TCSVT.2025.3571767 论文代码：https://github.com/CherishL-J/Op-detection  摘要 数字图像取证旨在验证数字图像的真实性，已成为一 个重要的研究领域。为了揭示图像的篡改历史，现有方法只能检测特定的图像操作，或者基于高维度的通用取证特征。此外，这些方法只有在操作链长度不超过2时表现良好。然而，对于操作链更长、更能代表现实场景的图像，它们的检测精度会显著下降。 为了打破这些局限性，我们提出了一种基于直方图和细节图的取证频率特征（FHDM(79D)），它可以区分包含不同...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">85</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">88</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E8%A7%A3%E8%80%A6"><span class="toc-number">3.1.</span> <span class="toc-text">特征解耦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AF%86%E5%88%AB%E6%93%8D%E4%BD%9C-%E6%93%8D%E4%BD%9C%E9%A1%BA%E5%BA%8F"><span class="toc-number">3.2.</span> <span class="toc-text">如何识别操作 &amp; 操作顺序？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%B6%B3"><span class="toc-number">4.1.</span> <span class="toc-text">不足</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B%E6%8E%AA%E6%96%BD"><span class="toc-number">4.2.</span> <span class="toc-text">改进措施</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E4%BC%8D%E4%BF%8A/2025-11-07/SNIS%20A%20Signal%20Noise%20Separation-Based%20Network%20%20for%20Post-Processed%20Image%20Forgery%20Detection/" title="SNIS: A Signal Noise Separation-Based Network  for Post-Processed Image Forgery Detection">SNIS: A Signal Noise Separation-Based Network  for Post-Processed Image Forgery Detection</a><time datetime="2025-11-04T11:53:16.000Z" title="发表于 2025-11-04 19:53:16">2025-11-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Identification%20of%20image%20global%20processing%20operator%20chain%20based%20on%20feature%20decoupling/" title="Identification of image global processing operator chain based on feature decoupling">Identification of image global processing operator chain based on feature decoupling</a><time datetime="2025-11-03T11:53:16.000Z" title="发表于 2025-11-03 19:53:16">2025-11-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Is%20Artificial%20Intelligence%20Generated%20Image%20Detection%20a%20Solved%20Problem/" title="Is Artificial Intelligence Generated Image Detection a Solved Problem">Is Artificial Intelligence Generated Image Detection a Solved Problem</a><time datetime="2025-11-03T11:53:16.000Z" title="发表于 2025-11-03 19:53:16">2025-11-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/" title="MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots">MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</a><time datetime="2025-11-01T12:58:14.000Z" title="发表于 2025-11-01 20:58:14">2025-11-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/31/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/SELFDEFEND%20LLMs%20Can%20Defend%20Themselves%20against%20Jailbreaking%20in%20a%20Practical%20Manner/" title="SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner">SELFDEFEND: LLMs Can Defend Themselves against Jailbreaking in a Practical Manner</a><time datetime="2025-10-31T12:58:14.000Z" title="发表于 2025-10-31 20:58:14">2025-10-31</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
