@@ -218,6 +218,68 @@
     
     
     <entry>
+      <title>AutoDAN: Interpretable Gradient-Based Adversarial Attacks on Large Language Models</title>
+      <link href="/2025/11/03/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-03/AutoDAN%20Interpretable%20Gradient-Based%20Adversarial%20Attacks%20on%20Large%20Language%20Models/"/>
+      <url>/2025/11/03/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-03/AutoDAN%20Interpretable%20Gradient-Based%20Adversarial%20Attacks%20on%20Large%20Language%20Models/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《AutoDAN: Interpretable Gradient-Based Adversarial Attacks on Large Language Models》</p><p>中文题目：《AutoDAN：一种可解释的基于梯度的大型语言模型对抗攻击方法》</p><p>论文作者：Sicheng Zhu，Ruiyi Zhang，Bang An1，Gang Wu，Joe Barrow，Zichao Wang，Furong Huang，Ani Nenkova，Tong Sun</p><p>发布于：NeurIPS 2024(CCF A)</p><p>论文链接：http://arxiv.org/abs/2310.15140</p><p>代码链接：autodan-jailbreak.github.io/</p></div><hr><h2 id="摘要">摘要</h2><p>大型语言模型（LLMs）的安全性可能因手动越狱攻击和（自动）对抗性攻击而受损。最新研究表明，防御这些攻击是可行的：对抗性攻击会生成无限但不可读的乱码提示，可通过困惑度过滤器检测；手动越狱攻击虽能生成可读提示，但由于需要人工创造力且数量有限，容易被拦截。本文指出这些解决方案可能过于乐观。我们提出AutoDAN——一种基于梯度的可解释对抗性攻击，融合了两种攻击方式的优势。在越狱与可读性双重目标的引导下，AutoDAN从左到右逐个优化生成提示，既绕过困惑度过滤器又能保持高成功率。值得注意的是，这些通过梯度从零生成的提示具有可解释性和多样性，其中涌现出的手动越狱攻击常见策略。它们还能泛化到未预见的有害行为，并在使用有限训练数据或单一代理模型时，比不可读的同类攻击更有效地迁移至黑盒LLMs。此外，我们通过自定义目标函数自动泄露系统提示，展示了AutoDAN的多功能性。本研究为红队测试LLMs和通过可解释性理解越狱机制提供了新思路。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>如何在<strong>自动化</strong>地生成对抗提示（adversarial prompts）时，既保证<strong>文本可读性</strong>，又保证<strong>攻击效果强</strong>？AutoDAN 的答案是：在<strong>每个 token 位置</strong>同时利用<strong>模型自身的两个信号</strong>（越狱信号和可读性信号）做两阶段筛选与选择，从而实现从零开始、可解释且高效的可读越狱提示生成。</p><h2 id="本文提出的方法">本文提出的方法</h2><h3 id="一总体框架">一、总体框架</h3><p>AutoDAN 是一个<strong>左到右逐词生成</strong>的系统：外层按位置推进，内层为该位置运行 STO（Single Token Optimization），选出一个 token 并拼接到对抗后缀中，重复该过程直到收敛或达到长度上限。 <img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251103171648137.png"> ### 二、输入结构 <strong>输入（prompt to model）</strong> 包含：系统提示、用户请求（恶意请求）、当前已固定的 adversarial prompt（已生成的后缀），以及当前待选位置的占位符（?）。模型被要求在该上下文下产生目标响应（目标答案）。示意图把用户请求、对抗后缀、目标响应及新 token 的位置展示清楚，说明 AutoDAN 是如何把生成动作插入标准的对话模板中以诱导目标输出。 <img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251103171813124.png"></p><h2 id="方法要点">方法要点</h2><h3 id="single-token-optimizationsto总体思路">Single Token Optimization（STO）总体思路</h3><p>STO 的目标是：在当前位置挑出一个既<strong>能提高目标输出概率</strong>又<strong>在语言上自然顺口</strong>的 token。为保证效率与准确性，STO 采用<strong>两阶段策略</strong>： - <strong>Preliminary selection（预选）</strong>：用快速近似信号从整个词表筛出 top-B 候选；<br>- <strong>Fine selection（精选）</strong>：对 top-B 候选做真实测试前向评估，得到精确得分并采样最终 token。</p><h3 id="方法概述">1. 方法概述</h3><p>STO 是 AutoDAN 框架的核心组件，构成了模型从左到右的逐词生成过程。在每个位置，算法通过<strong>两阶段优化（two-stage optimization）</strong>，即<strong>预选（Preliminary Selection）</strong>与<strong>精选（Fine Selection）</strong>，从整个词表中筛选出一个最优 token。这种设计兼顾了计算效率与生成质量，使得对抗提示既具攻击性又具可读性。</p><h3 id="阶段一preliminary-selection预选">2. 阶段一：Preliminary Selection（预选）</h3><p>在预选阶段，STO综合利用两种信号源以近似估计各候选词的潜在价值：</p><ol type="1"><li><strong>越狱信号（Gradient-based signal）</strong>：计算目标输出对当前 token embedding 的梯度。梯度方向反映了词向量变化对目标概率的敏感度，因此可作为“引导模型走向攻击目标”的代理指标。<br></li><li><strong>可读性信号（Linguistic signal）</strong>：基于语言模型自身的 logits，评估当前上下文场景下的下一个 token 的语言合理性。</li></ol><h4 id="可读性信号的形象解释">💡 可读性信号的形象解释</h4><p>语言模型在训练中学习了条件概率分布，该分布反映了模型认为“在当前语境下，下一个词出现的自然程度”。当我们在 prompt 中插入一个候选 token，模型会重新计算该分布：若该 token 在此上下文下获得更高的概率，即意味着它与语义、语法均保持一致。</p><p>因此，LM 的 logits 实际上是模型自身的“语感评分”： &gt; 若模型自己也认为这个词自然出现，那么它在语言流形上是合理的——即，它对人类读者而言也更流畅、更自然。</p><p>这两种信号融合后形成一个综合代理分数（proxy score），并据此从词表中选取 top-B 个候选词以进入下一阶段。</p><hr><h3 id="阶段二fine-selection精选">3. 阶段二：Fine Selection（精选）</h3><p>精选阶段在更高精度的层面评估 top-B 候选词。具体过程为：<br>- 将每个候选词实际填入完整 prompt 中执行前向传播；<br>- 计算其在该上下文下的<strong>目标响应 log-prob</strong>（真实攻击强度）与<strong>语言流畅度 log-prob</strong>（可读性指标）；<br>- 按照目标函数（双目标加权或归一化组合）计算最终得分，并选取得分最高的 token 作为输出。</p><p>相比预选阶段的梯度近似，精选阶段等价于一次小规模的真实模型评估，因此能保证局部最优性。AutoDAN 同时在此阶段引入随机采样机制，以增加生成结果的多样性与鲁棒性。</p><hr><h3 id="收敛判定与迭代稳定性">4. 收敛判定与迭代稳定性</h3><p>外层循环监控每个位置的 top-1 候选 token。若连续两轮的最优候选相同，即视为该位置已收敛并固定。该设计保证了生成过程的单调收敛性：<br>- 每轮都会保留当前 token 以防状态丢失；<br>- 精选阶段的打分函数单调不降；<br>- 候选空间有限，因此在有限步内必然达到稳定状态。<br>实验结果表明，实际收敛速度远快于理论上限。</p><h2 id="阅读总结">阅读总结</h2><p><strong>优点：</strong> 1. 从零生成，无需人工提示模板； 2. 生成文本自然（低 PPL），能更好绕过简单检测；</p><p><strong>缺点：</strong> 1. 依赖白盒梯度；在纯黑盒场景需借助代理或估计技巧； 2. 计算开销比较大；</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 模型安全 </category>
+          
+          <category> 越狱攻击 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 越狱攻击 </tag>
+            
+            <tag> 大语言模型 </tag>
+            
+            <tag> 对抗样本 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>GPT-4 Is Too Smart to Be Safe: Stealthy Chat with LLMs via Cipher</title>
+      <link href="/2025/11/03/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-03/GPT-4%20Is%20Too%20Smart%20to%20Be%20Safe%20Stealthy%20Chat%20with%20LLMs%20via%20Cipher/"/>
+      <url>/2025/11/03/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-03/GPT-4%20Is%20Too%20Smart%20to%20Be%20Safe%20Stealthy%20Chat%20with%20LLMs%20via%20Cipher/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《GPT-4 Is Too Smart to Be Safe: Stealthy Chat with LLMs via Cipher》</p><p>中文题目：《GPT-4 太聪明以至于不安全：通过加密语言与大模型进行隐蔽对话》</p><p>论文作者：Youliang Yuan, Wenxiang Jiao, Wenxuan Wang, Jen-tse Huang, Pinjia He, Shuming Shi, Zhaopeng Tu</p><p>发布于：ICLR 2024</p><p>论文链接：https://arxiv.org/abs/2308.06463</p><p>代码链接：https://github.com/RobustNLP/CipherChat</p></div><hr><h2 id="摘要">摘要</h2><p>本文发现大型语言模型（LLMs）在面对<strong>加密语言（cipher）输入</strong>时，其安全对齐机制（Safety Alignment）会完全失效。<br>研究团队提出了一个系统化框架 <strong>CipherChat</strong>，用以测试 LLM 是否能在非自然语言环境中维持安全行为。<br>通过在 11 个安全领域（如犯罪、心理健康、侮辱、伦理等）进行中英文实验，作者发现：<br>某些加密形式（如 ASCII、Unicode）可以几乎 100% 绕过 GPT-4 的安全防护，生成危险或不当回应。<br>此外，作者提出 <strong>SelfCipher</strong>，一种无需实际加密、仅通过角色扮演提示触发模型“内部加密机制”的方法，效果甚至优于传统密码。<br>结论指出：当前安全对齐技术无法泛化到非自然语言领域，未来需在加密层面加强模型安全。</p><hr><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>当前大模型安全对齐方法（如数据过滤、监督微调、RLHF、红队测试等）均基于<strong>自然语言</strong>输入输出。<br>然而，模型在训练过程中学习了理解和生成多种编码或加密语言（如 Morse、ROT13、Base64 等）的能力。<br>论文提出核心问题：<br>&gt; <strong>当使用非自然语言（cipher）输入时，模型的安全防护是否仍然有效？</strong></p><hr><h2 id="本文提出的方法">本文提出的方法</h2><h3 id="cipherchat-框架">CipherChat 框架</h3><p>论文提出框架 <strong>CipherChat</strong>，包括三个主要步骤： <img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251103182728516.png"> 1. <strong>系统提示构建（System Prompt Construction）</strong> - 明确模型的身份为“某种加密语言专家”，并要求使用该加密语言交流； - 禁止模型翻译自然语言（加入提示 “Do not be a translator.”）； - 提供若干加密示例（Enciphered Unsafe Demonstrations），帮助模型学习加密规则并注入“不安全”指令。 2. <strong>加密（Encipher &amp; Decipher）</strong> - 输入内容通过预定义规则转换为密码（如 Caesar、Morse、ASCII、Unicode）；。 3. <strong>解密（Decipher）</strong> - 模型输出加密结果后再通过规则解密 4. <strong>SelfCipher 模式</strong> - 不使用任何真实加密，仅通过提示语“你是 Cipher Code 专家”触发模型内在的“加密解释”能力； - 模型在自然语言层面仍表现出绕过安全防护的行为； - 在实验中，SelfCipher 在多数场景下优于所有人工加密方式。</p><h2 id="优点">优点：</h2><ol type="1"><li><strong>消融实验详实</strong>：明确验证 SystemRole、演示类型（安全 / 不安全）对结果的显著影响。<br></li><li><strong>启发安全研究</strong>：揭示自然语言对齐之外的潜在安全威胁。</li></ol><h2 id="缺点">缺点：</h2><ol type="1"><li><strong>解释性不足</strong>：SelfCipher 的“内部触发机制”仍属推测，缺乏模型层面实证。<br></li><li>并没有很深的算法嵌入，很容易被防御。</li></ol><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 模型安全 </category>
+          
+          <category> 越狱攻击 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 大语言模型 </tag>
+            
+            <tag> 模型安全 </tag>
+            
+            <tag> 密码攻击 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MASTERKEY: Automated Jailbreaking of Large Language Model Chatbots</title>
       <link href="/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/"/>
       <url>/2025/11/01/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-03/MASTERKEY%20Automated%20Jailbreaking%20of%20Large%20Language%20Model%20Chatbots/</url>
