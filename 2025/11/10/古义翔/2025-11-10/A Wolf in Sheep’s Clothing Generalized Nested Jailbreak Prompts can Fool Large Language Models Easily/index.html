@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《A Wolf in Sheep’s Clothing: Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily》 中文题目：《“披着羊皮的狼”：广义嵌套的越狱提示容易蒙蔽大型语言模型》 论文作者：Peng Ding, Jun Kuang, Dan Ma, Xuezhi Cao, Yunse">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《A Wolf in Sheep’s Clothing: Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily》 中文题目：《“披着羊皮的狼”：广义嵌套的越狱提示容易蒙蔽大型语言模型》 论文作者：Peng Ding, Jun Kuang, Dan Ma, Xuezhi Cao, Yunse">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-11-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-10T09:07:09.711Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="越狱攻击">
+<meta property="article:tag" content="大语言模型">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily",
+  "url": "https://fdreamer2002.github.io/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-11-09T16:00:00.000Z",
+  "dateModified": "2025-11-10T09:07:09.711Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "古义翔",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">90</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-09T16:00:00.000Z" title="发表于 2025-11-10 00:00:00">2025-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-10T09:07:09.711Z" title="更新于 2025-11-10 17:07:09">2025-11-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/">模型安全</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《A Wolf in Sheep’s Clothing: Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily》</p>
+<p>中文题目：《“披着羊皮的狼”：广义嵌套的越狱提示容易蒙蔽大型语言模型》</p>
+<p>论文作者：Peng Ding, Jun Kuang, Dan Ma, Xuezhi Cao, Yunsen Xian, Jiajun Chen, Shujian Huang</p>
+<p>发布于：NAACL-HLT 2024</p>
+<p>论文链接：http://arxiv.org/abs/2311.08268</p>
+<p>代码链接：https://github.com/NJUNLP/ReNeLLM.</p>
+</div>
+<hr>
+<h2 id="摘要">摘要</h2>
+<p>本文提出 ReNeLLM，一种用于自动生成越狱提示（jailbreak prompts）的广义框架，通过将越狱攻击抽象为两类操作：<strong>Prompt Rewriting（提示改写）</strong>与<strong>Scenario Nesting（场景嵌套）</strong>，利用 LLM 自身生成语义连贯、隐蔽性强且具迁移性的越狱提示。大量实验（包含 GPT-3.5 / GPT-4 / Claude / Llama2 等）表明，ReNeLLM 在攻击成功率（ASR）与时间效率（TCPS）上显著优于现有自动化/半自动化基线方法，同时揭示目前基于关键词或困惑度的防御易被规避，并提出若干防御建议。</p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>尽管 SFT/RLHF 等对齐手段在多数日常对话下能有效降低有害输出，但精心设计的越狱提示仍能诱导 LLM 生成危险内容。现有越狱攻击方法要么依赖人工设计难以规模化，要么基于白盒优化生成不可读或不可迁移的后缀。本文关注如何<strong>自动化生成</strong>既<strong>语义自然</strong>又<strong>具高攻击性与跨模型迁移能力</strong>的越狱提示，并分析为什么这些提示能突破现有防御。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<h3 id="总体框架概述">总体框架概述</h3>
+<p>ReNeLLM 将越狱攻击流程拆解为两大模块：<br>
+<img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251110161948392.png"> 1. <strong>Prompt Rewriting（提示改写）</strong>：对初始有害提示应用一组变换函数（保留语义的同时改变表达形式）以隐藏原始意图；<br>
+2. <strong>Scenario Nesting（场景嵌套）</strong>：把改写后的提示嵌入到常见的任务场景（如代码补全、表格填充、文本续写）中，利用 LLM 在这些场景上的“默认服从性”诱导模型按任务完成，而忽视内部潜在的有害意图。<br>
+整个过程由攻击者使用现成的强力 LLM（如 GPT-3.5/GPT-4）自动化运行，无需额外训练或白盒梯度优化。</p>
+<hr>
+<h3 id="方法细节">方法细节</h3>
+<h4 id="形式化目标">3.1 形式化目标</h4>
+<p>设初始有害提示为 (X)，目标在于找到一组策略动作序列 (S)（由改写函数与嵌套场景组合而成），使得目标模型 ( <em>{} ) 对经策略编辑后的提示 (S(X)) 生成的响应被判定为有害（由评估器 ( </em>{} ) 判断）。形式化为： [ S^{*} = <em>{S} ; </em>{}(_{}(S(X))) ] 其中评估器可以是关键词检测（KW-ASR）或更鲁棒的 GPT-4 判定（GPT-ASR），论文采用两者以避免单一判据偏差。</p>
+<h4 id="prompt-rewriting提示改写">3.2 Prompt Rewriting（提示改写）</h4>
+<p>核心思想：通过多样的语言操作在保留原语义的前提下改变表层形式，使提示的“有害意图”对模型的安全过滤器不那么明显。实现细节包括：</p>
+<ul>
+<li><strong>六类改写函数（示例）</strong>
+<ol type="1">
+<li>Paraphrase with Fewer Words：用更短的词序或压缩表达（生成多候选再随机选取）<br>
+</li>
+<li>Alter Sentence Structure：改变语序但保留语义<br>
+</li>
+<li>Misspell Sensitive Words：对敏感词进行错拼（如 “steal” → “stealin”）<br>
+</li>
+<li>Insert Meaningless Characters：插入无意义字符或外语词以干扰检测<br>
+</li>
+<li>Perform Partial Translation：对敏感词做部分翻译（中英混合）<br>
+</li>
+<li>Change Expression Style：用俚语或方言替代敏感词</li>
+</ol></li>
+<li><strong>自动化执行策略</strong>
+<ul>
+<li>在一次尝试中随机选择 1–6 个改写函数并随机确定其执行顺序。<br>
+</li>
+<li>对每次改写由 LLM 生成若干候选（例如 paraphrase 生成 5 个备选），并从中采样一条作为该轮改写结果。<br>
+</li>
+<li>如果改写后的提示仍被评估器判为“有害”，进入下一步或重复改写（最大迭代次数 T，论文设 T=20）。</li>
+</ul></li>
+<li><strong>直观效果</strong>：改写往往使得语义信号更“分散/隐晦”，从而降低基于关键词或直接语义匹配的检测命中率。</li>
+</ul>
+<h4 id="scenario-nesting场景嵌套">3.3 Scenario Nesting（场景嵌套）</h4>
+<p>核心思想：把改写后的提示放入“看起来安全且常见”的任务模板，使 LLM 把注意力放在“完成任务”的表层指令上，从而忽视潜在的内部有害意图。实现细节包括：</p>
+<ul>
+<li><p><strong>选定场景（论文选取三类）</strong>：</p>
+<ol type="1">
+<li><strong>Code Completion</strong>（代码补全）：将提示置于代码注释或函数体中，请求补全或扩写；<br>
+</li>
+<li><strong>Table Filling</strong>（表格填写）：把提示隐藏在表格条目的描述中，要求补全表格内容；<br>
+</li>
+<li><strong>Text Continuation</strong>（文本续写）：把提示嵌在故事或文章的上下文中，要求续写或补充段落。</li>
+</ol></li>
+<li><p><strong>选择原则</strong>：优先选择出现在预训练 / SFT 数据中的任务类型（因此 LLM 对这些形式存在较强的“服从性”或默认答复模式），并且这些场景通常呈“填空/补全”结构，利于将内部指令伪装为外部任务需求。</p></li>
+<li><p><strong>执行流程</strong>：</p>
+<ul>
+<li>将改写结果随机嵌入上述某一场景中的模板（可生成多个候选场景）；</li>
+<li>将嵌套后的完整提示送入目标模型 ( _{} )；</li>
+<li>若模型输出被评估器判定有害，则攻击成功；否则返回改写/嵌套流程继续迭代（最多 T 轮）。</li>
+</ul></li>
+</ul>
+<h4 id="评估与选择机制">3.4 评估与选择机制</h4>
+<ul>
+<li><strong>双重评估</strong>：为了降低误判，ReNeLLM 同时使用 KW-ASR（基于关键词字典）与 GPT-ASR（GPT-4 判断）两种评估器，攻击被视为成功当至少一种评估器判定为有害（论文同时报告两者以便对比）。<br>
+</li>
+<li><strong>候选扩展与集成</strong>：对每个初始提示，ReNeLLM 可以生成多（如6）个候选越狱提示；若任一候选成功即视为该样本成功（提高召回与迁移性）。</li>
+</ul>
+<h2 id="阅读总结">阅读总结</h2>
+<p><strong>优点：</strong> <strong>高效且跨模型迁移性强</strong>：不依赖目标模型的白盒梯度，生成的提示更语义化，更易迁移到闭源/黑盒模型； <strong>自动化与多样性</strong>：随机化改写函数组合与场景嵌套，以及多候选生成与采样，保证了提示的多样性与鲁棒性，难以通过单一检测规则防御。</p>
+<p><strong>缺点：</strong> <strong>场景固定性可能导致防御应对</strong>：论文当前采用三类场景（代码补全、表格、续写），这种静态场景集合一旦被识别，防御方可以对特定模板采取更精准的过滤或优先安全策略。<br>
+<strong>计算/成本与语言局限</strong>：尽管比白盒优化更高效，但在生成阶段仍可能依赖强力 LLM（如 GPT-3.5/4）作为改写/评估器，带来 API 成本；此外实验主要基于英文数据，多语言泛化尚待验证。</p>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">古义翔</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/">https://fdreamer2002.github.io/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a><a class="post-meta__tags" href="/tags/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/">大语言模型</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/PAPILLON%20Efficient%20and%20Stealthy%20Fuzz%20Testing-Powered%20Jailbreaks%20for%20LLMs/" title="PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs</div></div><div class="info-2"><div class="info-item-1">英文题目：《PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs》 中文题目：《PAPILLON：基于高效隐蔽的模糊测试的大语言模型（LLM）越狱方法》 论文作者：Xueluan Gong, Mingzhe Li, Yilin Zhang, Fengyuan Ran, Chen Chen, Yanjiao Chen, Qian Wang, Kwok-Yan Lam 发布于： USENIX 发布时间：2024-09-23 级别：CCF-A 论文链接：https://doi.org/10.48550/arXiv.2409.14866 论文代码：https://github.com/aaFrostnova/Papillon  摘要 大型语言模型（LLMs）在各种任务中表现出色，但仍然容易受到越狱攻击，攻击者通过创建越狱提示来误导模型，使其产生有害或冒犯性的内容。目前的越狱方法要么严重依赖手动制作的模板，这给可扩展性和适应性带来了挑战，要么难以生成语义连贯的提示，从而容易被检测到。此外，大多数现...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/23/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-08-23/ArtPrompt%20ASCII%20Art-based%20Jailbreak%20Attacks%20against%20Aligned%20LLMs/" title="ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-23</div><div class="info-item-2">ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs</div></div><div class="info-2"><div class="info-item-1">英文题目：《ArtPrompt: ASCII Art-based Jailbreak Attacks against Aligned LLMs》 中文题目：《艺术提示：针对对齐语言模型的基于ASCII艺术的越狱攻击》 论文作者： Fengqing Jiang,Zhangchen Xu,Luyao Niu… 发布于：arxiv 发布时间：2024-02-19 级别：无 论文链接： https://aclanthology.org/2024.acl-long.809.pdf 论文代码：  摘要 安全性对于大语言模型（LLMs）的使用至关重要。已经开发了多种技术，如数据过滤和监督微调，以加强语言模型的安全性。然而，目前已知的技术假定用于语言模型安全对齐的语料库仅通过语义来解释。然而，这一假设在实际应用中并不成立，这导致了语言模型中存在严重的漏洞。例如，论坛用户经常使用ASCII艺术（一种基于文本的艺术形式）来传达图像信息。在本文中，我们提出了一种新颖的基于ASCII艺术的越狱攻击，并引入了一个全面的基准文本视觉挑战（VITC），以评估语言模型识别不能仅通过语义解释的提示的能力。我们表明...</div></div></div></a><a class="pagination-related" href="/2025/08/22/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-08-23/Play%20Guessing%20Game%20with%20LLM%20Indirect%20Jailbreak%20Attack%20with%20Implicit%20Clues/" title="Play Guessing Game with LLM: Indirect Jailbreak Attack with Implicit Clues"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-22</div><div class="info-item-2">Play Guessing Game with LLM: Indirect Jailbreak Attack with Implicit Clues</div></div><div class="info-2"><div class="info-item-1">英文题目：《Play Guessing Game with LLM: Indirect Jailbreak Attack with Implicit Clues》 中文题目：《与大型语言模型玩猜谜游戏：基于隐式线索的间接越狱攻击》 论文作者： Zhiyuan Chang, Mingyang Li… 发布于： ACL 发布时间：2024-02-14 级别：CFF A 论文链接：https://doi.org/10.18653/v1/2024.findings-acl.304 论文代码：  摘要 随着LLM的发展，LLM的安全威胁越来越受到关注。已经提出了许多越狱攻击来评估LLM的安全防御能力。当前的越狱攻击主要利用场景伪装技术。然而，它们明确提到的恶意意图很容易被LLM识别并防御。在本文中，我们提出了一种间接越狱攻击方法，Puzzler，它可以通过绕过LLM的防御策略并隐式地向LLM提供一些关于原始恶意查询的线索来获得恶意响应。此外，受到孙子兵法中“无法攻击时，就防御”的智慧启发，我们采取了一种防御姿态，通过LLM收集关于原始恶意查询的线索。广泛的实验结果表明，Puzzler在查询...</div></div></div></a><a class="pagination-related" href="/2025/08/29/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-08-30/Jailbreaking%20Black%20Box%20Large%20Language%20Models%20in%20Twenty%20Queries/" title="Jailbreaking Black Box Large Language Models in Twenty Queries"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-29</div><div class="info-item-2">Jailbreaking Black Box Large Language Models in Twenty Queries</div></div><div class="info-2"><div class="info-item-1">英文题目：《Jailbreaking Black Box Large Language Models in Twenty Queries》 中文题目：《在 20 次查询内对黑盒大语言模型实施越狱攻击》 论文作者：  Patrick Chao, Alexander Robey, Edgar Dobriban, Hamed Hassani, George J.Pappas, Eric Wong 发布于： Computing Research Repository 发布时间：2023-10-12 级别：无 论文链接：https://cz5waila03cyo0tux1owpyofgoryroob.aminer.cn/27/D3/F0/27D3F04A17CE6E1DB47D32AE395B4A26.pdf 论文代码：  摘要 越来越多的人关注确保大型语言模型（LLM）与人类价值观保持一致。然而，这类模型的对齐容易受到对抗性越狱的影响，这会诱导LLM忽略其安全护栏。因此，识别这些漏洞对于理解内在的弱点并预防未来的滥用是至关重要的。为此，我们提出了Prompt Automatic Iter...</div></div></div></a><a class="pagination-related" href="/2025/08/29/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-08-30/Voice%20Jailbreak%20Attacks%20Against%20GPT-4o/" title="Voice Jailbreak Attacks Against GPT-4o"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-29</div><div class="info-item-2">Voice Jailbreak Attacks Against GPT-4o</div></div><div class="info-2"><div class="info-item-1">英文题目：《Voice Jailbreak Attacks Against GPT-4o》 中文题目：《针对GPT-4o的语音越狱攻击》 论文作者：  Xinyue Shen, Yixin Wu, Michael Backes, Yang Zhang 发布于：Computing Research Repository 发布时间：2024-05-29 级别：无 论文链接： https://arxiv.org/abs/2405.19103 论文代码：  摘要 最近，人工智能助手的概念已从科幻小说走进现实应用。GPT-4o作为最新的跨音频、视觉和文本的多模态大语言模型（MLLM），通过实现更自然的人机交互，进一步模糊了虚构与现实之间的界限。然而，GPT-4o语音模式的出现也可能带来新的攻击面。在本文中，我们首次对针对GPT-4o语音模式的越狱攻击进行了系统性评估。我们发现，当将违禁问题和文本越狱提示直接转换为语音模式时，GPT-4o对其表现出良好的抗性。这种抗性主要源于GPT-4o的内部防护机制以及将文本越狱提示适配到语音模式的难度。受GPT-4o类似人类行为的启发，我们提出了Voic...</div></div></div></a><a class="pagination-related" href="/2025/10/27/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-10-27/Jailbreaking%20One%20Step%20Is%20Enough/" title="Jailbreaking? One Step Is Enough"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-27</div><div class="info-item-2">Jailbreaking? One Step Is Enough</div></div><div class="info-2"><div class="info-item-1">英文题目：《Jailbreaking? One Step Is Enough!》 中文题目：《越狱？一步就够！——基于反向嵌入防御机制的LLM越狱方法》 作者：Weixiong Zheng, Peijian Zeng, Yiwei Li, Hongyan Wu, Nankai Lin, Junhao Chen, Aimin Yang, Yongmei Zhou 单位：广东工业大学、岭南师范学院、国防科技大学、广东外语外贸大学 发布于：ACL 2024（CCF A） 论文链接：https://arxiv.org/abs/2412.12621   摘要 大型语言模型（LLMs）在多种任务中表现出色，但仍然容易遭受越狱攻击——攻击者通过操纵提示词生成有害输出。研究越狱提示词有助于揭示LLM的缺陷。然而，当前的越狱方法与目标模型的防御机制处于独立对抗的博弈状态，导致攻击需要频繁迭代并针对不同模型重新设计攻击方案。为解决这些问题，我们提出了一种反向嵌入防御攻击（REDA）机制，将攻击意图伪装成针对有害内容的“防御”意图。具体而言，REDA从目标响应出发，引导模型将有害内容嵌入其防御措施中，...</div></div></div></a><a class="pagination-related" href="/2025/09/07/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-09-07/Universal%20and%20Transferable%20Adversarial%20Attacks%20on%20Aligned%20Language%20Models/" title="Universal and Transferable Adversarial Attacks on Aligned Language Models"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-07</div><div class="info-item-2">Universal and Transferable Adversarial Attacks on Aligned Language Models</div></div><div class="info-2"><div class="info-item-1">英文题目：《Universal and Transferable Adversarial Attacks on Aligned Language Models》 中文题目：《针对对齐语言模型的通用且可迁移的对抗攻击》 论文作者： Xinyue Shen, Yixin Wu, Michael Backes, Yang Zhang 发布于：arxiv 发布时间：2023-12-20 级别：无 论文链接： https://arxiv.org/abs/2307.15043 论文代码：[code](https://github.com/llm - attacks/llm - attacks)  摘要 由于“开箱即用”的大语言模型能够生成大量令人反感的内容，近期的工作聚焦于校准这些模型，试图防止产生不良内容。尽管在绕过这些措施（即针对大语言模型的所谓“越狱”）方面取得了一些成功，但这些攻击需要大量的人类智慧，并且在实际应用中很脆弱。自动对抗提示生成的尝试也只取得了有限的成功。在本文中，我们提出了一种简单有效的攻击方法，可使校准后的语言模型产生令人反感的行为。具体而言，我们的方法找到一个后缀，...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">90</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E4%BD%93%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0"><span class="toc-number">3.1.</span> <span class="toc-text">总体框架概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E7%BB%86%E8%8A%82"><span class="toc-number">3.2.</span> <span class="toc-text">方法细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%A2%E5%BC%8F%E5%8C%96%E7%9B%AE%E6%A0%87"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.1 形式化目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#prompt-rewriting%E6%8F%90%E7%A4%BA%E6%94%B9%E5%86%99"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2 Prompt Rewriting（提示改写）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#scenario-nesting%E5%9C%BA%E6%99%AF%E5%B5%8C%E5%A5%97"><span class="toc-number">3.2.3.</span> <span class="toc-text">3.3 Scenario Nesting（场景嵌套）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9%E6%9C%BA%E5%88%B6"><span class="toc-number">3.2.4.</span> <span class="toc-text">3.4 评估与选择机制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/" title="A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily">A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily</a><time datetime="2025-11-09T16:00:00.000Z" title="发表于 2025-11-10 00:00:00">2025-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/PAPILLON%20Efficient%20and%20Stealthy%20Fuzz%20Testing-Powered%20Jailbreaks%20for%20LLMs/" title="PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs">PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs</a><time datetime="2025-11-04T11:58:14.000Z" title="发表于 2025-11-04 19:58:14">2025-11-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E4%BC%8D%E4%BF%8A/2025-11-07/SNIS%20A%20Signal%20Noise%20Separation-Based%20Network%20%20for%20Post-Processed%20Image%20Forgery%20Detection/" title="SNIS: A Signal Noise Separation-Based Network  for Post-Processed Image Forgery Detection">SNIS: A Signal Noise Separation-Based Network  for Post-Processed Image Forgery Detection</a><time datetime="2025-11-04T11:53:16.000Z" title="发表于 2025-11-04 19:53:16">2025-11-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/AutoDAN%20Generating%20Stealthy%20Jailbreak%20Prompts%20on%20Aligned%20Large%20Language%20Models/" title="AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models">AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models</a><time datetime="2025-11-04T07:51:14.000Z" title="发表于 2025-11-04 15:51:14">2025-11-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/Jailbreaking%20Leading%20Safety-Aligned%20LLMs%20with%20Simple%20Adaptive%20Attacks/" title="Jailbreaking Leading Safety-Aligned LLMs with Simple Adaptive Attacks">Jailbreaking Leading Safety-Aligned LLMs with Simple Adaptive Attacks</a><time datetime="2025-11-04T05:31:14.000Z" title="发表于 2025-11-04 13:31:14">2025-11-04</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

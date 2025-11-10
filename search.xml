@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily</title>
+      <link href="/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/"/>
+      <url>/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《A Wolf in Sheep’s Clothing: Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily》</p><p>中文题目：《“披着羊皮的狼”：广义嵌套的越狱提示容易蒙蔽大型语言模型》</p><p>论文作者：Peng Ding, Jun Kuang, Dan Ma, Xuezhi Cao, Yunsen Xian, Jiajun Chen, Shujian Huang</p><p>发布于：NAACL-HLT 2024</p><p>论文链接：http://arxiv.org/abs/2311.08268</p><p>代码链接：https://github.com/NJUNLP/ReNeLLM.</p></div><hr><h2 id="摘要">摘要</h2><p>本文提出 ReNeLLM，一种用于自动生成越狱提示（jailbreak prompts）的广义框架，通过将越狱攻击抽象为两类操作：<strong>Prompt Rewriting（提示改写）</strong>与<strong>Scenario Nesting（场景嵌套）</strong>，利用 LLM 自身生成语义连贯、隐蔽性强且具迁移性的越狱提示。大量实验（包含 GPT-3.5 / GPT-4 / Claude / Llama2 等）表明，ReNeLLM 在攻击成功率（ASR）与时间效率（TCPS）上显著优于现有自动化/半自动化基线方法，同时揭示目前基于关键词或困惑度的防御易被规避，并提出若干防御建议。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>尽管 SFT/RLHF 等对齐手段在多数日常对话下能有效降低有害输出，但精心设计的越狱提示仍能诱导 LLM 生成危险内容。现有越狱攻击方法要么依赖人工设计难以规模化，要么基于白盒优化生成不可读或不可迁移的后缀。本文关注如何<strong>自动化生成</strong>既<strong>语义自然</strong>又<strong>具高攻击性与跨模型迁移能力</strong>的越狱提示，并分析为什么这些提示能突破现有防御。</p><h2 id="本文提出的方法">本文提出的方法</h2><h3 id="总体框架概述">总体框架概述</h3><p>ReNeLLM 将越狱攻击流程拆解为两大模块：<br><img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251110161948392.png"> 1. <strong>Prompt Rewriting（提示改写）</strong>：对初始有害提示应用一组变换函数（保留语义的同时改变表达形式）以隐藏原始意图；<br>2. <strong>Scenario Nesting（场景嵌套）</strong>：把改写后的提示嵌入到常见的任务场景（如代码补全、表格填充、文本续写）中，利用 LLM 在这些场景上的“默认服从性”诱导模型按任务完成，而忽视内部潜在的有害意图。<br>整个过程由攻击者使用现成的强力 LLM（如 GPT-3.5/GPT-4）自动化运行，无需额外训练或白盒梯度优化。</p><hr><h3 id="方法细节">方法细节</h3><h4 id="形式化目标">3.1 形式化目标</h4><p>设初始有害提示为 (X)，目标在于找到一组策略动作序列 (S)（由改写函数与嵌套场景组合而成），使得目标模型 ( <em>{} ) 对经策略编辑后的提示 (S(X)) 生成的响应被判定为有害（由评估器 ( </em>{} ) 判断）。形式化为： [ S^{*} = <em>{S} ; </em>{}(_{}(S(X))) ] 其中评估器可以是关键词检测（KW-ASR）或更鲁棒的 GPT-4 判定（GPT-ASR），论文采用两者以避免单一判据偏差。</p><h4 id="prompt-rewriting提示改写">3.2 Prompt Rewriting（提示改写）</h4><p>核心思想：通过多样的语言操作在保留原语义的前提下改变表层形式，使提示的“有害意图”对模型的安全过滤器不那么明显。实现细节包括：</p><ul><li><strong>六类改写函数（示例）</strong><ol type="1"><li>Paraphrase with Fewer Words：用更短的词序或压缩表达（生成多候选再随机选取）<br></li><li>Alter Sentence Structure：改变语序但保留语义<br></li><li>Misspell Sensitive Words：对敏感词进行错拼（如 “steal” → “stealin”）<br></li><li>Insert Meaningless Characters：插入无意义字符或外语词以干扰检测<br></li><li>Perform Partial Translation：对敏感词做部分翻译（中英混合）<br></li><li>Change Expression Style：用俚语或方言替代敏感词</li></ol></li><li><strong>自动化执行策略</strong><ul><li>在一次尝试中随机选择 1–6 个改写函数并随机确定其执行顺序。<br></li><li>对每次改写由 LLM 生成若干候选（例如 paraphrase 生成 5 个备选），并从中采样一条作为该轮改写结果。<br></li><li>如果改写后的提示仍被评估器判为“有害”，进入下一步或重复改写（最大迭代次数 T，论文设 T=20）。</li></ul></li><li><strong>直观效果</strong>：改写往往使得语义信号更“分散/隐晦”，从而降低基于关键词或直接语义匹配的检测命中率。</li></ul><h4 id="scenario-nesting场景嵌套">3.3 Scenario Nesting（场景嵌套）</h4><p>核心思想：把改写后的提示放入“看起来安全且常见”的任务模板，使 LLM 把注意力放在“完成任务”的表层指令上，从而忽视潜在的内部有害意图。实现细节包括：</p><ul><li><p><strong>选定场景（论文选取三类）</strong>：</p><ol type="1"><li><strong>Code Completion</strong>（代码补全）：将提示置于代码注释或函数体中，请求补全或扩写；<br></li><li><strong>Table Filling</strong>（表格填写）：把提示隐藏在表格条目的描述中，要求补全表格内容；<br></li><li><strong>Text Continuation</strong>（文本续写）：把提示嵌在故事或文章的上下文中，要求续写或补充段落。</li></ol></li><li><p><strong>选择原则</strong>：优先选择出现在预训练 / SFT 数据中的任务类型（因此 LLM 对这些形式存在较强的“服从性”或默认答复模式），并且这些场景通常呈“填空/补全”结构，利于将内部指令伪装为外部任务需求。</p></li><li><p><strong>执行流程</strong>：</p><ul><li>将改写结果随机嵌入上述某一场景中的模板（可生成多个候选场景）；</li><li>将嵌套后的完整提示送入目标模型 ( _{} )；</li><li>若模型输出被评估器判定有害，则攻击成功；否则返回改写/嵌套流程继续迭代（最多 T 轮）。</li></ul></li></ul><h4 id="评估与选择机制">3.4 评估与选择机制</h4><ul><li><strong>双重评估</strong>：为了降低误判，ReNeLLM 同时使用 KW-ASR（基于关键词字典）与 GPT-ASR（GPT-4 判断）两种评估器，攻击被视为成功当至少一种评估器判定为有害（论文同时报告两者以便对比）。<br></li><li><strong>候选扩展与集成</strong>：对每个初始提示，ReNeLLM 可以生成多（如6）个候选越狱提示；若任一候选成功即视为该样本成功（提高召回与迁移性）。</li></ul><h2 id="阅读总结">阅读总结</h2><p><strong>优点：</strong> <strong>高效且跨模型迁移性强</strong>：不依赖目标模型的白盒梯度，生成的提示更语义化，更易迁移到闭源/黑盒模型； <strong>自动化与多样性</strong>：随机化改写函数组合与场景嵌套，以及多候选生成与采样，保证了提示的多样性与鲁棒性，难以通过单一检测规则防御。</p><p><strong>缺点：</strong> <strong>场景固定性可能导致防御应对</strong>：论文当前采用三类场景（代码补全、表格、续写），这种静态场景集合一旦被识别，防御方可以对特定模板采取更精准的过滤或优先安全策略。<br><strong>计算/成本与语言局限</strong>：尽管比白盒优化更高效，但在生成阶段仍可能依赖强力 LLM（如 GPT-3.5/4）作为改写/评估器，带来 API 成本；此外实验主要基于英文数据，多语言泛化尚待验证。</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 模型安全 </category>
+          
+          <category> 越狱攻击 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 越狱攻击 </tag>
+            
+            <tag> 大语言模型 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs</title>
       <link href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/PAPILLON%20Efficient%20and%20Stealthy%20Fuzz%20Testing-Powered%20Jailbreaks%20for%20LLMs/"/>
       <url>/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/PAPILLON%20Efficient%20and%20Stealthy%20Fuzz%20Testing-Powered%20Jailbreaks%20for%20LLMs/</url>
@@ -150,6 +179,37 @@
         <tags>
             
             <tag> 评估标准 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Open Sesame! Universal Black Box Jailbreaking of Large Language Models</title>
+      <link href="/2025/11/03/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/Open%20Sesame!%20Universal%20Black%20Box%20Jailbreaking%20of%20Large%20Language%20Models/"/>
+      <url>/2025/11/03/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/Open%20Sesame!%20Universal%20Black%20Box%20Jailbreaking%20of%20Large%20Language%20Models/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《Open Sesame! Universal Black Box Jailbreaking of Large Language Models》</p><p>中文题目：《开放芝麻！大型语言模型的通用黑盒越狱》</p><p>论文作者：Raz Lapid, Ron Langberg, Moshe Sipper</p><p>发布于：CoRR 2023</p><p>论文链接：http://arxiv.org/abs/2309.01446</p><p>代码链接：无</p></div><hr><h2 id="摘要">摘要</h2><p>该工作提出并验证了一种<strong>基于遗传算法（GA）的通用黑盒越狱框架</strong>：在目标 LLM 完全黑盒（仅能查询输出）的条件下，进化出一段固定的 token 后缀，将其拼接到任意用户输入后能显著提高模型输出与“服从/有害回答”语义的相似度，从而实现普适性的越狱效果。与白盒梯度方法不同，本方法不依赖模型内部信息，具有跨输入与（一定程度的）跨模型迁移性，同时通过随机子集评估等手段降低查询成本。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>如何在黑盒中实现自动化的黑盒越狱对抗性后缀。</p><h2 id="本文提出的方法">本文提出的方法</h2><h3 id="方法目标">1. 方法目标</h3><ul><li>目标：寻找一个<strong>通用的对抗后缀</strong> <code>x_adv</code>，对于数据集中大部分有害指令 <code>x_user</code>，拼接后 <code>x = x_user || x_adv</code> 能促使目标 LLM 输出与攻击意图语义接近的回答（例如以“Sure, here is a…”开头并给出具体步骤）。<br></li><li>限制：<strong>黑盒威胁模型</strong> — 攻击者只能提交文本并读取模型返回（无 logits/概率/梯度访问）。</li></ul><hr><h3 id="个体编码与种群初始化">2. 个体编码与种群初始化</h3><ul><li><strong>编码（Genome）</strong>：把每个候选后缀表示为长度为 <code>m</code> 的 token-id 向量（整数序列），这是 GA 的基本“基因”。<br></li><li><strong>初始化</strong>：从目标模型的 tokenizer 词表中随机抽取 token 填充，生成 <code>n</code> 个个体作为初始种群。论文实验中常用的设置包括 <code>n ∈ {10,20,30}</code>，<code>m ∈ {20,40,60}</code>。<br></li><li>直观理由：用 token-id 向量能直接拼接到原始输入并被 LLM 解读；离散编码适配经典遗传算子（交叉/变异）。</li></ul><hr><h3 id="适应度得分设计">3. 适应度（得分）设计</h3><ul><li>由于无法直接读取模型内部分布，作者采用<strong>文本嵌入 + 余弦相似度</strong>作为适应度代理：<ul><li>选择一个<strong>目标输出模版</strong> <code>y_target</code>（代表“服从/有害型回答”语义，例如“Sure, here is a …”），</li><li>对于给定的 <code>x_user</code> 与候选后缀 <code>x_adv</code>，把 <code>y_output = LLM(x_user || x_adv)</code> 与 <code>y_target</code> 分别映射到 embedding 空间（使用预训练 embedder，如 MPNet、MiniLM、BGE），</li><li>计算两者的余弦相似度，作为该 (x_user, x_adv) 对的相似度得分，种群个体的适应度为在若干训练样本上的平均相似度（或其负值作为 loss）。 [ (x_{adv}) <em>{x</em>{user}D};( f_{}( (x_{user}|x_{adv}) ),; f_{}(y_{}) ) ]</li></ul></li><li>直观说明：如果后缀能使 LLM 的输出在语义上更靠近“目标回答”模板，则适应度更高；这样 GA 在语义空间而非原始 token 匹配上进行搜索，更适合黑盒环境。</li></ul><hr><h3 id="适应度近似">4. 适应度近似</h3><ul><li>直接在全集上评估每个个体非常昂贵。论文采用<strong>每代随机采样子集</strong>（size <code>c</code>，例如 <code>c=50</code>）计算个体在该子集上的平均适应度，并每代重新抽样，从而用有限查询估计普适性表现（fitness approximation）。<br></li><li>作用：降低查询成本且能保持优化方向的多样性。</li></ul><hr><h3 id="进化算子selection-crossover-mutation-elitism">5. 进化算子（Selection / Crossover / Mutation / Elitism）</h3><ul><li><strong>选择（Selection）</strong>：使用锦标赛选择（tournament selection，k=2），倾向挑选适应度更高的个体作为父代，同时保留随机性以维持探索。<br></li><li><strong>交叉（Crossover）</strong>：采用单点交叉（one-point crossover）：在父代向量上随机选择切点，交换片段生成子代，从而组合父代中有效的局部片段。<br></li><li><strong>变异（Mutation）</strong>：以小概率随机替换个体中的某些 token（随机 token-id 替换），用于引入新基因与局部探索。<br></li><li><strong>精英保留（Elitism）</strong>：每代直接保留 <code>e</code> 个最优个体，避免优良基因丢失，常设 <code>e = n/5</code>。<br></li><li>这些算子按经典 GA 流程交替作用，既能保留优秀结构，又保证探索空间的多样性。</li></ul><h2 id="阅读总结">阅读总结</h2><p><strong>优点：</strong> 黑盒可行且通用性强， 引入遗传优化算法</p><p><strong>缺点：</strong> 后缀可读性差、易被表层检测识别</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 模型安全 </category>
+          
+          <category> 越狱攻击 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 遗传算法 </tag>
+            
+            <tag> 越狱攻击 </tag>
+            
+            <tag> 大语言模型 </tag>
             
         </tags>
       
