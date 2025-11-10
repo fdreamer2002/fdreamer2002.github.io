@@ -1,0 +1,361 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models》 中文题目：《AutoDAN: 在对齐的大型语言模型上生成隐蔽的Jailbreak提示》 论文作者：Xiaogeng Liu, Nan Xu, Muhao Chen, Chaowei Xiao 发布于： ICLR2024 发布时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/AutoDAN%20Generating%20Stealthy%20Jailbreak%20Prompts%20on%20Aligned%20Large%20Language%20Models/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models》 中文题目：《AutoDAN: 在对齐的大型语言模型上生成隐蔽的Jailbreak提示》 论文作者：Xiaogeng Liu, Nan Xu, Muhao Chen, Chaowei Xiao 发布于： ICLR2024 发布时">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-11-04T07:51:14.000Z">
+<meta property="article:modified_time" content="2025-11-10T07:15:38.734Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="遗传算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models",
+  "url": "https://fdreamer2002.github.io/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/AutoDAN%20Generating%20Stealthy%20Jailbreak%20Prompts%20on%20Aligned%20Large%20Language%20Models/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-11-04T07:51:14.000Z",
+  "dateModified": "2025-11-10T07:15:38.734Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "游俊爽",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/AutoDAN%20Generating%20Stealthy%20Jailbreak%20Prompts%20on%20Aligned%20Large%20Language%20Models/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">88</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">90</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-04T07:51:14.000Z" title="发表于 2025-11-04 15:51:14">2025-11-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-10T07:15:38.734Z" title="更新于 2025-11-10 15:15:38">2025-11-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%B6%8A%E7%8B%B1%E6%94%BB%E5%87%BB/">越狱攻击</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models》</p>
+<p>中文题目：《AutoDAN: 在对齐的大型语言模型上生成隐蔽的Jailbreak提示》</p>
+<p>论文作者：<a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Liu,+X">Xiaogeng Liu</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xu,+N">Nan Xu</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Chen,+M">Muhao Chen</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Xiao,+C">Chaowei Xiao</a></p>
+<p>发布于： ICLR2024</p>
+<p>发布时间：2023-10-03</p>
+<p>级别：CCF-A</p>
+<p>论文链接：<a target="_blank" rel="noopener" href="https://doi.org/10.48550/arXiv.2310.04451">https://doi.org/10.48550/arXiv.2310.04451</a></p>
+<p>论文代码：<a target="_blank" rel="noopener" href="https://github.com/SheltonLiu-N/AutoDAN">https://github.com/SheltonLiu-N/AutoDAN</a></p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>对齐的大型语言模型(LLMs)是强大的语言理解和决策工具，它们是通过与人类反馈的大量对齐而创建的。然而，这些大型模型仍然容易受到jailbreak攻击，在这种攻击中，攻击者操纵提示以引出不应由对齐的LLM给出的恶意输出。研究jailbreak提示可以使我们深入了解LLM的局限性，并进一步指导我们保护它们。不幸的是，现有的jailbreak技术要么存在(1)可扩展性问题，即攻击严重依赖于手动制作提示，要么存在(2)隐蔽性问题，因为攻击依赖于基于token的算法来生成通常在语义上没有意义的提示，这使得它们容易通过基本的困惑度测试来检测。鉴于这些挑战，我们打算回答这个问题：我们能否开发一种能够自动生成隐蔽的jailbreak提示的方法？在本文中，我们介绍AutoDAN，这是一种针对对齐的LLM的新型jailbreak攻击。AutoDAN可以通过精心设计的层级遗传算法自动生成隐蔽的jailbreak提示。<br>
+大量的评估表明，AutoDAN不仅可以自动化该过程，同时保持语义意义，而且与基线相比，在跨模型可迁移性和跨样本通用性方面也表现出卓越的攻击强度。此外，我们还将AutoDAN与基于困惑度的防御方法进行了比较，结果表明AutoDAN可以有效地绕过它们。代码可在<a target="_blank" rel="noopener" href="https://github.com/SheltonLiu-N/AutoDAN%E8%8E%B7%E5%8F%96%E3%80%82">https://github.com/SheltonLiu-N/AutoDAN获取。</a></p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>现有的越狱方法存在两个局限性：首先，像GCG Zou et al.(2023)这样的自动攻击不可避免地需要一种由token上的梯度信息引导的搜索方案。 虽然这提供了一种自动生成越狱提示的方法，但也带来了一个内在的缺点：它们通常生成由无意义的序列或乱码组成的越狱提示，即没有任何语义意义。 这个严重的缺陷使得它们极易受到基于困惑度（perplexity）检测等简单防御机制的影响。 正如最近的研究(Jain et al., 2023; Alon &amp; Kamfonas, 2023)表明的那样，这种直接的防御可以很容易地识别出这些无意义的提示，并完全破坏GCG攻击的攻击成功率。 其次，尽管手动攻击可以发现隐蔽的越狱提示，但这些越狱提示通常由LLM用户手工制作，因此面临可扩展性和适应性挑战。 此外，这些方法可能无法快速适应更新的LLM，从而降低其随时间的有效性。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<p>该文章是一篇白盒越狱攻击方法，具体过程如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/i-s-land/Article-pictures/ai/20251104153701619.png" alt=""></p>
+<p>中间是AutoDAN的具体过程。AutoDAN旨在自动化生成能够绕过LLM安全机制的越狱提示词。它通过一个精心设计的**分层遗传算法（hierarchical genetic algorithm）**来实现这一目标。</p>
+<p>第一步Initialization by Prototype (原型初始化)：</p>
+<p>AutoDAN从已有的手工制作的越狱提示词（如"Do-Anything-Now (DAN)"系列）中获取原型，这些提示词在特定场景下已被证明有效。接着，它利用LLM自身作为“代理”，对这些原型进行多样化（Diversification）。例如，图中的三个初始化提示词都是原型的不同改写版本，它们语义相似但表达方式不同，这有助于扩大搜索空间并保留初始越狱提示词的基本特征。</p>
+<p>第二步Fitness Eval (适应度评估)：</p>
+<p>这些多样化的提示词（作为“个体”）会被送入目标LLM进行测试。LLM根据这些提示词产生回应，AutoDAN会评估每个提示词的适应度分数（Fitness Score）。适应度评估是基于攻击损失函数来实现的，该函数旨在最大化LLM生成特定目标回应（例如“Sure, here is how to [Qi]”——“当然，这是如何[恶意问题]的方法”）的概率。</p>
+<p>具体的计算过程：由于大模型是逐个token来回复用户的问题的。模型对于用户的一个问题会先分词（t1…tm），模型接收所有的token向前传播，然后LLM的输出层（通常在 Softmax 之前）会为词汇表中的每一个可能的下一个 Token 生成一个 Logit 值。LLM 对这些 Logits 应用 Softmax 函数，将其转换为一个概率分布，例：</p>
+<p>P(“我”) = 0.001<br>
+P(“对”) = 0.0005<br>
+P(“好的”) = 0.6 （我们目标r<sub>m+1</sub>）<br>
+P(“抱歉”) = 0.3<br>
+… (词汇表中所有Token的概率)</p>
+<p>那么对于这个token的损失就是-log（0.6）</p>
+<p>然后我们将这个r<sub>m+1</sub>（“好的”）接入输入最后一部分，即（t1…tm, r<sub>m+1</sub>），再将其传入模型得到下一个token的概率，直至获取全部的损失。</p>
+<p>第三步Hierarchical Genetic Policy (分层遗传策略)：</p>
+<p>这是AutoDAN的核心优化机制，它模仿自然选择过程来迭代改进提示词。<br>
+Paragraph-level crossover (段落级交叉)：在段落层面交换不同提示词中的句子，以探索不同句子组合的效果。<br>
+Sentence-level crossover (句子级交叉)：在句子层面交换单词或短语，进行更细粒度的调整。<br>
+LLM-based Mutation (基于LLM的变异)：利用LLM对提示词进行语义保持的改写，引入多样性，同时确保生成的文本仍然通顺且有意义。<br>
+这个过程会不断迭代（返回②），即生成新的提示词群体，评估其适应度，然后再次进行交叉和变异，直到达到终止条件（例如，迭代次数上限或攻击成功）。</p>
+<h2 id="阅读总结">阅读总结</h2>
+<p>优点：</p>
+<p>1、兼顾 “自动化” 与 “语义有效性”，突破传统技术瓶颈。</p>
+<p>2、跨模型迁移性与跨样本通用性显著优于基线。</p>
+<p>缺点：</p>
+<p>1、计算成本仍较高，难以实时部署。需约 12 分钟生成一个有效 prompt。</p>
+<p>2、依赖外部 LLM，存在 “工具依赖性风险”。AutoDAN 的初始化（Diversification）和突变均依赖外部 LLM（如 GPT-4）生成多样化 prompt。</p>
+<p>未来可以改进突变与初始化策略，减少外部依赖。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">游俊爽</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/AutoDAN%20Generating%20Stealthy%20Jailbreak%20Prompts%20on%20Aligned%20Large%20Language%20Models/">https://fdreamer2002.github.io/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/AutoDAN%20Generating%20Stealthy%20Jailbreak%20Prompts%20on%20Aligned%20Large%20Language%20Models/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/">遗传算法</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/11/04/%E4%BC%8D%E4%BF%8A/2025-11-07/SNIS%20A%20Signal%20Noise%20Separation-Based%20Network%20%20for%20Post-Processed%20Image%20Forgery%20Detection/" title="SNIS: A Signal Noise Separation-Based Network  for Post-Processed Image Forgery Detection"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">SNIS: A Signal Noise Separation-Based Network  for Post-Processed Image Forgery Detection</div></div><div class="info-2"><div class="info-item-1">英文题目：《SNIS: A Signal Noise Separation-Based Network for Post-Processed Image Forgery Detection》 中文题目：《SNIS：一种基于信号噪声分离的后处理图像伪造检测网络》 论文作者：Jiaxin Chen; Xin Liao; Wei Wang; Zhenxing Qian; Zheng Qin; Yaonan Wang 发布于：TCSVT 发布时间：2022-09-06 级别：中科院二区 论文链接：10.1109/TCSVT.2022.3204753 论文代码：暂无  摘要 图像伪造检测由于其潜在的安全威胁，引起了学术界和工业界的广泛研究兴趣。现有的伪造检测方法在伪造图像未经过后处理的情况下，可以通过观察图像统计特征的变化来检测篡改区域，具有优异的篡改区域定位性能。然而，在特定场景下，伪造图像可能会被仔细地后处理以隐藏伪造边界。这对这些方法提出了严峻的挑战。本文将图像伪造检测与盲信号分离进行类比分析，将处理后的图像伪造检测问题转化为信号噪声分离问题。 我们还提出了一种基...</div></div></div></a><a class="pagination-related" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/Jailbreaking%20Leading%20Safety-Aligned%20LLMs%20with%20Simple%20Adaptive%20Attacks/" title="Jailbreaking Leading Safety-Aligned LLMs with Simple Adaptive Attacks"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Jailbreaking Leading Safety-Aligned LLMs with Simple Adaptive Attacks</div></div><div class="info-2"><div class="info-item-1">英文题目：《Jailbreaking Leading Safety-Aligned LLMs with Simple Adaptive Attacks》 中文题目：《利用简单自适应攻击突破主流安全对齐大型语言模型》 论文作者： Maksym Andriushchenko, Francesco Croce, Nicolas Flammarion 发布于： ICLR2025 发布时间：2024-04-02 级别：CCF-A 论文链接：https://doi.org/10.48550/arXiv.2404.02151 论文代码：https://github.com/tml-epfl/llm-adaptive-attacks  摘要 我们的研究表明，即便是最新的安全对齐大型语言模型（safety-aligned LLMs），也无法抵御简单的自适应突破攻击（adaptive jailbreaking attacks）。首先，我们验证了如何通过获取对数概率（logprobs）访问权限实现突破：先设计一个对抗性提示模板（有时会根据目标大型语言模型进行适配），再对提示后缀进行随机搜索，以最大化目...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/26/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-08-30/Enhancing%20Jailbreak%20Attacks%20on%20LLMs%20via%20Persona%20Prompts/" title="Enhancing Jailbreak Attacks on LLMs via Persona Prompts"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-26</div><div class="info-item-2">Enhancing Jailbreak Attacks on LLMs via Persona Prompts</div></div><div class="info-2"><div class="info-item-1">英文题目：《Enhancing Jailbreak Attacks on LLMs via Persona Prompts》 中文题目：《通过角色提示增强大型语言模型（LLMs）的越狱攻击》 论文作者：Zheng Zhang, Peilin Zhao, Deheng Ye, Hao Wang 发布于： arxiv 发布时间：2024-07-28 级别：无 论文链接： https://doi.org/10.48550/arXiv.2507.22171 论文代码：https://github.com/CjangCjengh/Generic_Persona  摘要 越狱攻击旨在通过诱导大型语言模型（LLMs）生成有害内容来利用其漏洞，进而揭示模型的安全缺陷。理解并应对此类攻击对于推动 LLM 安全领域发展至关重要。以往的越狱方法主要聚焦于对有害意图的直接操纵，却较少关注角色提示（persona prompts）的影响。本研究系统探究了角色提示在突破 LLM 防御机制中的有效性，提出一种基于遗传算法的方法，可自动生成角色提示以绕过 LLM 的安全机制。实验结果表明：（1）经进化生成的角色...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">88</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">90</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/PAPILLON%20Efficient%20and%20Stealthy%20Fuzz%20Testing-Powered%20Jailbreaks%20for%20LLMs/" title="PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs">PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs</a><time datetime="2025-11-04T11:58:14.000Z" title="发表于 2025-11-04 19:58:14">2025-11-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E4%BC%8D%E4%BF%8A/2025-11-07/SNIS%20A%20Signal%20Noise%20Separation-Based%20Network%20%20for%20Post-Processed%20Image%20Forgery%20Detection/" title="SNIS: A Signal Noise Separation-Based Network  for Post-Processed Image Forgery Detection">SNIS: A Signal Noise Separation-Based Network  for Post-Processed Image Forgery Detection</a><time datetime="2025-11-04T11:53:16.000Z" title="发表于 2025-11-04 19:53:16">2025-11-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/AutoDAN%20Generating%20Stealthy%20Jailbreak%20Prompts%20on%20Aligned%20Large%20Language%20Models/" title="AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models">AutoDAN: Generating Stealthy Jailbreak Prompts on Aligned Large Language Models</a><time datetime="2025-11-04T07:51:14.000Z" title="发表于 2025-11-04 15:51:14">2025-11-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/Jailbreaking%20Leading%20Safety-Aligned%20LLMs%20with%20Simple%20Adaptive%20Attacks/" title="Jailbreaking Leading Safety-Aligned LLMs with Simple Adaptive Attacks">Jailbreaking Leading Safety-Aligned LLMs with Simple Adaptive Attacks</a><time datetime="2025-11-04T05:31:14.000Z" title="发表于 2025-11-04 13:31:14">2025-11-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/03/%E4%BC%8D%E4%BF%8A/2025-11-07/Identification%20of%20image%20global%20processing%20operator%20chain%20based%20on%20feature%20decoupling/" title="Identification of image global processing operator chain based on feature decoupling">Identification of image global processing operator chain based on feature decoupling</a><time datetime="2025-11-03T11:53:16.000Z" title="发表于 2025-11-03 19:53:16">2025-11-03</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
