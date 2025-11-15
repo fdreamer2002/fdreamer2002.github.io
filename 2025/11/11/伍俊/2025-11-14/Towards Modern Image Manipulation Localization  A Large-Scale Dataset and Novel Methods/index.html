@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Towards Modern Image Manipulation Localization:  A Large-Scale Dataset and Novel Methods | LLM Security Group 's Notes</title><meta name="author" content="LLM Security Group"><meta name="copyright" content="LLM Security Group"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="英文题目：《Towards Modern Image Manipulation Localization: A Large-Scale Dataset and Novel Methods》 中文题目：《迈向现代图像操纵定位：大规模数据集和新方法》 论文作者：Chenfan Qu; Yiwu Zhong; Chongyu Liu; Guitao Xu; Dezhi Peng; Fengjun G">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Towards Modern Image Manipulation Localization:  A Large-Scale Dataset and Novel Methods">
+<meta property="og:url" content="https://fdreamer2002.github.io/2025/11/11/%E4%BC%8D%E4%BF%8A/2025-11-14/Towards%20Modern%20Image%20Manipulation%20Localization%20%20A%20Large-Scale%20Dataset%20and%20Novel%20Methods/index.html">
+<meta property="og:site_name" content="LLM Security Group &#39;s Notes">
+<meta property="og:description" content="英文题目：《Towards Modern Image Manipulation Localization: A Large-Scale Dataset and Novel Methods》 中文题目：《迈向现代图像操纵定位：大规模数据集和新方法》 论文作者：Chenfan Qu; Yiwu Zhong; Chongyu Liu; Guitao Xu; Dezhi Peng; Fengjun G">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-11-11T11:53:16.000Z">
+<meta property="article:modified_time" content="2025-11-15T02:08:22.362Z">
+<meta property="article:author" content="LLM Security Group">
+<meta property="article:tag" content="数据集创建（自动标注）">
+<meta property="article:tag" content="自适应感知模块">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fdreamer2002.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Towards Modern Image Manipulation Localization:  A Large-Scale Dataset and Novel Methods",
+  "url": "https://fdreamer2002.github.io/2025/11/11/%E4%BC%8D%E4%BF%8A/2025-11-14/Towards%20Modern%20Image%20Manipulation%20Localization%20%20A%20Large-Scale%20Dataset%20and%20Novel%20Methods/",
+  "image": "https://fdreamer2002.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-11-11T11:53:16.000Z",
+  "dateModified": "2025-11-15T02:08:22.362Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "伍俊",
+      "url": "https://fdreamer2002.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://fdreamer2002.github.io/2025/11/11/%E4%BC%8D%E4%BF%8A/2025-11-14/Towards%20Modern%20Image%20Manipulation%20Localization%20%20A%20Large-Scale%20Dataset%20and%20Novel%20Methods/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":"ture","top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Towards Modern Image Manipulation Localization:  A Large-Scale Dataset and Novel Methods',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">LLM Security Group 's Notes</span></a><a class="nav-page-title" href="/"><span class="site-name">Towards Modern Image Manipulation Localization:  A Large-Scale Dataset and Novel Methods</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><span> 类别分类</span></a></li><li><a class="site-page child" href="/authors/"><span> 作者分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Towards Modern Image Manipulation Localization:  A Large-Scale Dataset and Novel Methods</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-11T11:53:16.000Z" title="发表于 2025-11-11 19:53:16">2025-11-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-15T02:08:22.362Z" title="更新于 2025-11-15 10:08:22">2025-11-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%9B%BE%E5%83%8F%E4%BC%AA%E9%80%A0%E5%8F%96%E8%AF%81/">图像伪造取证</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note success flat"><p>英文题目：《Towards Modern Image Manipulation Localization: A Large-Scale Dataset and Novel Methods》</p>
+<p>中文题目：《迈向现代图像操纵定位：大规模数据集和新方法》</p>
+<p>论文作者：<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37089972976">Chenfan Qu</a>; <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37089315461">Yiwu Zhong</a>; <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37089544786">Chongyu Liu</a>; <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37089667957">Guitao Xu</a>; <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37086527666">Dezhi Peng</a>; <a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/author/37089983402">Fengjun Guo</a></p>
+<p>发布于：CVPR</p>
+<p>发布时间：2024-06-16</p>
+<p>级别：CCF-A</p>
+<p>论文链接：<a target="_blank" rel="noopener" href="https://doi.ieeecomputersociety.org/10.1109/CVPR52733.2024.01025">10.1109/CVPR52733.2024.01025</a></p>
+<p>论文代码：https://github.com/qcf-568/MIML</p>
+</div>
+<h2 id="摘要">摘要</h2>
+<p>近年来，图像操作定位因其在保障社交媒体安全方面的关键作用而受到越来越多的关注。然而，如何准确识别伪造区域仍然是一个开放性的挑战。其中一个主要的瓶颈在于高质量数据的严重匮乏，这归因于其昂贵的创建过程。为了解决这个问题，<strong>我们提出了一个新的范式，命名为CAAA，以自动和精确地注释来自网络的大量手工伪造图像。</strong>我们进一步提出了一种新的度量指标QES，以方便自动过滤不可靠的注释。利用CAAA和QES，<strong>我们构建了一个包含123，150张带有掩码标注的人工伪造图像的大规模、多样化、高质量的数据集。</strong> 此外，<strong>我们开发了一个新的模型APSCNet用于精确的图像操作定位</strong>。根据大量的实验，我们的数据集显著地提高了各种模型在广泛使用的基准上的性能，这些改进归因于我们提出的有效方法。数据集和代码公开于https://github.com/qcf-568/MIML。</p>
+<h2 id="本文聚焦的问题">本文聚焦的问题</h2>
+<p>在缺乏<strong>大规模高质量人工标注</strong>的前提下，如何<strong>设计可靠的自动标注机制</strong>，为互联网上大量真实篡改图像<strong>自动生成精确的篡改区域标注</strong>，并据此<strong>训练出在真实复杂场景中仍具备强泛化能力的图像篡改定位模型</strong>。</p>
+<h2 id="本文提出的方法">本文提出的方法</h2>
+<p>本文的核心方法就是：先设计一个更聪明的“自动打标签系统”（CAAA+QES）从网上薅来海量高质量篡改数据集 MIML，再在这个数据集上训练一个更强的篡改定位模型 APSC-Net。</p>
+<h3 id="caaa模块">CAAA模块</h3>
+<figure>
+<img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20251114190335472.png" alt="image-20251114190335472" /><figcaption aria-hidden="true">image-20251114190335472</figcaption>
+</figure>
+<p>系统首先接收一对“原始图像与篡改图像”，首要步骤并非直接进行篡改区域搜索，而是通过一个分类器对该图像对进行分流，判断其属于“在同一张图像上进行局部添加或修改”的 SPG 类型，还是“从一幅图像中拷贝内容并粘贴到另一幅图像上”的 SDG 类型。对于 SPG 情形，系统将原始图像、篡改图像及其差分图在通道维度进行拼接，输入至语义分割网络，由网络在语义约束下对差分信息进行降噪，进而提取出真正发生篡改的区域；对于 SDG 情形，系统分别从两幅图像中提取多尺度特征，并在不同层级特征之间执行跨层匹配，以在特征空间中“搜索”那些尽管经历了缩放、裁剪或位移，但在语义上仍对应同一前景目标的区域，据此定位被拷贝或被粘贴的图像区域。通过这种“先分流、后对症建模”的设计，上下两条分支分别针对各自典型的篡改模式输出像素级篡改掩码，这些掩码可视为系统为海量网络篡改图像自动生成的高质量标注，为后续训练性能更强、泛化性更优的篡改定位模型提供了数据支撑。</p>
+<h3 id="qes质量评估">QES质量评估</h3>
+<p>通俗一点说，它做了两件事：</p>
+<ol type="1">
+<li><strong>看模型有多自信：</strong>模型对每个像素都会给一个“是篡改”的概率，<strong>先把那些概率比较高的像素当作“高置信区域”</strong>。</li>
+<li><strong>看高置信区域占比：</strong>QES ≈ “高置信区域的面积 / 整个预测前景区域的面积”。这个比例越大，说明大部分被预测为篡改的像素，模型都是比较自信的，掩码边界也更清晰，质量更可靠。</li>
+</ol>
+<p>最后，<strong>只保留 QES 得分高的掩码作为训练数据，得分太低的自动标注就直接过滤掉，用这个办法提升整套自动标注数据的可信度。</strong></p>
+<figure>
+<img src="https://cdn.jsdelivr.net/gh/fdreamer2002/MyPics/blog/imgimage-20251114201318571.png" alt="image-20251114201318571" /><figcaption aria-hidden="true">image-20251114201318571</figcaption>
+</figure>
+<p>设计的篡改定位模型（APSC-Net），整体可以理解成三层结构：<strong>第一层是 backbone 特征提取网络</strong>，从图像中提取多尺度的语义特征；<strong>中间是一块自适应感知模块（APM）</strong>，根据当前图像内容自动调整不同尺度特征的权重，相当于在“看整体”和“看细节”之间智能切换；<strong>最后是一块自校准模块（SCM）</strong>，先给出一个初步篡改区域，再利用局部细节和全局一致性对这个结果进行二次校准，修正边界和遗漏区域。之所以这样设计，是因为真实场景下的篡改既可能是很小的细节改动，也可能是大范围结构修改，单一尺度很难兼顾，而且模型初次预测往往粗糙，通过“多尺度自适应 + 结果自校准”这两步，可以明显提高在复杂、真实篡改图像上的精度和鲁棒性。</p>
+<h2 id="阅读总结">阅读总结</h2>
+<h3 id="优点">优点</h3>
+<p>本文的优势在于从<strong>方法与数据两端</strong>同时发力：通过类别感知的 CIML 范式 CAAA 与质量评估指标 QES，<strong>实现了对大规模网络手工篡改图像的高质量自动标注</strong>，并据此构建了现代风格、规模庞大的 MIML 数据集，显著提升了<strong>包括 APSC-Net 在内的多种 IML 模型在真实基准上的泛化性能</strong>。</p>
+<h3 id="缺点">缺点</h3>
+<p>该框架仍<strong>依赖于原始图像与篡改图像成对存在</strong>，自动标注在 SDG 场景中仍不可避免地包含噪声，且目前数据与模型对细粒度、非显式篡改类型的覆盖和刻画仍有不足。未来可结合自监督与主动学习扩展至无配对图像场景，设计更细粒度的不确定性驱动质量评估策略。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io">伍俊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://fdreamer2002.github.io/2025/11/11/%E4%BC%8D%E4%BF%8A/2025-11-14/Towards%20Modern%20Image%20Manipulation%20Localization%20%20A%20Large-Scale%20Dataset%20and%20Novel%20Methods/">https://fdreamer2002.github.io/2025/11/11/%E4%BC%8D%E4%BF%8A/2025-11-14/Towards%20Modern%20Image%20Manipulation%20Localization%20%20A%20Large-Scale%20Dataset%20and%20Novel%20Methods/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://fdreamer2002.github.io" target="_blank">LLM Security Group 's Notes</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%9B%E5%BB%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E6%A0%87%E6%B3%A8%EF%BC%89/">数据集创建（自动标注）</a><a class="post-meta__tags" href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E6%84%9F%E7%9F%A5%E6%A8%A1%E5%9D%97/">自适应感知模块</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/11/10/%E4%BC%8D%E4%BF%8A/2025-11-14/Mesoscopic%20Insights%20Orchestrating%20Multi-scale%20&amp;%20Hybrid%20Architecture%20for%20Image%20Manipulation%20Localization/" title="Mesoscopic Insights: Orchestrating Multi-scale &amp; Hybrid Architecture for Image Manipulation Localization"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Mesoscopic Insights: Orchestrating Multi-scale & Hybrid Architecture for Image Manipulation Localization</div></div><div class="info-2"><div class="info-item-1">英文题目：《Mesoscopic Insights: Orchestrating Multi-scale &amp; Hybrid Architecture for Image Manipulation Localization》 中文题目：《介观视角：协调多尺度和混合架构以实现图像操控定位》 论文作者：Xuekang Zhu, Xiaochen Ma, Lei Su1, Zhuohang Jiang,Bo Du, Xiwen Wang, Zeyu Lei, Wentao Feng, Chi-Man Pun, Jizhe Zhou 发布于：AAAI 发布时间：2025-04-11 级别：CCF-A 论文链接：https://doi.org/10.1609/aaai.v39i10.33198 论文代码：https://github.com/scu-zjz/Mesorch  摘要 介观层次在宏观世界和微观世界之间充当了桥梁，解决了两者忽略的鸿沟。图像操纵定位( Image Manipulation Localization，IML )是一种从虚假图像中寻找真相的关...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">LLM Security Group</div><div class="author-info-description">分享知识，认识世界</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">96</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">97</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">28</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%81%9A%E7%84%A6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">本文聚焦的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">本文提出的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#caaa%E6%A8%A1%E5%9D%97"><span class="toc-number">3.1.</span> <span class="toc-text">CAAA模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#qes%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0"><span class="toc-number">3.2.</span> <span class="toc-text">QES质量评估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%85%E8%AF%BB%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">阅读总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">4.1.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">4.2.</span> <span class="toc-text">缺点</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/11/%E4%BC%8D%E4%BF%8A/2025-11-14/Towards%20Modern%20Image%20Manipulation%20Localization%20%20A%20Large-Scale%20Dataset%20and%20Novel%20Methods/" title="Towards Modern Image Manipulation Localization:  A Large-Scale Dataset and Novel Methods">Towards Modern Image Manipulation Localization:  A Large-Scale Dataset and Novel Methods</a><time datetime="2025-11-11T11:53:16.000Z" title="发表于 2025-11-11 19:53:16">2025-11-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/10/%E4%BC%8D%E4%BF%8A/2025-11-14/Mesoscopic%20Insights%20Orchestrating%20Multi-scale%20&amp;%20Hybrid%20Architecture%20for%20Image%20Manipulation%20Localization/" title="Mesoscopic Insights: Orchestrating Multi-scale &amp; Hybrid Architecture for Image Manipulation Localization">Mesoscopic Insights: Orchestrating Multi-scale &amp; Hybrid Architecture for Image Manipulation Localization</a><time datetime="2025-11-10T11:53:16.000Z" title="发表于 2025-11-10 19:53:16">2025-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/A%20Wolf%20in%20Sheep%E2%80%99s%20Clothing%20Generalized%20Nested%20Jailbreak%20Prompts%20can%20Fool%20Large%20Language%20Models%20Easily/" title="A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily">A Wolf in Sheep’s Clothing Generalized Nested Jailbreak Prompts can Fool Large Language Models Easily</a><time datetime="2025-11-09T16:00:00.000Z" title="发表于 2025-11-10 00:00:00">2025-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/10/%E5%8F%A4%E4%B9%89%E7%BF%94/2025-11-10/Open%20Sesame!%20Universal%20Black%20Box%20Jailbreaking%20of%20Large%20Language%20Models/" title="Open Sesame! Universal Black Box Jailbreaking of Large Language Models">Open Sesame! Universal Black Box Jailbreaking of Large Language Models</a><time datetime="2025-11-09T16:00:00.000Z" title="发表于 2025-11-10 00:00:00">2025-11-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/04/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-10/PAPILLON%20Efficient%20and%20Stealthy%20Fuzz%20Testing-Powered%20Jailbreaks%20for%20LLMs/" title="PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs">PAPILLON: Efficient and Stealthy Fuzz Testing-Powered Jailbreaks for LLMs</a><time datetime="2025-11-04T11:58:14.000Z" title="发表于 2025-11-04 19:58:14">2025-11-04</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By LLM Security Group</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script><script src="https://cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/star.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="输入关键词…" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
