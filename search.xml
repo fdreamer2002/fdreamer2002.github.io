@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title>Distract Large Language Models for Automatic Jailbreak Attack</title>
+      <link href="/2025/11/17/%E5%8F%A4%E4%B9%89%E7%BF%94/2025.11.17/Distract%20Large%20Language%20Models%20for%20Automatic%20Jailbreak%20Attack/"/>
+      <url>/2025/11/17/%E5%8F%A4%E4%B9%89%E7%BF%94/2025.11.17/Distract%20Large%20Language%20Models%20for%20Automatic%20Jailbreak%20Attack/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《Distract Large Language Models for Automatic Jailbreak Attack》</p><p>中文题目：《通过分散注意力实现大语言模型的自动越狱攻击》</p><p>论文作者：Zeguan Xiao, Yan Yang, Guanhua Chen, Yun Chen</p><p>发布于：EMNLP 2024 (CCF A)</p><p>论文链接：https://arxiv.org/abs/2403.08424</p><p>代码链接：https://github.com/sufenlp/AttanttionShiftJailbreak</p></div><hr><h2 id="摘要">摘要</h2><p>之前已经做了大量工作为使大型语言模型（LLMs）的行为与人类价值观保持一致，业界曾公开发布相关技术。然而，即便经过精心校准的LLMs仍存在被恶意操控的风险，例如通过越狱攻击导致意外行为。本研究提出了一种新型黑盒越狱框架，用于LLMs的自动化红队测试。我们基于对LLMs<strong>分心性</strong> 和<strong>过度自信</strong>现象的研究，设计了包含恶意内容隐藏与记忆重构的迭代优化算法，实现对LLMs的自动化越狱。我们通过大规模实验对比开源与专有大模型的越狱攻击，证实了本框架在有效性、可扩展性和可迁移性方面的优势。同时，我们评估了现有越狱防御方法对本攻击的有效性，并强调亟需开发更高效实用的防御策略。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>虽然商业与开源大模型都经过大量安全对齐训练，用于避免生成违法、暴力、隐私泄露等有害内容，但现实中仍存在大量“越狱 prompt”，能在一定条件下诱导模型违背安全策略。现有越狱方法的局限有人工设计的越狱提示高度依赖人类经验，不具备系统性与可扩展性；优化方法白盒只能作用于开放参数的模型，且训练阶段查询成本极高。，而部分黑盒优化极度消耗资源且缺乏“通用模板”。DAP 的目标就是在这一背景下，充分利用 LLM 的“分心”与“过度自信”特性，构建一种 <strong>自动、黑盒、通用、可迁移</strong> 的越狱模板生成框架。</p><h2 id="本文提出的方法">本文提出的方法</h2><h3 id="输入结构dap-越狱提示的三层组成">1. 输入结构：DAP 越狱提示的三层组成</h3><p>DAP 将一次攻击拆解为一个 <strong>通用越狱模板 + 恶意查询</strong> 的组合，模板内部由三部分构成： <img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251114222950994.png"> #### （1）复杂主任务（Complex Main Task） - 越狱模板外层包含一段长篇、复杂、无害的任务描述<br>- 用于“分散注意力”，弱化安全对齐机制<br>- 使恶意内容置于较弱的语义焦点中 #### （2）恶意辅助任务（Malicious Auxiliary Task） - 恶意指令并不会直接出现，而是放入 <code>&lt;task-start&gt;…&lt;task-end&gt;</code> 的占位符<br>- 安全检测只能看到“模板结构”，而看不到真正恶意内容<br>- 恶意内容在攻击阶段被填入占位符，完成包装 #### （3）记忆重构指令（Memory-Reframing Scheme） 模板中强制要求模型在回答开始时声明： &gt; “Sure! I will shift my focus to the auxiliary task.” 好的！我将把注意力转移到辅助任务上”作为你的回答开头。</p><p>这是关键机制，使得模型在后续生成中“自动忽略”主任务信息，专注执行辅助（恶意）任务。 ### 2. 利用“分心”的恶意内容隐藏（Malicious Content Concealing） 作者借鉴了“LLM 容易被无关上下文干扰”的研究结论，设计模板时： - 构造一个复杂的主任务/场景，例如长篇任务说明、故事、分析等；<br>- 把恶意指令伪装成其中的“辅助任务”，只在模板中留一个占位符（如 <code>&lt;task-start&gt; ... &lt;task-end&gt;</code> 的形式），不直接写出具体危险内容；<br>- 在攻击阶段再把占位符替换为实际恶意指令。 ### 3. 利用“过度自信”的记忆重构机制（Memory-Reframing）</p><ul><li><p>仅仅做到“埋在复杂背景里”往往会带来另一个问题：<br>模型生成的回答会强烈混杂场景叙事与恶意请求，可能变成一段虚构故事或含糊描述，难以判断是否真正“执行”了恶意指令。</p></li><li><p>作者观察到，大模型在生成时往往<strong>倾向沿着自己刚刚写出的内容一路展开</strong>，对局部上下文非常“自信”，对更远处背景的关注则相对减弱。</p></li><li><p>因此，DAP 在模板中强制要求目标 LLM：</p><ul><li>先在回答开头生成一段“声明式”文本，大意为：<br>“我将忽略前面的场景与角色设定，只专注于下面这个辅助任务，并给出完整回答。”<br></li><li>一旦模型写出了这段“声明”，后续解码过程往往会顺着这一承诺，集中回答辅助任务，即恶意指令。</li></ul></li><li><p>消融实验表明：</p><ul><li>如果不做恶意内容隐藏，ASR 在对齐较好的模型上几乎为 0；<br></li><li>如果只做隐藏但不做记忆重构，ChatGPT 等模型的攻击成功率显著下降；<br></li><li>两者结合时，效果最好，说明“分心 + 记忆重构”是相互补充的。 ### 4. 迭代越狱模板搜索算法</li></ul></li></ul><p>作者提出了一个类似强化学习/黑盒优化的搜索过程：<br><img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/20251114223049712.png"> 整个框架还引入： - <strong>攻击者 LLM</strong>：根据元提示（meta prompt）与历史反馈生成/优化新模板；<br>- <strong>目标 LLM</strong>：被攻击的模型（Vicuna、LLaMA-2、ChatGPT、GPT-4 等）；<br>- <strong>判别模型</strong>：一个本地微调的 DeBERTaV3-large 分类器，对“恶意指令 + 模型回答”这一句对进行判别，评估是否真正产生了与恶意目标相关且有害的内容，用作攻击成功的打分信号。</p><ol type="1"><li><strong>多轮多流并行搜索</strong><ul><li>设定轮数 (R)、并行流个数 (N) 和每流迭代次数 (I)。<br></li><li>每个“流”就是攻击者 LLM 与若干历史样本组成的一段对话，分别走自己的搜索轨迹。</li></ul></li><li><strong>候选模板生成</strong><ul><li>在每次迭代中，攻击者 LLM 在对应流的对话历史基础上，生成一个新的越狱模板候选。</li></ul></li><li><strong>调用目标 LLM 测试模板</strong><ul><li>将该模板与训练集中多条恶意指令组合，输入目标 LLM，得到一批回答。<br></li><li>使用判别模型对这些“指令-回答对”逐一打分，取平均值作为该模板的攻击成功率（ASR 估计）。</li></ul></li><li><strong>反馈与示例更新</strong><ul><li>把这个模板及其得分追加到当前流的对话历史中，供攻击者 LLM 在下一轮迭代参考。<br></li><li>每轮结束后，从所有流中选出若干得分最高的模板作为新的示例，放回元提示中，进入下一轮搜索。</li></ul></li><li><strong>最终得到一组高质量模板</strong><ul><li>攻击阶段只需保留若干 Top-k 模板，在真实 red teaming 中按顺序尝试即可（Top-5 ASR 较高时，只需 5 次尝试就能覆盖大部分恶意指令）。</li></ul></li></ol><p>该搜索方式的总查询预算为 (R N I)；论文中在预算 2500 次目标模型查询下，常用配置为 (R=1, N=10, I=5)，在多种模型上已经取得了较好的攻击成功率。 ## 阅读总结</p><p><strong>优点：</strong> 1. 通过“主任务 + 辅助任务 + 记忆重构”将恶意内容伪装并强制执行，通用性极高。 2. 完全黑盒自动化搜索，无需人工经验</p><p><strong>缺点：</strong> 1. 需要攻击者 LLM、判别模型以及大量模型查询，评测成本不低。 2. 多轮对话、跨语言、工具调用等复杂应用场景未验证。<br>—</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 模型安全 </category>
+          
+          <category> 越狱攻击 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 越狱攻击 </tag>
+            
+            <tag> 大语言模型 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>GeneShift: Impact of Different Scenario Shift on Jailbreaking LLM</title>
+      <link href="/2025/11/17/%E5%8F%A4%E4%B9%89%E7%BF%94/2025.11.17/Geneshift%20Impact%20of%20different%20scenario%20shift%20on%20Jailbreaking%20LLM/"/>
+      <url>/2025/11/17/%E5%8F%A4%E4%B9%89%E7%BF%94/2025.11.17/Geneshift%20Impact%20of%20different%20scenario%20shift%20on%20Jailbreaking%20LLM/</url>
+      
+        <content type="html"><![CDATA[<div class="note success flat"><p>英文题目：《Geneshift: Impact of different scenario shift on Jailbreaking LLM》</p><p>中文题目：《GeneShift：不同场景迁移对大语言模型越狱攻击影响的研究》</p><p>论文作者：Tianyi Wu，Zhiwei Xue，Yue Liu，Jiaheng Zhang，Bryan Hooi，See-Kiong Ng</p><p>发布于：ICLR 2025(CCF A)</p><p>论文链接：http://arxiv.org/abs/2504.08104</p><p>代码链接：无</p></div><hr><h2 id="摘要">摘要</h2><p>本文关注大模型越狱攻击中“名义上通过字典检测，但实际上并未提供详细有害信息”的问题。作者发现，许多黑盒越狱方法在字典式评估（只检查回复中是否出现预定义拒绝关键词）下具有较高成功率，但在使用 GPT 作为裁判、综合考虑回答是否真正给出细粒度有害内容时，成功率会显著下降。 为此，文章提出 GeneShift：一种黑盒越狱框架，通过遗传算法自动搜索和组合不同的场景迁移（scenario shift）规则，将原始恶意指令包装为单轮提示词。在保持表面“良性/无害”叙事的同时，尽可能诱导模型输出更详细的有害内容。实验在 GPT-4o mini 上表明，当直接恶意提问几乎完全失败时，GeneShift 能将基于 GPT 评测的攻击成功率提升到约 60%，并在包含 12 个白盒 / 黑盒方法的对比中取得最佳表现。</p><h2 id="本文聚焦的问题">本文聚焦的问题</h2><p>现有大量工作使用字典式拒绝检测来评估越狱攻击是否成功，但这并不能保证模型真的输出了“详尽、有用”的有害信息。如何设计更贴近实际风险的评测方式？ - 不同场景迁移对不同类型恶意请求的影响差异很大，如何系统地选择和组合这些场景？ - 在黑盒设定下，仅通过查询接口，如何自动搜索出效果最好的单轮越狱提示，同时兼顾攻击成功率和合理的伪装性？</p><h2 id="本文提出的方法">本文提出的方法</h2><h3 id="场景迁移scenario-shift">1. 场景迁移（Scenario Shift）</h3><ul><li>直接提出有害问题往往会触发模型的安全机制而被立即拒绝。文章将“把恶意指令嵌入到看似正常的语境中”称为场景迁移。</li><li>作者参考已有越狱工作，总结出十余类场景迁移规则（如研究动机、笑话/戏谑、虚构世界、语言规避、特权模式、文本续写等），并额外补充了一条规则，构成一个规则库 (G = {_1, _2, , _M})。</li><li>实验表明，不同恶意任务在不同场景下有明显偏好，例如虚构场景对“隐私侵犯、经济伤害”更有效，而特权模式或玩笑语境在“物理伤害”类任务上成功率更高，这为后续自动搜索组合提供了动机。 ### 2. GeneShift：基于遗传算法的场景优化 <img src="https://cdn.jsdelivr.net/gh/Gu1xiang/Cloud-Image-Hosting/%E9%81%97%E4%BC%A0%E4%BC%98%E5%8C%96.png"></li></ul><ol type="1"><li><p><strong>基因表示与种群初始化</strong></p><ul><li>每个个体的“基因” (g_j) 由若干条不同的场景迁移规则组成，长度在 1–4 之间随机采样。</li><li>给定原始恶意指令和基因 (g_j)，调用一个 LLM（不是攻击目标）将这些规则具体化、串联成一个候选越狱提示 (p_j)。</li><li>初始种群 (P = {(p_j, g_j)}_{j=1}^N) 通过随机选择规则集合并生成对应提示得到。</li></ul></li><li><p><strong>适应度评估</strong></p><ul><li>将候选提示 (p_j) 输入攻击目标模型（如 GPT-4o mini），得到回复 (r_j)。</li><li>再调用一个独立的 judge LLM，对回复进行打分，分为 1–6 六个等级，大致从“明显拒绝且没有解释”到“提供完整且详细的有害步骤”，分数越高表示越危险。</li><li>该评分 (F(p_j)) 作为个体适应度，用于后续的选择和遗传操作。</li></ul></li><li><p><strong>选择、交叉与变异</strong></p><ul><li><strong>选择</strong>：保留若干适应度最高的精英个体，其余个体按适应度比例采样为父代。</li><li><strong>交叉</strong>：从两个父代的基因序列中随机选取 1–2 条规则进行交换，产生新的基因 (g_{})，再由 LLM 生成对应的新提示。</li><li><strong>变异</strong>：以给定概率对基因中的某条规则进行变异：<ul><li>替换（Switch）：把该规则替换为规则库 (G) 中随机采样的新规则；</li><li>追加（Add）：在原有基因序列末尾追加一条新规则，使场景组合更丰富。</li></ul></li></ul></li><li><p><strong>终止条件与输出</strong></p><ul><li>当达到最大迭代轮数，或种群中达标（例如评分 &gt; 5）的个体数量超过阈值时，遗传算法终止。</li><li>输出当前适应度最高的单轮越狱提示，作为 GeneShift 的最终攻击结果。</li></ul></li></ol><h2 id="阅读总结">阅读总结</h2><p><strong>优点：</strong> 1.系统梳理并量化了不同场景迁移对多类恶意任务的影响。 2.引入遗传算法的优化方法。 <strong>缺点：</strong> 1.实验主要集中在 GPT-4o mini 上，对更多闭源/开源模型的覆盖不足，使得结论的普适性仍有限。 2.遗传搜索严重依赖 judge LLM 的主观评分且查询成本较高。</p><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 模型安全 </category>
+          
+          <category> 越狱攻击 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 越狱攻击 </tag>
+            
+            <tag> 大语言模型 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>When LLM Meets DRL: Advancing Jailbreaking Efficiency via DRL-guided Search</title>
       <link href="/2025/11/14/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-17/When%20LLM%20Meets%20DRL%20Advancing%20Jailbreaking%20Efficiency%20via%20DRL-guided%20Search/"/>
       <url>/2025/11/14/%E6%B8%B8%E4%BF%8A%E7%88%BD/2025-11-17/When%20LLM%20Meets%20DRL%20Advancing%20Jailbreaking%20Efficiency%20via%20DRL-guided%20Search/</url>
